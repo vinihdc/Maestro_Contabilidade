@@ -1,0 +1,91 @@
+/* Definição das variáveis de cor e fonte padrão */
+:root {
+    --cor-primaria: #000000; /* Cor principal */
+    --cor-secundaria: #31363F; /* Cor secundária */
+    --cor-terciaria: #76ABAE ; /* Cor terciária */
+    --fonte-primaria: 'Montserrat', sans-serif; /* Fonte principal */
+    --cor--hover: #EEEEEE; /* Cor de destaque ao passar o mouse */
+}
+
+/* Redefinições de estilos padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos do corpo da página */
+body {
+    font-family: var(--fonte-primaria); /* Utiliza a fonte definida em :root */
+    color: #333; /* Cor do texto padrão */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilos do cabeçalho */
+.cabecalho {
+    color: #fff; /* Cor do texto no cabeçalho */
+    text-align: center; /* Alinha o texto ao centro */
+}
+
+.cabecalho__titulo {
+    text-decoration: none; /* Remove a decoração do link */
+    color: var(--cor--hover); /* Utiliza a cor de destaque ao passar o mouse */
+}
+
+.cabecalho__menu {
+    display: flex; /* Exibe os itens do menu em linha */
+    align-content: baseline; /* Alinha os itens do menu pela linha de base */
+    margin: 2em 16em; /* Margem externa do menu */
+}
+
+/* Estilos dos botões */
+.botao__diario,
+.botao__caixa {
+    background-color: var(--cor-primaria); /* Utiliza a cor principal */
+    color: var(--cor-terciaria); /* Cor do texto nos botões */
+    padding: 12px 24px; /* Espaçamento interno dos botões */
+    border: none; /* Remove a borda */
+    border-radius: 6px; /* Cantos arredondados */
+    text-align: center; /* Alinha o texto ao centro */
+    text-decoration: none; /* Remove a decoração do texto */
+    display: inline-block; /* Exibe os botões em linha */
+    transition: background-color 0.3s; /* Transição suave de cor de fundo */
+    font-size: 28px; /* Tamanho da fonte */
+    cursor: pointer; /* Cursor ao passar */
+    font-weight: 600; /* Peso da fonte */
+}
+
+/* Estilos do rodapé */
+.rodape {
+    background-color: #ffffff; /* Utiliza a cor principal */
+    color: #000000; /* Cor do texto no rodapé */
+    padding: 20px; /* Espaçamento interno do rodapé */
+    text-align: center; /* Alinha o texto ao centro */
+    display: flex; /* Exibe os elementos do rodapé como flexíveis */
+    flex-direction: column; /* Alinha os elementos em coluna */
+    flex: 100px; /* Define a altura mínima do rodapé */
+    transform: translateY(600px);
+}
+
+/* Estilos dos botões ao passar o mouse */
+.botao__diario:hover,
+.botao__caixa:hover {
+    background-color: var(--cor--hover); /* Utiliza a cor de destaque ao passar o mouse */
+}
+
+.mb-3 {
+    transform: translateY(200px) translateX(750px);
+    width: 300px;
+}
+
+.btn-primary {
+    transform: translateY(200px) translateX(850px);
+}
+
+
+
+.dropdown-item {
+    transform: translateX(-20px);
+
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Diario</title>
+    <link rel="stylesheet" href="/Diario.css">
+</head>
+
+<body>
+<h1 class="cabecalho">DIARIO</h1>
+
+<form class="formulario" action="salvar.java" method="post">
+    <div class="formulario__grupo">
+        <label class="formulario__grupo__rotulo" for="data">Data:</label>
+        <input class="formulario__grupo__caixa" type="text" name="data" id="data">
+    </div>
+
+    <div class="formulario__grupo">
+        <label class="formulario__grupo__rotulo" for="descricao">Conta:</label>
+        <input class="formulario__grupo__caixa" type="text" name="descricao" id="descricao">
+    </div>
+
+    <div class="formulario__grupo">
+        <label class="formulario__grupo__rotulo" for="tipo_movimentacao">Tipo de Movimentação:</label>
+        <select id="tipo_movimentacao" name="tipo_movimentacao">
+            <option class="formulario__grupo__botao" value="debito">Débito</option>
+            <option class="formulario__grupo__botao" value="credito">Crédito</option>
+        </select>
+    </div>
+
+    <div class="formulario__grupo">
+        <label class="formulario__grupo__rotulo" for="valor">Valor:</label>
+        <input class="formulario__grupo__caixa" type="number" name="valor" id="valor">
+    </div>
+
+    <div class="formulario__grupo">
+        <input type="submit" value="Salvar" class="formulario_grupo__botao__botao">
+    </div>
+</form>
+</body>
+
+</html>
