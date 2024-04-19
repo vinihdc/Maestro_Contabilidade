@@ -80,3 +80,11 @@ body {
    width: 300px;
     transform: translateX(15px);
 }
+
+.table {
+    margin-top: 50px;
+}
+
+.btn-primary {
+    margin-top: 50px;
+}

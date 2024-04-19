@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="mb-3">
+    <a>Extornar de onde: </a>
+    <ul class="list-group">
+        <li class="list-group-item" required="required">
+            <input class="form-check-input me-1" type="radio" name="LugarFato" id="firstRadio" required="required" value="Caixa">
+            <label class="form-check-label" for="firstRadio">Caixa</label>
+        </li>
+        <li class="list-group-item">
+            <input class="form-check-input me-1" type="radio" name="LugarFato" value="Financiamento" id="secondRadio">
+            <label class="form-check-label" for="secondRadio">Financiamento</label>
+        </li>
+        <li class="list-group-item">
+            <input class="form-check-input me-1" type="radio" name="LugarFato" value="Investimento" id="thirdRadio">
+            <label class="form-check-label" for="thirdRadio">Investimento</label>
+        </li>
+    </ul>
+</div>
+<a> Tempo maximo de 15 minutos para isso</a>
+<div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1">Codigo Fato que deseja deletar ou excluir</span>
+    <form method="post" action="/DeletarUmFato">
+        <input type="number" class="form-control" placeholder="Digite exatamente o codigo do fato" aria-label="Username" aria-describedby="basic-addon1" name="CodigoID">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>
+
+
+</body>
+</html>

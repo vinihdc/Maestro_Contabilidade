@@ -1,0 +1,17 @@
+body {
+    margin-top: 80px;
+
+}
+
+.list-group-item {
+    margin-top: 10px;
+}
+
+#CampoData {
+    margin-top: 30px;
+}
+
+.btn-secondary {
+    width: 80px;
+    transform: translateX(100px) translateY(-37px);
+}

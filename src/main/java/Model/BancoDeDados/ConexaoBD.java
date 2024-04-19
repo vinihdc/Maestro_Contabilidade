@@ -1,4 +1,4 @@
-package Model;
+package Model.BancoDeDados;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,4 +24,10 @@ public class ConexaoBD {
             throw new RuntimeException(e);
         }
     }
+    public void FecharConexao() throws SQLException {
+      Conexao.close();
+    }
 }
+
+
+

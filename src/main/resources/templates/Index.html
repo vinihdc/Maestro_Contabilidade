@@ -8,22 +8,22 @@
     <link rel="stylesheet" href="/Styles.css">
 </head>
 <body>
-<form method="post">
+<form action="/login" method="post">
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">CPF</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required="required" pattern="[0-9]+$">
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" pattern="[0-9]*" required="required" name="CPF" placeholder="Digite seu CPF">
         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
     </div>
     <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
+        <label for="exampleInputPassword1" class="form-label" name="Password">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" required="required" name="Password">
     </div>
     <div class="mb-3 form-check">
         <a class="dropdown-item" href="/Cadastro">New around here? Sign up</a>
-        <a class="dropdown-item" href="/Diario">Forgot password?</a>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
 
 <footer class="rodape">
     <p>&copy; MaestroEconomia. Todos os direitos reservados.</p>

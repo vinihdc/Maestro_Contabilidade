@@ -1,4 +1,4 @@
-package Model;
+package Model.Verificação;
 
 
 import static java.lang.System.exit;
@@ -13,14 +13,13 @@ public class VerificarCPF {
 
     }
 
+    public boolean isCPFReal() {
+        return CPFReal;
+    }
 
-    public Boolean AutenticarCPF(boolean CPFVerdadeiro) {
+    private boolean CPFReal;
 
-
-        if(this.CPF.length() != 11) {
-            return CPFVerdadeiro = false;
-        }
-
+    public boolean AutenticarCPF() {
 
 
         int CPFVetor[] = new int[11];
@@ -61,16 +60,16 @@ public class VerificarCPF {
 
         if(PrimeiroDigitoVerificador == CPFVetor[9] && SegundoDigitoVerificador == CPFVetor[10]) {
             System.out.println("CPF Valido");
-            CPFVerdadeiro = true;
+            CPFReal = true;
         }
 
         else {
             System.out.println("\nCPF não valido");
-            CPFVerdadeiro = false;
+            CPFReal = false;
 
         }
 
-        return CPFVerdadeiro;
+        return CPFReal;
 
 
 

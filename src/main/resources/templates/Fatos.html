@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link rel="stylesheet" href="/Fatos.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/Fato" method="post">
+    <div class="mb-3">
+        <a>Operação</a>
+        <ul class="list-group">
+            <li class="list-group-item" required="required">
+                <input class="form-check-input me-1" type="radio" name="OperacaoFato" id="firstRadio" required="required" value="Ativo">
+                <label class="form-check-label" for="firstRadio">Ativo</label>
+            </li>
+            <li class="list-group-item">
+                <label for="f1"></label>
+                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="Financiamento" id="f1">
+                <label class="form-check-label" for="f1">Ativo - (pagamento feito a prazo) </label>
+            </li>
+            <li class="list-group-item">
+                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="Investimento" id="secondRadio">
+                <label class="form-check-label" for="secondRadio">Investimento</label>
+            </li>
+            <li class="list-group-item">
+                <label for="f4"></label>
+                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="Emprestimo" id="f4">
+                <label class="form-check-label" for="f4">Emprestimo</label>
+            </li>
+            <li class="list-group-item">
+                <label for="f5"></label>
+                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="PagamentoDivida" id="f5">
+                <label class="form-check-label" for="f5">Pagamento de Divida</label>
+            </li>
+            <li class="list-group-item">
+                <label for="f6"></label>
+                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="Banco" id="f6">
+                <label class="form-check-label" for="f6">Pagamento com o cartão do banco</label>
+            </li>
+            <li class="list-group-item">
+                <label for="f7"></label>
+                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="Fornecedor" id="f7">
+                <label class="form-check-label" for="f7">Fornecedor</label>
+            </li>
+            <li class="list-group-item">
+                <label for="f8"></label>
+                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="Caixa" id="f8">
+                <label class="form-check-label" for="f8">Caixa</label>
+            </li>
+            <li class="list-group-item">
+                <label for="f9"></label>
+                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="Financiamento" id="f9">
+                <label class="form-check-label" for="f9">Fornecedor</label>
+            </li>
+            <li class="list-group-item">
+                <label for="f10"></label>
+                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="Financiamento" id="f10">
+                <label class="form-check-label" for="f10">Depositar no banco</label>
+            </li>
+            <li class="list-group-item">
+                <label for="f11"></label>
+                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="Financiamento" id="f11">
+                <label class="form-check-label" for="f11">Pagar Financiamento</label>
+            </li>
+            <li class="list-group-item">
+                <label for="f12"></label>
+                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="Financiamento" id="f12">
+                <label class="form-check-label" for="f12">Pagar Fornecedor</label>
+            </li>
+        </ul>
+    </div>
+    <div class="mb-3">
+        <label for="Valor" class="form-label">Valor</label>
+        <input type="number" class="form-control" id="Valor" name="FatoValor">
+        <label for="DetalhesFato" class="form-label">Detalhes do Fato</label>
+        <input type="text" class="form-control" id="DetalhesFato" name="DetalhesFato" required="required" pattern="[A-Za-z ]+">
+    </div>
+    <ul class="list-group">
+    </ul>
+    <div class="mb-3 form-check">
+        <label for="Data" class="form-label" id="CampoData">Data</label>
+        <input type="date" id="Data" name="DataFato" value="2024-03-29" readonly="readonly" required="required">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+
+<a href="/DepositoNoBanco">Depositar no banco e zerar no caixa</a>
+<a href="/HomePage" class="btn btn-secondary">Home Page</a>
+<a href="/DeletarFato" class="btn btn-secondary">Deletar um Fato</a>
+<a href="/PagamentoFinanciamento"> Pagar Todo Financiamento</a>
+<a href="/PagarFornecedor"> Pagar Fornecedor</a>
+
+</body>
+</html>

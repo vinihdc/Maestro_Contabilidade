@@ -1,10 +1,9 @@
-package Model;
+package Model.BancoDeDados;
 
 import java.sql.SQLException;
 
 public class CadastroUsuarioBD {
-   ConexaoBD ConexaoBD = new ConexaoBD();
-   UsuarioCadastro DadosUsuario = new UsuarioCadastro();
+   Model.BancoDeDados.ConexaoBD ConexaoBD = new ConexaoBD();
     public void CadastrarUsuarioNoBD(String CPF, String Nome, String Password) throws SQLException {
 
         try {

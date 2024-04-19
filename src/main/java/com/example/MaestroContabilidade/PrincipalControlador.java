@@ -29,4 +29,31 @@ public class PrincipalControlador {
         return "InfoIncorreta";
     }
 
+    @GetMapping("/Fatos")
+    public String Fatos() {
+        return "Fatos";
+    }
+
+    @GetMapping("/HomePage")
+    public String HomePage() {
+        return "HomePage";
+    }
+
+    @GetMapping("/Razonete")
+    public String Razonete() {
+        return "Razonete";
+    }
+
+    @GetMapping("/Balancete")
+
+    public String Balancete() {
+        return "Balancete";
+    }
+
+
+    @GetMapping("/DeletarFato")
+    public String DeletarFato() {
+        return "DeletarFato";
+    }
+
 }
