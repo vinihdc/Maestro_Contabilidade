@@ -16,6 +16,10 @@ public class FatosEntidade {
 
     private FornecedorBD CadastroFornecedor = new FornecedorBD();
 
+    private BancoBradescoBD CadastroBanco = new BancoBradescoBD();
+
+    private DepositoNoBancoBD CadastroDeposito = new DepositoNoBancoBD();
+
 
         private String OperacaoFato;
 
@@ -23,16 +27,13 @@ public class FatosEntidade {
 
         private String DetalhesFato;
 
-        private String FormaDePagamento;
-
         private String DataFato;
 
 
-    public FatosEntidade(String operacaoFato, int valorFato, String detalhesFato, String formaDePagamento, String dataFato) {
+    public FatosEntidade(String operacaoFato, int valorFato, String detalhesFato, String dataFato) {
         OperacaoFato = operacaoFato;
         ValorFato = valorFato;
         DetalhesFato = detalhesFato;
-        FormaDePagamento = formaDePagamento;
         DataFato = dataFato;
     }
 
@@ -40,14 +41,17 @@ public class FatosEntidade {
 
         if(OperacaoFato.equals("Ativo")) {
            CadastroAtivo.AtivoDebito(OperacaoFato, ValorFato, DetalhesFato, DataFato);
+           CadastroCaixa.RegistroNoCaixaCredito(ValorFato, DetalhesFato);
         }
 
+        if(OperacaoFato.equals("AtivoPagoAPrazo")) {
+           CadastroFinanciamento.RegistrarFinanciamentoCredito(ValorFato, DetalhesFato);
+        }
 
         if(OperacaoFato.equals("Investimento")) {
-            CadastroInvestimento.RegistrarInvestimento(ValorFato);
+            CadastroInvestimento.RegistrarInvestimento(ValorFato, DetalhesFato);
             CadastroCaixa.RegistroNoCaixaDebito(ValorFato, DetalhesFato);
         }
-
 
 
         if(OperacaoFato.equals("Emprestimo")) {
@@ -57,11 +61,19 @@ public class FatosEntidade {
 
         if(OperacaoFato.equals("PagamentoDeDivida")) {
             CadastroCaixa.RegistroNoCaixaCredito(ValorFato, DetalhesFato);
-            CadastroFinanciamento.RegistrarFinanciamentoDebito(ValorFato);
+            CadastroFinanciamento.RegistrarFinanciamentoDebito(ValorFato, DetalhesFato);
         }
 
-        if(OperacaoFato.equals("Banco") && FormaDePagamento.equals("Credito")) {
+        if(OperacaoFato.equals("PagamentoBanco")) {
+            CadastroBanco.BancoCredito(ValorFato, DetalhesFato);
+        }
 
+        if(OperacaoFato.equals("Fornecedor")) {
+            CadastroFornecedor.FornecedorCredito(ValorFato, DetalhesFato);
+        }
+
+        if(OperacaoFato.equals("DepositoBanco")) {
+            CadastroDeposito.RegistrarDeposito();
         }
 
 

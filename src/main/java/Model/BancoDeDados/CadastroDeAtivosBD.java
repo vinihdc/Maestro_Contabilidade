@@ -16,9 +16,9 @@ public class CadastroDeAtivosBD {
 
         try {
             Conexao.AbrirConexao();
-            String ComandoSQL = String.format("INSERT INTO FATOSGERAL(Operacao_FATO, VALOR_FATO, DETALHES_FATO, FORMADEPAGAMENTO, DATA_FATO) VALUES('%s', '%d', '%s', 'Debito', '%s')", OperacaoFato, FatoValor, DetalhesFato, DataFato);
+            String ComandoSQL = String.format("INSERT INTO FATOSGERAL(Operacao_FATO, VALOR_FATO, DETALHES_FATO, FORMADEPAGAMENTO_FATO, DATA_FATO) VALUES('%s', '%d', '%s', 'Debito', '%s')", OperacaoFato, FatoValor, DetalhesFato, DataFato);
             int NumDeLinhas = Conexao.getConexao().createStatement().executeUpdate(ComandoSQL);
-            System.out.println("Informacoes cadastradas com sucesso!");
+
 
         }
 
@@ -36,9 +36,9 @@ public class CadastroDeAtivosBD {
 
         try {
             Conexao.AbrirConexao();
-            String ComandoSQL = String.format("INSERT INTO FATOSGERAL(Operacao_FATO, VALOR_FATO, DETALHES_FATO, FORMADEPAGAMENTO, DATA_FATO) VALUES('%s', '%d', '%s', 'Credito', '%s')", OperacaoFato, FatoValor, DetalhesFato, DataFato);
+            String ComandoSQL = String.format("INSERT INTO FATOSGERAL(Operacao_FATO, VALOR_FATO, DETALHES_FATO, FORMADEPAGAMENTO_FATO, DATA_FATO) VALUES('%s', '%d', '%s', 'Credito', '%s')", OperacaoFato, FatoValor, DetalhesFato, DataFato);
             int NumDeLinhas = Conexao.getConexao().createStatement().executeUpdate(ComandoSQL);
-            System.out.println("Informacoes cadastradas com sucesso!");
+
 
         }
 

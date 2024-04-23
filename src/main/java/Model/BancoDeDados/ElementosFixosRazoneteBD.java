@@ -81,17 +81,7 @@ public class ElementosFixosRazoneteBD {
 
 
 
-    public void FornecedorCredito(int Valor) {
-        try {
-            Conexao.AbrirConexao();
-            String SQL = String.format("INSERT INTO FORNECEDOR(CREDITO, DEBITO) VALUES('%d', '%d')", Valor, 0);
-            int ValorCaixa = Conexao.getConexao().createStatement().executeUpdate(SQL);
-            System.out.println("Boa cadastrou no BD, debito");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
-    }
 
     public void FornecedorDebito(int Valor) {
         try {
@@ -104,20 +94,6 @@ public class ElementosFixosRazoneteBD {
         }
 
     }
-
-    public void BancoCredito(int Valor) {
-        try {
-            Conexao.AbrirConexao();
-            String SQL = String.format("INSERT INTO BANCO(CREDITO, DEBITO) VALUES('%d', '%d')", Valor, 0);
-            int ValorCaixa = Conexao.getConexao().createStatement().executeUpdate(SQL);
-            System.out.println("Boa cadastrou no BD, debito");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-
-    }
-
 
 
 

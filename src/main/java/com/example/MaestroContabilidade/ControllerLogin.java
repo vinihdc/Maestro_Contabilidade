@@ -3,8 +3,10 @@ package com.example.MaestroContabilidade;
 import Model.BancoDeDados.LoginBD;
 import Model.BancoDeDados.UsuarioLogadoNoSistemaBD;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,7 +16,9 @@ import java.sql.SQLException;
 public class ControllerLogin {
 
 
-    private String UsuarioLogado;
+    public String UsuarioLogado;
+
+    public boolean UsuarioFezLogin;
 
 
     @RequestMapping("/login")
@@ -29,7 +33,9 @@ public class ControllerLogin {
                 LoginBD Login = new LoginBD();
                 Login.Login(CPF, Password);
                 if(Login.isUsuarioTemCadastroCPF() == true && Login.isUsuarioTemCadastroSenha() == true) {
+                    UsuarioFezLogin = true;
                     return "HomePage";
+
                 }
 
                 else {
@@ -51,6 +57,10 @@ public class ControllerLogin {
 
 
     }
+
+
+
+
 
 
 
