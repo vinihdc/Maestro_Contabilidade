@@ -1,8 +1,12 @@
 package com.example.MaestroContabilidade;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @org.springframework.stereotype.Controller
+@RequiredArgsConstructor
 public class PrincipalControlador {
+
+
 
     @GetMapping("/Index")
     public String Index(){
@@ -34,11 +38,6 @@ public class PrincipalControlador {
         return "Fatos";
     }
 
-    @GetMapping("/HomePage")
-    public String HomePage() {
-        return "HomePage";
-    }
-
     @GetMapping("/Razonete")
     public String Razonete() {
         return "Razonete";
@@ -55,5 +54,11 @@ public class PrincipalControlador {
     public String DeletarFato() {
         return "DeletarFato";
     }
+
+
+
+
+
+
 
 }
