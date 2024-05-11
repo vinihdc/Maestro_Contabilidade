@@ -45,11 +45,11 @@ public class RazoneteEntidade {
         return Saldo;
     }
 
-    public void setSaldo(Integer saldo) {
-        Saldo = saldo;
-    }
+
 
     private Integer Saldo;
+
+
 
 
 

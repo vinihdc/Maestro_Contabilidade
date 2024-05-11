@@ -1,16 +1,8 @@
 package Model.Entidade;
 
-import Model.BancoDeDados.FornecedorPagoBD;
-import lombok.Value;
-
 public class DiarioEntidade {
 
 
-    public String getOperacao() {
-        return Operacao;
-    }
-
-    private String Operacao;
 
     public int getValor() {
         return Valor;
@@ -24,22 +16,40 @@ public class DiarioEntidade {
 
     private String Detalhes;
 
-
-    public String getFormaDePagamento() {
-        return FormaDePagamento;
+    public String getData() {
+        return Data;
     }
 
-    private String FormaDePagamento;
+    private String Data;
 
-    public String getMovimentacao() {
-        return Movimentacao;
+
+    public String getCredito() {
+        return Credito;
     }
 
-    private String Movimentacao;
+    private String Credito;
 
-    public DiarioEntidade(String codfato, String data, String detalhes, String movimentacao) {
+    public String getDebito() {
+        return Debito;
+    }
+
+    private String Debito;
+
+    public String getCodFato() {
+        return CodFato;
+    }
+
+    private String CodFato;
 
 
+
+    public DiarioEntidade(String codFato, String data, String detalhes, String debito, String credito, int valor) {
+            CodFato = codFato;
+            Data = data;
+            Detalhes = detalhes;
+            Debito = debito;
+            Credito = credito;
+            Valor = valor;
 
     }
 }

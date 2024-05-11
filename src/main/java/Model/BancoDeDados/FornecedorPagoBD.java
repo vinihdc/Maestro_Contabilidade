@@ -13,7 +13,7 @@ public class FornecedorPagoBD {
     CaixaBD RegistrarNoCaixa = new CaixaBD();
 
 
-    public void FornecedorPago(String Data) throws SQLException {
+    public void FornecedorPago(String CodFato, String Detalhes, String Data) throws SQLException {
 
         int DebitoFornecedor = 0;
         int CreditoFornecedor = 0;
@@ -65,7 +65,7 @@ public class FornecedorPagoBD {
         }
 
 
-       // RegistrarNoCaixa.RegistroNoCaixaCredito(SaldoFinal, "Pagamento Fornecedor ");
+       RegistrarNoCaixa.RegistroNoCaixaCredito(CodFato, SaldoFinal, Detalhes, Data);
 
         try {
             Conexao.AbrirConexao();

@@ -1,5 +1,6 @@
 package Model.BancoDeDados;
 
+import Model.Entidade.BalanceteEntidade;
 import Model.Entidade.RazoneteEntidade;
 import org.apache.logging.log4j.message.ReusableMessage;
 
@@ -34,81 +35,131 @@ public class RazoneteBD {
 
         List<RazoneteEntidade> DadosRazonete = new ArrayList<>();
 
+        String Detalhes = "";
+
+        //Variaveis Saldo Fatos
+
+        //Variaveis Caixa
+        int DebitoCaixaSemDeposito = 0;
+        int CreditoCaixaSemDeposito = 0;
+        int DebitoCaixaComDeposito = 0;
+        int CreditoCaixaComDeposito = 0;
+        int SomaDebitoCaixaSemDeposito = 0;
+        int SomaCreditoCaixaSemDeposito = 0;
+
+
+
+        //Variaveis de Soma Financiamento
+        int CreditoFinanciamentoPago = 0;
+        int DebitoFinanciamentoPago = 0;
+        int CreditoFinanciamentoNaoPago = 0;
+        int DebitoFinanciamentoNaoPago = 0;
+        int SomaCreditoFinanciamentoNaoPago = 0;
+        int SomaDebitoFinanciamentoNaoPago = 0;
+        int SomaCreditoFinanciamentoPago = 0;
+        int SomaDebitoFinanciamentoPago = 0;
+        int SaldoFinalFinanciamentoCredito = 0;
+        int SaldoFinalFinanciamentoDebito = 0;
+
+
+        //Variaveis de Soma Investimento
+        int CreditoInvestimento = 0;
+        int SaldoFinalInvestimentoCredito = 0;
+
+
+
+
+        //Variaveis de SomaBanco
+        int CreditoBanco = 0;
+        int DebitoBanco = 0;
+        int SomaCreditoBanco = 0;
+        int SomaDebitoBanco = 0;
+        int SaldoFinalCreditoBanco = 0;
+        int SaldoFinalDebitoBanco = 0;
+
+
+        //Variaveis de Fornecedor
+        int DebitoFornecedor = 0;
+        int CreditoFornecedor = 0;
+        int SomaDebitoFornecedor = 0;
+        int SomaCreditoFornecedor = 0;
+        int DebitoFornecedorPago = 0;
+        int CreditoFornecedorPago = 0;
+
+
+
         try {
             Conexao.AbrirConexao();
             // dá o select no database
-            String sql1 = "SELECT DETALHES_FATO, VALOR_FATO, FORMADEPAGAMENTO_FATO FROM FATOSGERAL";
-            String sql2 = "SELECT * FROM CAIXA"; //SELECT CREDITO, DEBITO FROM CAIXA -> Caixa
-            String sql3 = "SELECT CREDITO, DEBITO FROM FINANCIAMENTO";
-            String sql4 = "SELECT * FROM CAIXAZERADO";
+            String sql1 = "SELECT DETALHES_FATO, VALOR_FATO, FORMADEPAGAMENTO_FATO FROM FATOSGERAL";//SELECT CREDITO, DEBITO FROM CAIXA -> Caixa
+            String sql3 = "SELECT * FROM FINANCIAMENTO";
+            String sql4 = "SELECT * FROM INVESTIMENTO";
+            String sql5 = "SELECT * FROM BANCO";
+            String sql7 = "SELECT * FROM FORNECEDOR";
+            String sql8 = "SELECT * FROM CAIXA";
+            String sql9 = "SELECT * FROM CAIXAZERADO";
+            String sql10 = "SELECT * FROM FINANCIAMENTOPAGO";
+            String sql11 = "SELECT * FROM FORNECEDORPAGO";
             ResultSet Fatos = Conexao.getConexao().createStatement().executeQuery(sql1);
-            ResultSet Caixa = Conexao.getConexao().createStatement().executeQuery(sql2);
             ResultSet Financiamento = Conexao.getConexao().createStatement().executeQuery(sql3);
-            ResultSet CaixaZeradoResult = Conexao.getConexao().createStatement().executeQuery(sql4);
+            ResultSet Investimento = Conexao.getConexao().createStatement().executeQuery(sql4);
+            ResultSet Banco = Conexao.getConexao().createStatement().executeQuery(sql5);
+            ResultSet Fornecedor = Conexao.getConexao().createStatement().executeQuery(sql7);
+            ResultSet CaixaSemDeposito = Conexao.getConexao().createStatement().executeQuery(sql8);
+            ResultSet CaixaComDeposito = Conexao.getConexao().createStatement().executeQuery(sql9);
+            ResultSet FinanciamentoPago = Conexao.getConexao().createStatement().executeQuery(sql10);
+            ResultSet FornecedorPago = Conexao.getConexao().createStatement().executeQuery(sql11);
+
+
             //while(S.next()) quer dizer que ele vai percorrer as colunas do banco enquanto não for null
-            int SomaDebitoFatos = 0;
-            int SomaCreditoFatos = 0;
-            while(Fatos.next()) {
-                String Detalhes = Fatos.getString("DETALHES_FATO");
+
+            while (Fatos.next()) {
+                Detalhes = Fatos.getString("DETALHES_FATO");
                 int valor = Integer.parseInt(Fatos.getString("VALOR_FATO"));
                 String TipoOp = Fatos.getString("FORMADEPAGAMENTO_FATO");
 
-                if(TipoOp.equals("Credito")) { //se a operação for credito
-                    DadosRazonete.add(new RazoneteEntidade(Detalhes, valor, 0));
-                    SomaCreditoFatos += valor;
 
-                }
-
-                else {  //se a operação for debito
+                if (TipoOp.equals("Debito")) {  //se a operação for debito
                     DadosRazonete.add(new RazoneteEntidade(Detalhes, 0, valor));
-                    SomaDebitoFatos += valor;
+
+                }
+
+                else {
+                    DadosRazonete.add(new RazoneteEntidade(Detalhes, valor, 0));
+
                 }
 
 
             }
 
-           int SomaDebitoCaixa = 0;
-           int SomaCreditoCaixa = 0;
-           int SomaCreditoFinanciamento = 0;
-           int SomaDebitoFinanciamento = 0;
-           int DebitoCaixaZerado = 0;
-           int CreditoCaixaZerado = 0;
-
-           if(CaixaZerado == true) {
-
-               while(CaixaZeradoResult.next()) {
-                   DebitoCaixaZerado = Integer.parseInt(Caixa.getString("DEBITO"));
-                   CreditoCaixaZerado = Integer.parseInt(Caixa.getString("CREDITO"));
-               }
-
-               DadosRazonete.add(new RazoneteEntidade("CaixaZerado", DebitoCaixaZerado, CreditoCaixaZerado));
+            //Operacoes Caixa, ve se foi feito deposito ou não, se foi faz uma coisa se não foi faz outra
 
 
-           }
+            //Quando o caixa não for zerado
+            while(CaixaSemDeposito.next()) {
+                DebitoCaixaSemDeposito = Integer.parseInt(CaixaSemDeposito.getString("DEBITO"));
+                CreditoCaixaSemDeposito = Integer.parseInt(CaixaSemDeposito.getString("CREDITO"));
+                SomaDebitoCaixaSemDeposito += DebitoCaixaSemDeposito;
+                SomaCreditoCaixaSemDeposito += CreditoCaixaSemDeposito;
 
-           else {
-
-               while (Caixa.next()) {
-
-                   int DebitoCaixa = Integer.parseInt(Caixa.getString("DEBITO"));
-                   int CreditoCaixa = Integer.parseInt(Caixa.getString("CREDITO"));
-
-
-                   SomaDebitoCaixa += DebitoCaixa;
-                   SomaCreditoCaixa += CreditoCaixa;
+            }
 
 
-               }
 
-               DadosRazonete.add(new RazoneteEntidade("Caixa", SomaDebitoCaixa, SomaCreditoCaixa));
-           }
+            if(SomaDebitoCaixaSemDeposito != 0 || SomaCreditoCaixaSemDeposito != 0)  {
+                DadosRazonete.add(new RazoneteEntidade(Detalhes, SomaCreditoCaixaSemDeposito, SomaDebitoCaixaSemDeposito));
 
-            while(Financiamento.next()) {
-                int DebitoFinanciamento = Integer.parseInt(Financiamento.getString("DEBITO"));
-                int CreditoFinanciamento = Integer.parseInt(Financiamento.getString("CREDITO"));
-                DadosRazonete.add(new RazoneteEntidade("Financiamento", DebitoFinanciamento , CreditoFinanciamento));
-                SomaCreditoFinanciamento += CreditoFinanciamento;
-                SomaDebitoFinanciamento += DebitoFinanciamento;
+            }
+
+            else {
+
+                while(CaixaComDeposito.next()) {
+                    DebitoCaixaComDeposito = Integer.parseInt(CaixaComDeposito.getString("DEBITO"));
+                    CreditoCaixaComDeposito = Integer.parseInt(CaixaComDeposito.getString("CREDITO"));
+                }
+
+
+                DadosRazonete.add(new RazoneteEntidade("Caixa", DebitoCaixaComDeposito, CreditoCaixaComDeposito));
 
             }
 
@@ -118,16 +169,109 @@ public class RazoneteBD {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+            //Operacoes Financiamento
+            while (Financiamento.next()) {
+                DebitoFinanciamentoNaoPago = Integer.parseInt(Financiamento.getString("DEBITO"));
+                CreditoFinanciamentoNaoPago = Integer.parseInt(Financiamento.getString("CREDITO"));
+                SomaCreditoFinanciamentoNaoPago += CreditoFinanciamentoNaoPago;
+                SomaDebitoFinanciamentoNaoPago += DebitoFinanciamentoNaoPago;
+            }
+
+
+
+            if (SomaCreditoFinanciamentoNaoPago != 0 && SomaDebitoFinanciamentoNaoPago != 0) {  //Quando financiamento não estiver zerado
+                while (Financiamento.next()) {
+                    DebitoFinanciamentoNaoPago = Integer.parseInt(Financiamento.getString("DEBITO"));
+                    CreditoFinanciamentoNaoPago = Integer.parseInt(Financiamento.getString("CREDITO"));
+                    SomaCreditoFinanciamentoNaoPago += CreditoFinanciamentoNaoPago;
+                    SomaDebitoFinanciamentoNaoPago += DebitoFinanciamentoNaoPago;
+                }
+                DadosRazonete.add(new RazoneteEntidade("Financiamento",  SomaCreditoFinanciamentoNaoPago, SomaDebitoFinanciamentoNaoPago));
+
+
+
+            }
+
+            else { //Quando financiamento estiver zerado
+                while(FinanciamentoPago.next()) {
+                    CreditoFinanciamentoPago = Integer.parseInt(FinanciamentoPago.getString("CREDITO"));
+                    DebitoFinanciamentoPago = Integer.parseInt(FinanciamentoPago.getString("DEBITO"));
+                }
+                DadosRazonete.add(new RazoneteEntidade("Financiamento", CreditoFinanciamentoPago, DebitoFinanciamentoPago));
+            }
+
+
+            //Operacoes Investimento
+
+
+            while (Investimento.next()) {
+                CreditoInvestimento = Integer.parseInt(Investimento.getString("CREDITO"));
+                SaldoFinalInvestimentoCredito += CreditoInvestimento;
+
+
+
+            }
+
+            DadosRazonete.add(new RazoneteEntidade("Investimento", SaldoFinalInvestimentoCredito, 0));
+
+
+            //Operacoes Banco
+
+
+            while (Banco.next()) {
+                DebitoBanco = Integer.parseInt(Banco.getString("DEBITO"));
+                CreditoBanco = Integer.parseInt(Banco.getString("CREDITO"));
+                SomaCreditoBanco += CreditoBanco;
+                SomaDebitoBanco += DebitoBanco;
+
+
+            }
+
+           DadosRazonete.add(new RazoneteEntidade("Banco", SomaCreditoBanco, SomaDebitoBanco));
+
+            //Operacoes Fornecedor
+            while (Fornecedor.next()) {
+                DebitoFornecedor = Integer.parseInt(Fornecedor.getString("DEBITO"));
+                CreditoFornecedor = Integer.parseInt(Fornecedor.getString("CREDITO"));
+                SomaDebitoFornecedor += DebitoFornecedor;
+                SomaCreditoFornecedor += CreditoFornecedor;
+
+            }
+
+            if (SomaDebitoFornecedor != 0 || SomaCreditoFornecedor != 0) {
+
+
+                DadosRazonete.add(new RazoneteEntidade("Fornecedor", CreditoFornecedor, DebitoFornecedor));
+
+
+
+            }
+
+            else {
+                while(FornecedorPago.next()) {
+                    DebitoFornecedorPago = Integer.parseInt(FornecedorPago.getString("DEBITO"));
+                    CreditoFornecedorPago = Integer.parseInt(FornecedorPago.getString("CREDITO"));
+                }
+
+                DadosRazonete.add(new RazoneteEntidade("Fornecedor", CreditoFornecedorPago, DebitoFornecedorPago));
+            }
 
         }
-
-
-
 
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
 
         finally {
             Conexao.FecharConexao();

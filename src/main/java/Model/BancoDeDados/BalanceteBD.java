@@ -320,7 +320,9 @@ public class BalanceteBD {
 
         catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
+        }
+
+        finally {
             Conexao.FecharConexao();
         }
 

@@ -9,15 +9,13 @@ public class ConexaoBD {
         return Conexao;
     }
 
-    public void setConexao(Connection conexao) {
-        Conexao = conexao;
-    }
+
 
     private Connection Conexao;
 
     public void AbrirConexao() {
         try {
-            Conexao = DriverManager.getConnection("jdbc:mysql://127.0.0.1/MAESTROCONTABILIDADE", "root", "1518Albert*");
+            Conexao = DriverManager.getConnection("jdbc:mysql://127.0.0.1/MAESTROCONTABILIDADE", "root", "Lorenzo05*");
         }
 
         catch (SQLException e) {

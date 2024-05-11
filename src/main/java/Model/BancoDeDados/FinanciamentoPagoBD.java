@@ -9,7 +9,7 @@ public class FinanciamentoPagoBD {
 
     CaixaBD RegistrarNoCaixa = new CaixaBD();
 
-    public void FinanciamentoPago(String Data) throws SQLException {
+    public void FinanciamentoPago(String CodFato, String Detalhes, String Data) throws SQLException {
 
         //Faz a operação para pagar o Financiamento
         int Debito = 0;
@@ -31,13 +31,33 @@ public class FinanciamentoPagoBD {
             }
 
             if(SomaDebito > SomaCredito) {
-                Subtracao = SomaDebito - SomaCredito;
-                SaldoFinal = Subtracao + SomaCredito;
+                SaldoFinal = SomaDebito - SomaCredito;
+
+
+                /*
+
+
+                Credito Debito
+                156.500  1000
+
+                Subtracao = 156.500 - 1000 = 155.500
+                SaldoFinal = 155.500 + 1000 = 156.500
+
+
+
+
+                 */
+
+
+
+
+
+
             }
 
             else {
-                Subtracao = SomaCredito - SomaDebito;
-                SaldoFinal = Subtracao + SomaDebito;
+                SaldoFinal = SomaCredito - SomaDebito;
+
             }
 
 
@@ -64,8 +84,8 @@ public class FinanciamentoPagoBD {
 
 
 
-
-        //RegistrarNoCaixa.RegistroNoCaixaCredito(SaldoFinal, "Pagamento Financiamento");
+        //Vai mandar para o credito do caixa
+        RegistrarNoCaixa.RegistroNoCaixaCredito(CodFato, SaldoFinal, Detalhes, Data);
 
 
 

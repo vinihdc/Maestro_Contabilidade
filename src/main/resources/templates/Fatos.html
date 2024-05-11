@@ -37,6 +37,8 @@
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+<!-- Deposito no Banco -->
 <script>
     document.getElementById("CodigoDoFato").addEventListener("input", function() {
         var valor = this.value;
@@ -48,6 +50,30 @@
         }
     });
 </script>
+<script>
+    document.getElementById("CodigoDoFato").addEventListener("input", function() {
+        var valor = this.value;
+        if (valor === "010") {
+            document.getElementById("Valor").value = "0";
+            document.getElementById("Valor").setAttribute("readonly", true);
+        } else {
+            this.removeAttribute("readonly");
+        }
+    });
+</script>
+<!-- Pagamento Financiamento -->
+<script>
+    document.getElementById("CodigoDoFato").addEventListener("input", function() {
+        var valor = this.value;
+        if (valor === "011") {
+            document.getElementById("Valor").value = "0";
+            document.getElementById("Valor").setAttribute("readonly", true);
+        } else {
+            this.removeAttribute("readonly");
+        }
+    });
+</script>
+<!-- Pagamento Fornecedor -->
 <script>
     document.getElementById("MetodoPostFatos").addEventListener("submit", function(event) {
         // Obter o campo de entrada
