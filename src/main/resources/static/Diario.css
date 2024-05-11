@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Montserrat:wght@400;600&display=swap');
 :root {
-    --cor--primaria: #000000;
-    --cor--secundaria: #708090;
-    --fonte--primaria: 'Montserrat', 'sans-serif';
+    --cor-primaria: #000000; /* Cor principal */
+    --cor-secundaria: #31363F; /* Cor secundária */
+    --cor-terciaria: #76ABAE ; /* Cor terciária */
+    --fonte-primaria: 'Montserrat', sans-serif; /* Fonte principal */
+    --cor--hover: #EEEEEE; /* Cor de destaque ao passar o mouse */
 }
+
 
 html, body {
     margin: 0;
@@ -19,10 +22,10 @@ body {
 }
 
 .cabecalho {
-    font-family: var(--fonte--primaria);
+    font-family: var(--fonte-primaria);
     font-size: x-large;
     font-weight: 600;
-    color:var(--cor--secundaria);
+    color:var(--cor-secundaria);
     position: fixed;
     top: 0;
     left: 50%;
@@ -30,17 +33,17 @@ body {
 }
 
 .formulario {
-    font-family: var(--fonte--primaria);
+    font-family: var(--fonte-primaria);
     font-size: x-large;
     font-weight: 600;
-    color:var(--cor--secundaria);
+    color:var(--cor-secundaria);
     position: absolute;
     top: 15%;
     left: 5%;
     transform: translate(15%, 5%);
 }
 .formulario__grupo {
-    color: var(--cor--secundaria);
+    color: var(--cor-secundaria);
     display: flex;
     align-items: center;
     font-weight: 900 ;

@@ -1,6 +1,13 @@
-body {
-    margin-top: 80px;
+:root {
+    --cor-primaria: #000000; /* Cor principal */
+    --cor-secundaria: #31363F; /* Cor secundária */
+    --cor-terciaria: #76ABAE ; /* Cor terciária */
+    --fonte-primaria: 'Montserrat', sans-serif; /* Fonte principal */
+    --cor--hover: #EEEEEE; /* Cor de destaque ao passar o mouse */
+}
 
+.list-group{
+    background-color: var(--cor-primaria);
 }
 
 .list-group-item {

@@ -1,4 +1,3 @@
-/* Definição das variáveis de cor e fonte padrão */
 :root {
     --cor-primaria: #000000; /* Cor principal */
     --cor-secundaria: #31363F; /* Cor secundária */
@@ -6,8 +5,6 @@
     --fonte-primaria: 'Montserrat', sans-serif; /* Fonte principal */
     --cor--hover: #EEEEEE; /* Cor de destaque ao passar o mouse */
 }
-
-
 
 /* Redefinições de estilos padrão */
 * {
@@ -75,21 +72,4 @@ body {
 .botao__caixa:hover {
     background-color: var(--cor--hover); /* Utiliza a cor de destaque ao passar o mouse */
 }
-
-.mb-3 {
-    transform: translateY(200px) translateX(750px);
-    width: 300px;
-}
-
-.btn-primary {
-    transform: translateY(200px) translateX(850px);
-}
-
-
-
-.dropdown-item {
-    transform: translateX(-20px);
-
-}
-
 

@@ -1,0 +1,74 @@
+:root {
+    --cor-primaria: #000000; /* Cor principal */
+    --cor-secundaria: #31363F; /* Cor secundária */
+    --cor-terciaria: #76ABAE ; /* Cor terciária */
+    --fonte-primaria: 'Montserrat', sans-serif; /* Fonte principal */
+    --cor--hover: #EEEEEE; /* Cor de destaque ao passar o mouse */
+}
+
+*{
+    margin: 0;
+    padding: 0;
+
+}
+
+
+.body{
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    background-color: var(--cor-primaria);
+    color: var(--cor-secundaria);
+}
+
+.user_name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.navbar-nav {
+    padding: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: initial;
+}
+
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--cor-secundaria);
+}
+
+.container-fluid__logo {
+    display: flex;
+    align-items: initial;
+    justify-content: left;
+    color: var(--cor-secundaria);
+}
+
+.logo_marca{
+    width: 150px;
+    height: auto;
+}
+
+.rodape__nome {
+    padding: 20px ;
+    color: var(--cor-primaria);
+    background-color:var(--cor-terciaria);
+    text-align: center;
+    font-family: var(--fonte-primaria);
+    font-size: 1.5rem;
+    font-weight: 400;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+}
