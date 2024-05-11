@@ -19,5 +19,10 @@ public class CadastroUsuarioBD {
         }
 
 
+        finally {
+            ConexaoBD.FecharConexao();
+        }
+
+
     }
 }

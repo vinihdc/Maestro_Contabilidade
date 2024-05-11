@@ -1,7 +1,6 @@
 package Model.BancoDeDados;
 
 import Model.Entidade.BalanceteEntidade;
-import com.example.MaestroContabilidade.FatoController;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,34 +13,100 @@ public class BalanceteBD {
 
     public boolean CaixaZerado;
 
-    public boolean PagamentoFinanciamento;
+    public boolean FinanciamentoFoiPago;
 
-    public boolean PagouFornecedor;
+    public boolean FornecedorPago;
+
+    public BalanceteBD(boolean caixaZerado, boolean financiamentoFoiPago, boolean fornecedorPago) {
+        FinanciamentoFoiPago = financiamentoFoiPago;
+        FornecedorPago = fornecedorPago;
+    }
+
+    public BalanceteBD() {
+
+    }
 
 
     public List<BalanceteEntidade> SELECTBalancete() throws SQLException {
 
-
+        //Variaveis Saldo Fatos
         int SaldoFinalDebitoFatos = 0;
         int SaldoFinalCreditoFatos = 0;
-        ElementosFixosRazoneteBD ObjetosFixos = new ElementosFixosRazoneteBD();
+
+        //Variaveis Caixa
+        int DebitoCaixaSemDeposito = 0;
+        int CreditoCaixaSemDeposito = 0;
+        int DebitoCaixaComDeposito = 0;
+        int CreditoCaixaComDeposito = 0;
+        int SomaDebitoCaixaSemDeposito = 0;
+        int SomaCreditoCaixaSemDeposito = 0;
+        int SaldoFinalCaixaDebito = 0;
+        int SaldoFinalCaixaCredito = 0;
+
+
+
+        //Variaveis de Soma Financiamento
+        int CreditoFinanciamentoPago = 0;
+        int DebitoFinanciamentoPago = 0;
+        int CreditoFinanciamentoNaoPago = 0;
+        int DebitoFinanciamentoNaoPago = 0;
+        int SomaCreditoFinanciamentoNaoPago = 0;
+        int SomaDebitoFinanciamentoNaoPago = 0;
+        int SomaCreditoFinanciamentoPago = 0;
+        int SomaDebitoFinanciamentoPago = 0;
+        int SaldoFinalFinanciamentoCredito = 0;
+        int SaldoFinalFinanciamentoDebito = 0;
+
+
+        //Variaveis de Soma Investimento
+        int CreditoInvestimento = 0;
+        int SaldoFinalInvestimentoCredito = 0;
+
+
+        //Variaveis de SomaBanco
+        int CreditoBanco = 0;
+        int DebitoBanco = 0;
+        int SomaCreditoBanco = 0;
+        int SomaDebitoBanco = 0;
+        int SaldoFinalCreditoBanco = 0;
+        int SaldoFinalDebitoBanco = 0;
+
+
+        //Variaveis de Fornecedor
+        int DebitoFornecedor = 0;
+        int CreditoFornecedor = 0;
+        int SomaDebitoFornecedor = 0;
+        int SomaCreditoFornecedor = 0;
+        int SaldoFinalFornecedorDebito = 0;
+        int SaldoFinalFornecedorCredito = 0;
+        int DebitoFornecedorPago = 0;
+        int CreditoFornecedorPago = 0;
+
+
+        int SaldoFinal = 0;
 
 
         try {
             Conexao.AbrirConexao();
             // dá o select no database
-            String sql1 = "SELECT DETALHES_FATO, VALOR_FATO, TIPODEOPERACAO_FATO FROM FATOSGERAL";//SELECT CREDITO, DEBITO FROM CAIXA -> Caixa
-            String sql3 = "SELECT CREDITO, DEBITO FROM FINANCIAMENTO";
+            String sql1 = "SELECT DETALHES_FATO, VALOR_FATO, FORMADEPAGAMENTO_FATO FROM FATOSGERAL";//SELECT CREDITO, DEBITO FROM CAIXA -> Caixa
+            String sql3 = "SELECT * FROM FINANCIAMENTO";
             String sql4 = "SELECT * FROM INVESTIMENTO";
             String sql5 = "SELECT * FROM BANCO";
             String sql7 = "SELECT * FROM FORNECEDOR";
             String sql8 = "SELECT * FROM CAIXA";
+            String sql9 = "SELECT * FROM CAIXAZERADO";
+            String sql10 = "SELECT * FROM FINANCIAMENTOPAGO";
+            String sql11 = "SELECT * FROM FORNECEDORPAGO";
             ResultSet Fatos = Conexao.getConexao().createStatement().executeQuery(sql1);
             ResultSet Financiamento = Conexao.getConexao().createStatement().executeQuery(sql3);
             ResultSet Investimento = Conexao.getConexao().createStatement().executeQuery(sql4);
             ResultSet Banco = Conexao.getConexao().createStatement().executeQuery(sql5);
             ResultSet Fornecedor = Conexao.getConexao().createStatement().executeQuery(sql7);
             ResultSet CaixaSemDeposito = Conexao.getConexao().createStatement().executeQuery(sql8);
+            ResultSet CaixaComDeposito = Conexao.getConexao().createStatement().executeQuery(sql9);
+            ResultSet FinanciamentoPago = Conexao.getConexao().createStatement().executeQuery(sql10);
+            ResultSet FornecedorPago = Conexao.getConexao().createStatement().executeQuery(sql11);
 
 
             //while(S.next()) quer dizer que ele vai percorrer as colunas do banco enquanto não for null
@@ -49,12 +114,13 @@ public class BalanceteBD {
             while (Fatos.next()) {
                 String Detalhes = Fatos.getString("DETALHES_FATO");
                 int valor = Integer.parseInt(Fatos.getString("VALOR_FATO"));
-                String TipoOp = Fatos.getString("TIPODEOPERACAO_FATO");
+                String TipoOp = Fatos.getString("FORMADEPAGAMENTO_FATO");
 
 
                 if (TipoOp.equals("Debito")) {  //se a operação for debito
                     Balancete.add(new BalanceteEntidade(Detalhes, 0, valor, valor));
                     SaldoFinalDebitoFatos += valor;
+                   //SaldoFinal += SaldoFinalDebitoFatos;
                 }
 
                 else {
@@ -65,145 +131,205 @@ public class BalanceteBD {
 
             }
 
-            //Variaveis de Soma Caixa
-            int SaldoFinalDebitoCaixa = 0;
-            int SaldoFinalCreditoCaixa = 0;
-
-            //Variaveis de Soma Financiamento
-            int SomaCreditoFinanciamento = 0;
-            int SomaDebitoFinanciamento = 0;
-            int SaldoFinalFinanciamentoCredito = 0;
-            int SaldoFinalFinanciamentoDebito = 0;
-
-            //Variaveis de Soma Investimento
-            int SomaCreditoInvestimento = 0;
-            int SaldoFinalInvestimentoCredito = 0;
-
-            //Variaveis de SomaBanco
-            int SomaCreditoBanco = 0;
-            int SomaDebitoBanco = 0;
-            int SaldoFinalCreditoBanco = 0;
-            int SaldoFinalDebitoBanco = 0;
+            //Operacoes Caixa, ve se foi feito deposito ou não, se foi faz uma coisa se não foi faz outra
 
 
-            //Variaveis de Fornecedor
-            int SaldoFinalFornecedorDebito = 0;
-            int SaldoFinalFornecedorCredito = 0;
+                //Quando o caixa não for zerado
+                while(CaixaSemDeposito.next()) {
+                    DebitoCaixaSemDeposito = Integer.parseInt(CaixaSemDeposito.getString("DEBITO"));
+                    CreditoCaixaSemDeposito = Integer.parseInt(CaixaSemDeposito.getString("CREDITO"));
+                    SomaDebitoCaixaSemDeposito += DebitoCaixaSemDeposito;
+                    SomaCreditoCaixaSemDeposito += CreditoCaixaSemDeposito;
+
+                }
+
+                System.out.println("\nSomaCreditoCaixaSemDep:  " + SomaCreditoCaixaSemDeposito);
+                System.out.println("\nSomaDebitoCaixaSemDep:  " + SomaDebitoCaixaSemDeposito);
 
 
-            if (CaixaZerado == false) {
-                while (CaixaSemDeposito.next()) {
-                    int DebitoCaixa = Integer.parseInt(CaixaSemDeposito.getString("DEBITO"));
-                    int CreditoCaixa = Integer.parseInt(CaixaSemDeposito.getString("CREDITO"));
-                    int SomaDebitoCaixa = 0;
-                    int SomaCreditoCaixa = 0;
-                    SomaDebitoCaixa += DebitoCaixa;
-                    SomaCreditoCaixa += CreditoCaixa;
-                    if (SomaDebitoCaixa > SomaCreditoCaixa) {
-                        SaldoFinalDebitoCaixa = SomaDebitoCaixa - SomaCreditoCaixa;
-                        Balancete.add(new BalanceteEntidade("Caixa", SomaCreditoCaixa, SomaDebitoCaixa, SaldoFinalDebitoCaixa));
+            if(SomaDebitoCaixaSemDeposito != 0 || SomaCreditoCaixaSemDeposito != 0)  {
+                    if (SomaDebitoCaixaSemDeposito > SomaCreditoCaixaSemDeposito) {
+                        SaldoFinalCaixaDebito = SomaDebitoCaixaSemDeposito - SomaCreditoCaixaSemDeposito;
+                        Balancete.add(new BalanceteEntidade("Caixa", SomaCreditoCaixaSemDeposito, SomaDebitoCaixaSemDeposito, SaldoFinalCaixaDebito));
                     }
+
+
+
                     else {
-                        SaldoFinalCreditoCaixa = SomaCreditoCaixa - SomaDebitoCaixa;
-                        Balancete.add(new BalanceteEntidade("Caixa", SomaCreditoCaixa, SomaDebitoCaixa, SaldoFinalCreditoBanco));
+                        SaldoFinalCaixaCredito = SomaCreditoCaixaSemDeposito - SomaDebitoCaixaSemDeposito;
+                        Balancete.add(new BalanceteEntidade("Caixa", SomaCreditoCaixaSemDeposito, SomaDebitoCaixaSemDeposito, SaldoFinalCaixaDebito));
+                    }
+            }
+
+                else {
+
+                    while(CaixaComDeposito.next()) {
+                        DebitoCaixaComDeposito = Integer.parseInt(CaixaComDeposito.getString("DEBITO"));
+                        CreditoCaixaComDeposito = Integer.parseInt(CaixaComDeposito.getString("CREDITO"));
                     }
 
 
+                    Balancete.add(new BalanceteEntidade("Caixa", DebitoCaixaComDeposito, CreditoCaixaComDeposito, 0));
+
                 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //Operacoes Financiamento
+            while (Financiamento.next()) {
+                DebitoFinanciamentoNaoPago = Integer.parseInt(Financiamento.getString("DEBITO"));
+                CreditoFinanciamentoNaoPago = Integer.parseInt(Financiamento.getString("CREDITO"));
+                SomaCreditoFinanciamentoNaoPago += CreditoFinanciamentoNaoPago;
+                SomaDebitoFinanciamentoNaoPago += DebitoFinanciamentoNaoPago;
             }
 
+                System.out.println("SomaCreditoFinanciamentoPago: " + SomaCreditoFinanciamentoNaoPago);
+                System.out.println("\nCredito financiamento: " + CreditoFinanciamentoNaoPago);
 
-            if (PagamentoFinanciamento == false) {
+            if (SomaCreditoFinanciamentoNaoPago != 0 && SomaDebitoFinanciamentoNaoPago != 0) { //Quando financiamento não estiver zerado
                 while (Financiamento.next()) {
+                    DebitoFinanciamentoNaoPago = Integer.parseInt(Financiamento.getString("DEBITO"));
+                    CreditoFinanciamentoNaoPago = Integer.parseInt(Financiamento.getString("CREDITO"));
+                    SomaCreditoFinanciamentoNaoPago += CreditoFinanciamentoNaoPago;
+                    SomaDebitoFinanciamentoNaoPago += DebitoFinanciamentoNaoPago;
+                }
+                    if (SomaCreditoFinanciamentoNaoPago > SomaDebitoFinanciamentoNaoPago) {
+                        SaldoFinalFinanciamentoCredito = SomaCreditoFinanciamentoNaoPago - SomaDebitoFinanciamentoNaoPago;
+                        Balancete.add(new BalanceteEntidade("Financiamento",  SomaCreditoFinanciamentoNaoPago, SomaDebitoFinanciamentoNaoPago, SaldoFinalFinanciamentoCredito));
 
-                    //if(PagFin == true): break;
-                    //
-                    int DebitoFinanciamento = Integer.parseInt(Financiamento.getString("DEBITO"));
-                    int CreditoFinanciamento = Integer.parseInt(Financiamento.getString("CREDITO"));
-                    SomaCreditoFinanciamento += CreditoFinanciamento;
-                    SomaDebitoFinanciamento += DebitoFinanciamento;
-                    if (SomaCreditoFinanciamento > SomaDebitoFinanciamento) {
-                        SaldoFinalFinanciamentoCredito = SomaCreditoFinanciamento - SomaDebitoFinanciamento;
-                        Balancete.add(new BalanceteEntidade("Financiamento", SomaCreditoFinanciamento, SomaDebitoFinanciamento, SaldoFinalFinanciamentoCredito));
-
-                    } else {
-                        SaldoFinalFinanciamentoDebito = SomaDebitoFinanciamento - SomaCreditoFinanciamento;
-                        Balancete.add(new BalanceteEntidade("Financiamento", SomaCreditoFinanciamento, SomaDebitoFinanciamento, SaldoFinalFinanciamentoCredito));
                     }
 
-                }
+                    else {
+                        SaldoFinalFinanciamentoDebito = SomaDebitoFinanciamentoNaoPago - SomaCreditoFinanciamentoNaoPago;
+                        Balancete.add(new BalanceteEntidade("Financiamento", SomaCreditoFinanciamentoNaoPago, SomaDebitoFinanciamentoNaoPago, SaldoFinalFinanciamentoCredito));
+                    }
+
+
 
             }
+
+            else { //Quando financiamento estiver zerado
+                while(FinanciamentoPago.next()) {
+                    CreditoFinanciamentoPago = Integer.parseInt(FinanciamentoPago.getString("CREDITO"));
+                    DebitoFinanciamentoPago = Integer.parseInt(FinanciamentoPago.getString("DEBITO"));
+                }
+                Balancete.add(new BalanceteEntidade("Financiamento", CreditoFinanciamentoPago, DebitoFinanciamentoPago, 0));
+            }
+
+
+            //Operacoes Investimento
 
 
             while (Investimento.next()) {
-                int InvestimentoCredito = Integer.parseInt(Investimento.getString("CREDITO"));
-                SaldoFinalInvestimentoCredito += InvestimentoCredito;
-                Balancete.add(new BalanceteEntidade("Investimento", InvestimentoCredito, 0, SaldoFinalInvestimentoCredito));
+                CreditoInvestimento = Integer.parseInt(Investimento.getString("CREDITO"));
+                SaldoFinalInvestimentoCredito += CreditoInvestimento;
+
 
 
             }
+
+            Balancete.add(new BalanceteEntidade("Investimento", SaldoFinalInvestimentoCredito, 0, SaldoFinalInvestimentoCredito));
+
+
+            //Operacoes Banco
 
 
             while (Banco.next()) {
-                int DebitoBanco = Integer.parseInt(Banco.getString("DEBITO"));
-                int CreditoBanco = Integer.parseInt(Banco.getString("CREDITO"));
+                DebitoBanco = Integer.parseInt(Banco.getString("DEBITO"));
+                CreditoBanco = Integer.parseInt(Banco.getString("CREDITO"));
                 SomaCreditoBanco += CreditoBanco;
                 SomaDebitoBanco += DebitoBanco;
-                if (SomaCreditoBanco > SomaDebitoBanco) {
-                    SaldoFinalCreditoBanco = SomaCreditoBanco - SomaDebitoBanco;
-                    Balancete.add(new BalanceteEntidade("Banco", CreditoBanco, DebitoBanco, SaldoFinalCreditoBanco));
-
-                } else {
-                    SaldoFinalDebitoBanco = SomaDebitoBanco - SomaCreditoBanco;
-                    Balancete.add(new BalanceteEntidade("Banco", CreditoBanco, DebitoBanco, SaldoFinalDebitoBanco));
-                }
 
 
             }
 
+            if (SomaCreditoBanco > SomaDebitoBanco) {
+                SaldoFinalCreditoBanco = SomaCreditoBanco - SomaDebitoBanco;
+                Balancete.add(new BalanceteEntidade("Banco", SomaCreditoBanco, SomaDebitoBanco, SaldoFinalCreditoBanco));
+
+            }
+
+            else {
+                SaldoFinalDebitoBanco = SomaDebitoBanco - SomaCreditoBanco;
+                Balancete.add(new BalanceteEntidade("Banco", SomaCreditoBanco, SomaDebitoBanco, SaldoFinalDebitoBanco));
+            }
+
+            //Operacoes Fornecedor
+            while (Fornecedor.next()) {
+                DebitoFornecedor = Integer.parseInt(Fornecedor.getString("DEBITO"));
+                CreditoFornecedor = Integer.parseInt(Fornecedor.getString("CREDITO"));
+                SomaDebitoFornecedor += DebitoFornecedor;
+                SomaCreditoFornecedor += CreditoFornecedor;
+
+            }
+
+            if (SomaDebitoFornecedor != 0 || SomaCreditoFornecedor != 0) {
 
 
-                if(PagouFornecedor == false) {
-
-                    while (Fornecedor.next()) {
-                        int DebitoFornecedor = Integer.parseInt(Fornecedor.getString("DEBITO"));
-                        int CreditoFornecedor = Integer.parseInt(Fornecedor.getString("CREDITO"));
-                        if (CreditoFornecedor > DebitoFornecedor) {
-                            SaldoFinalFornecedorCredito = CreditoFornecedor - DebitoFornecedor;
-                            Balancete.add(new BalanceteEntidade("Fornecedor", CreditoFornecedor, DebitoFornecedor, SaldoFinalFornecedorCredito));
-                        } else {
-                            SaldoFinalFornecedorDebito = CreditoFornecedor - DebitoFornecedor;
-                            Balancete.add(new BalanceteEntidade("Fornecedor", CreditoFornecedor, DebitoFornecedor, SaldoFinalFornecedorDebito));
-                        }
-
-
+                    if (SomaCreditoFornecedor > SomaDebitoFornecedor) {
+                        SaldoFinalFornecedorCredito = CreditoFornecedor - DebitoFornecedor;
+                        Balancete.add(new BalanceteEntidade("Fornecedor", CreditoFornecedor, DebitoFornecedor, SaldoFinalFornecedorCredito));
                     }
+
+
+                    else {
+                        SaldoFinalFornecedorDebito = SomaDebitoFornecedor - SomaCreditoBanco;
+                        Balancete.add(new BalanceteEntidade("Fornecedor", CreditoFornecedor, DebitoFornecedor, SaldoFinalFornecedorDebito));
+                    }
+
+
+
+            }
+
+            else {
+                while(FornecedorPago.next()) {
+                    DebitoFornecedorPago = Integer.parseInt(FornecedorPago.getString("DEBITO"));
+                    CreditoFornecedorPago = Integer.parseInt(FornecedorPago.getString("CREDITO"));
                 }
 
+                Balancete.add(new BalanceteEntidade("Fornecedor", CreditoFornecedorPago, DebitoFornecedorPago, 0));
+            }
 
 
-            //Soma credito Caixa e Soma Debito Caixa são os unicos de diferentes de SaldoFInal
-            int SaldoTotalCredito = SaldoFinalCreditoFatos + SaldoFinalCreditoBanco + SaldoFinalFinanciamentoCredito + SaldoFinalInvestimentoCredito + SaldoFinalFornecedorCredito;
-            int SaldoTotalDebito = SaldoFinalDebitoFatos + SaldoFinalDebitoBanco + SaldoFinalFinanciamentoDebito + SaldoFinalFornecedorDebito;
-            int SaldoUsuario = SaldoTotalCredito - SaldoTotalDebito;
+
+            int SaldoTotalCredito = SaldoFinalCreditoFatos + SaldoFinalCreditoBanco + SaldoFinalFinanciamentoCredito + SaldoFinalInvestimentoCredito + SaldoFinalFornecedorCredito + SaldoFinalCaixaCredito;
+            int SaldoTotalDebito = SaldoFinalDebitoFatos + SaldoFinalDebitoBanco + SaldoFinalFinanciamentoDebito + SaldoFinalFornecedorDebito + SaldoFinalCaixaDebito;
+            int SaldoUsuario = SaldoTotalDebito - SaldoTotalCredito;
 
 
             Balancete.add(new BalanceteEntidade("SaldoFinal", SaldoTotalCredito, SaldoTotalDebito, SaldoUsuario));
+
 
 
         }
 
         catch (SQLException e) {
             throw new RuntimeException(e);
-        }
-
-        finally {
+        } finally {
             Conexao.FecharConexao();
         }
 
         return Balancete;
     }
+}
+
+
+    /*
 
     public List<BalanceteEntidade> CaixaZerado() {
         CaixaZerado = true;
@@ -284,6 +410,8 @@ public class BalanceteBD {
     }
 
 }
+
+     */
 
 
 

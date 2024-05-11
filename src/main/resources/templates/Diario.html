@@ -15,21 +15,22 @@
 <table class="table">
     <thead>
     <tr>
-        <th scope="col">id</th>
-        <th scope="col">Fato</th>
+        <th scope="col">Evento</th>
+        <th scope="col">Data </th>
+        <th scope="col">Detalhes </th>
+        <th scope="col">Movimentacao</th>
+        <th scope="col">Debito</th>
+        <th scope="col">Credito</th>
         <th scope="col">Valor</th>
-        <th scope="col">Data</th>
-        <th scope="col">Tipo de Movimentação</th>
     </tr>
     </thead>
     <tbody class="table-group-divider">
 
-    <tr th:each="Fato: ${Fatos}"> <!-- PARA CADA FATO EM FATOS -->
-        <th th:text="${Fato.getID()}"></th>
-        <td th:text="${Fato.getDetalhesFato()}"> </td>
-        <td th:text="${Fato.getValorFato()}"> </td>
-        <td th:text="${Fato.getDataFato()}"> </td>
-        <td th:text="${Fato.getTipoDeOperacao()}"> </td>
+    <tr th:each="Diario: ${LivroDiario}"> <!-- PARA CADA FATO EM FATOS -->
+        <td th:text="${Diario.getMovimentacao()}"> </td>
+        <td th:text="${Diario.getDetalhes()}"> </td>
+        <td th:text="${Diario.getValor()}"> </td>
+        <td th:text="${Diario.getFormaDePagamento()}"> </td>
     </tr>
 
 

@@ -7,7 +7,7 @@ public class UsuarioLogadoNoSistemaBD {
 
     private ConexaoBD Conexao = new ConexaoBD();
     
-    public String QualUsuarioLogouNoSistema() {
+    public String QualUsuarioLogouNoSistema() throws SQLException {
         String NomeUsuarioLogado = "";
 
         try {
@@ -29,6 +29,10 @@ public class UsuarioLogadoNoSistemaBD {
 
         catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+
+        finally {
+            Conexao.FecharConexao();
         }
     }
 }

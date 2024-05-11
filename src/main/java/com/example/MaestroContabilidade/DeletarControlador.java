@@ -15,8 +15,8 @@ import java.sql.SQLException;
 public class DeletarControlador {
     private DeletarFatosBD DeletarNoBD = new DeletarFatosBD();
 
-    @PostMapping("/DeletarUmFato")
-    @Scheduled(fixedDelay = 15 * 60 * 1000) //tem no maximo meia hora
+
+    /*
     public String DeletarFato(@RequestParam int CodigoID, @RequestParam String LugarFato) {
         DeletarFatosEntidade Del = new DeletarFatosEntidade(CodigoID); //mesmo processo já visto até aqui
         DeletarNoBD.DeletarFatosTABELAFATOSGERAL(Del.getFatoID());
@@ -38,6 +38,7 @@ public class DeletarControlador {
     }
 
 
+     */
 
 
 

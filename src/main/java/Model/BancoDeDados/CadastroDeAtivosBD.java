@@ -10,13 +10,13 @@ public class CadastroDeAtivosBD {
 
     private boolean CaixaZerado;
     Model.BancoDeDados.ConexaoBD Conexao = new ConexaoBD();
-    public void AtivoDebito(String OperacaoFato, int FatoValor, String DetalhesFato, String DataFato) throws SQLException {
+    public void AtivoDebito(String CodFato, int FatoValor, String DetalhesFato, String DataFato) throws SQLException {
 
 
 
         try {
             Conexao.AbrirConexao();
-            String ComandoSQL = String.format("INSERT INTO FATOSGERAL(Operacao_FATO, VALOR_FATO, DETALHES_FATO, FORMADEPAGAMENTO_FATO, DATA_FATO) VALUES('%s', '%d', '%s', 'Debito', '%s')", OperacaoFato, FatoValor, DetalhesFato, DataFato);
+            String ComandoSQL = String.format("INSERT INTO FATOSGERAL(COD_FATO, VALOR_FATO, DETALHES_FATO, FORMADEPAGAMENTO_FATO, DATA_FATO) VALUES('%s', '%d', '%s', 'Debito', '%s')", CodFato, FatoValor, DetalhesFato, DataFato);
             int NumDeLinhas = Conexao.getConexao().createStatement().executeUpdate(ComandoSQL);
 
 
@@ -30,13 +30,13 @@ public class CadastroDeAtivosBD {
     }
 
 
-    public void AtivoCredito(String OperacaoFato, int FatoValor, String DetalhesFato, String DataFato) throws SQLException {
+    public void AtivoCredito(String CodFato, int FatoValor, String DetalhesFato, String DataFato) throws SQLException {
 
 
 
         try {
             Conexao.AbrirConexao();
-            String ComandoSQL = String.format("INSERT INTO FATOSGERAL(Operacao_FATO, VALOR_FATO, DETALHES_FATO, FORMADEPAGAMENTO_FATO, DATA_FATO) VALUES('%s', '%d', '%s', 'Credito', '%s')", OperacaoFato, FatoValor, DetalhesFato, DataFato);
+            String ComandoSQL = String.format("INSERT INTO FATOSGERAL(COD_FATO, VALOR_FATO, DETALHES_FATO, FORMADEPAGAMENTO_FATO, DATA_FATO) VALUES('%s', '%d', '%s', 'Credito', '%s')", CodFato, FatoValor, DetalhesFato, DataFato);
             int NumDeLinhas = Conexao.getConexao().createStatement().executeUpdate(ComandoSQL);
 
 
@@ -46,6 +46,8 @@ public class CadastroDeAtivosBD {
             throw new RuntimeException(e);
         }
 
-
+        finally {
+            Conexao.FecharConexao();
+        }
     }
 }

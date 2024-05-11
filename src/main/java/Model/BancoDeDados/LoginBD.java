@@ -75,5 +75,10 @@ public class LoginBD {
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+
+        finally {
+            Conexao.FecharConexao();
+        }
     }
 }

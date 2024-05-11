@@ -2,15 +2,15 @@ package Model.BancoDeDados;
 
 import java.sql.SQLException;
 
-public class BancoBradescoBD {
+public class BancoContabilidade {
 
     private ConexaoBD Conexao = new ConexaoBD();
 
 
-    public void BancoCredito(int Valor, String Detalhes) {
+    public void BancoCredito(String CodFato, int Valor, String Detalhes, String Data) {
         try {
             Conexao.AbrirConexao();
-            String SQL = String.format("INSERT INTO BANCO(DETALHES, CREDITO, DEBITO) VALUES('%s', %d', '%d')", Detalhes, Valor, 0);
+            String SQL = String.format("INSERT INTO BANCO(COD_FATO, CREDITO, DEBITO, DETALHES, DATA) VALUES('%s', '%d', '%d', '%s', '%s')", CodFato, Valor, 0, Detalhes, Data);
             int ValorCaixa = Conexao.getConexao().createStatement().executeUpdate(SQL);
             System.out.println("Boa cadastrou no BD, debito");
         }

@@ -7,87 +7,61 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/Fato" method="post">
+<form id="MetodoPostFatos" action="/Fato" method="post">
     <div class="mb-3">
-        <a>Operação</a>
-        <ul class="list-group">
-            <li class="list-group-item" required="required">
-                <input class="form-check-input me-1" type="radio" name="OperacaoFato" id="firstRadio" required="required" value="Ativo">
-                <label class="form-check-label" for="firstRadio">Ativo</label>
-            </li>
-            <li class="list-group-item">
-                <label for="f1"></label>
-                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="AtivoPagoAPrazo" id="f1">
-                <label class="form-check-label" for="f1">Ativo - (pagamento feito a prazo) </label>
-            </li>
-            <li class="list-group-item">
-                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="Investimento" id="secondRadio">
-                <label class="form-check-label" for="secondRadio">Investimento</label>
-            </li>
-            <li class="list-group-item">
-                <label for="f4"></label>
-                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="Emprestimo" id="f4">
-                <label class="form-check-label" for="f4">Emprestimo</label>
-            </li>
-            <li class="list-group-item">
-                <label for="f5"></label>
-                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="PagamentoDivida" id="f5">
-                <label class="form-check-label" for="f5">Pagamento de Divida</label>
-            </li>
-            <li class="list-group-item">
-                <label for="f6"></label>
-                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="PagamentoBanco" id="f6">
-                <label class="form-check-label" for="f6">Pagamento com o cartão do banco</label>
-            </li>
-            <li class="list-group-item">
-                <label for="f7"></label>
-                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="Fornecedor" id="f7">
-                <label class="form-check-label" for="f7">Fornecedor</label>
-            </li>
-            <li class="list-group-item">
-                <label for="f9"></label>
-                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="Fornecedor" id="f9">
-                <label class="form-check-label" for="f9">Fornecedor</label>
-            </li>
-            <li class="list-group-item">
-                <label for="f10"></label>
-                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="DepositoBanco" id="f10">
-                <label class="form-check-label" for="f10">Depositar no banco</label>
-            </li>
-            <li class="list-group-item">
-                <label for="f11"></label>
-                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="PagarFinanciamento" id="f11">
-                <label class="form-check-label" for="f11">Pagar Financiamento</label>
-            </li>
-            <li class="list-group-item">
-                <label for="f12"></label>
-                <input class="form-check-input me-1" type="radio" name="OperacaoFato" value="PagarFornecedor" id="f12">
-                <label class="form-check-label" for="f12">Pagar Fornecedor</label>
-            </li>
-        </ul>
+
+        <!-- Codigo do evento -->
+        <label for="CodigoDoFato" class="form-label">Codigo do Evento</label>
+        <input type="text" class="form-control" id="CodigoDoFato" name="CodFato" >
     </div>
     <div class="mb-3">
+
+        <!-- Valor -->
         <label for="Valor" class="form-label">Valor</label>
         <input type="number" class="form-control" id="Valor" name="FatoValor">
+
+
+        <!-- Detalhes do Fato -->
         <label for="DetalhesFato" class="form-label">Detalhes do Fato</label>
-        <input type="text" class="form-control" id="DetalhesFato" name="DetalhesFato" required="required" pattern="[A-Za-z ]+">
+        <input type="text" class="form-control" id="DetalhesFato" name="DetalhesFato" pattern="[A-Za-z ]+">
+
+
     </div>
     <ul class="list-group">
     </ul>
     <div class="mb-3 form-check">
+
+        <!-- Data do Fato -->
         <label for="Data" class="form-label" id="CampoData">Data</label>
         <input type="date" id="Data" name="DataFato" value="2024-03-29" readonly="readonly" required="required">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+<script>
+    document.getElementById("CodigoDoFato").addEventListener("input", function() {
+        var valor = this.value;
+        if (valor === "009") {
+            document.getElementById("Valor").value = "0";
+            document.getElementById("Valor").setAttribute("readonly", true);
+        } else {
+            this.removeAttribute("readonly");
+        }
+    });
+</script>
+<script>
+    document.getElementById("MetodoPostFatos").addEventListener("submit", function(event) {
+        // Obter o campo de entrada
+        var campoNumero = document.getElementById("Valor");
 
+        // Obter o valor do campo
+        var valor = campoNumero.value;
 
+        // Remover todos os pontos do valor
+        var valorSemPontos = valor.replace(/\./g, "");
 
-<a href="/DepositoNoBanco">Depositar no banco e zerar no caixa</a>
-<a href="/HomePage" class="btn btn-secondary">Home Page</a>
-<a href="/DeletarFato" class="btn btn-secondary">Deletar um Fato</a>
-<a href="/PagamentoFinanciamento"> Pagar Todo Financiamento</a>
-<a href="/PagarFornecedor"> Pagar Fornecedor</a>
-
+        // Atualizar o valor do campo com o valor sem pontos
+        campoNumero.value = valorSemPontos;
+    });
+</script>
 </body>
 </html>

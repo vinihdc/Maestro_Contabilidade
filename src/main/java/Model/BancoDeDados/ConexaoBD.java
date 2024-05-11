@@ -17,7 +17,7 @@ public class ConexaoBD {
 
     public void AbrirConexao() {
         try {
-            Conexao = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/MAESTROCONTABILIDADE", "root", "Lorenzo05*");
+            Conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/MAESTROCONTABILIDADE", "root", "Lorenzo05*");
         }
 
         catch (SQLException e) {

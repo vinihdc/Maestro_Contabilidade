@@ -1,11 +1,7 @@
 package Model.BancoDeDados;
 
-import com.example.MaestroContabilidade.ControllerLogin;
 import org.springframework.stereotype.Repository;
-import org.springframework.ui.Model;
 
-import javax.naming.ldap.Control;
-import javax.xml.transform.Result;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 @Repository
@@ -35,7 +31,7 @@ public class IdentificarUsuarioBD {
         this.CPFUsuario = CPFUsuario;
     }
 
-    public void IdentificarUsuarioBD() {
+    public void IdentificarUsuarioBD() throws SQLException {
         try {
             Conexao.AbrirConexao();
             String sql = String.format("SELECT * FROM USUARIO WHERE CPF = '%s'", CPFUsuario);
@@ -63,6 +59,10 @@ public class IdentificarUsuarioBD {
 
         catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+
+        finally {
+            Conexao.FecharConexao();
         }
 
     }
