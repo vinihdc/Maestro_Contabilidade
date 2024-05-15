@@ -28,9 +28,6 @@ public class LoginBD {
 
 
     public void Login(String CPF, String Senha) throws SQLException {
-        IdentificarUsuarioBD QualUsuario = new IdentificarUsuarioBD(CPF);
-        QualUsuario.IdentificarUsuarioBD();
-
         try {
             Conexao.AbrirConexao();
             String ComandoSQLCPF = "SELECT CPF FROM USUARIO";

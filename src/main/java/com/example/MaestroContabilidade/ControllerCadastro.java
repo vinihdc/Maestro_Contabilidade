@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class ControllerCadastro {
 
     @RequestMapping("/form")
-    public String HandleForm(@RequestParam String Nome, @RequestParam String CPF, @RequestParam String Password) throws IOException, SQLException {
+    public String HandleForm(@RequestParam String Nome, @RequestParam String CPF, @RequestParam String Password, @RequestParam String Empresa) throws IOException, SQLException {
         CadastroUsuarioBD Cadastrar = new CadastroUsuarioBD();
         VerificarCPF CPFUsuario = new VerificarCPF(CPF);
         VerificarNome NomeUsuario = new VerificarNome();
@@ -30,7 +30,7 @@ public class ControllerCadastro {
                 CPFUsuario.AutenticarCPF();
                 if (CPFUsuario.isCPFReal() == true) {
                     System.out.println("\nCPF verdadeiro");
-                    Cadastrar.CadastrarUsuarioNoBD(CPF, Nome, Password);
+                    Cadastrar.CadastrarUsuarioNoBD(CPF, Nome, Password, Empresa);
                     return "PosCadastro";
                 }
 

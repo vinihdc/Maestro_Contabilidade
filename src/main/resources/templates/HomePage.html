@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 <head>
     <meta charset="UTF-8">
     <title>HOME</title>
-    <link rel="stylesheet" href="../static/Principal.css">
+    <link rel="stylesheet" href="/Principal.css">
 </head>
 <body>
 <header>
@@ -22,19 +23,29 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+            <li class="nav-item" onclick="definirVisibilidadeLinks()">
+              <a class="nav-link" href="/Fatos">Fatos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link" href="/Diario">Diario</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link" href="/Razonete">Razonete</a>
             </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/Balancete">Balancete</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/Codigos">IA</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/ARE">Apuração do resultado</a>
+              </li>
+
           </ul>
         </div>
       </div>
-      <a href="#" class="login-button">Login</a>
+      <a class="login-button" th:text="${NivelDeAcesso}"> </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -44,7 +55,38 @@
 
 </header>
 <footer class="rodape__nome">Maestro Finanças</footer>
+<script>
+    // Supondo que você tenha uma variável 'nivelUsuario' que define o nível de acesso do usuário
+    var nivelUsuario = document.querySelector('.login-button').innerText.trim(); /* lógica para obter o nível de acesso do usuário */;
 
+    // Função para definir a visibilidade dos links com base no nível de acesso do usuário
+    function definirVisibilidadeLinks() {
+        var links = document.querySelectorAll('.nav-link');
+
+        links.forEach(function(link) {
+            var href = link.getAttribute('href');
+
+            if (nivelUsuario === "N1") {
+                if (href !== '/Fatos') {
+                    link.style.display = 'none'
+                }
+            } else if (nivelUsuario === "N2") {
+                if (href === '/Fatos') {
+                    link.style.display = 'none';
+                }
+            }
+
+            else if (nivelUsuario === "N3" || nivelUsuario === "admin") {
+               //Acesso Master
+            }
+        });
+    }
+
+    // Chame a função ao carregar a página para definir a visibilidade inicial dos links
+    window.onload = function() {
+        definirVisibilidadeLinks();
+    };
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 

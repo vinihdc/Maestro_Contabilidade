@@ -6,29 +6,13 @@ import java.sql.SQLException;
 
 public class FatosEntidade {
 
-    private CadastroDeAtivosBD CadastroAtivo = new CadastroDeAtivosBD();
 
-    private CaixaBD CadastroCaixa = new CaixaBD();
 
-    private FinanciamentoBD CadastroFinanciamento = new FinanciamentoBD();
+        private FluxoBD DefinirFluxo = new FluxoBD();
 
-    private InvestimentoBD CadastroInvestimento = new InvestimentoBD();
+        private DiarioBD CadastrarDadosDiario = new DiarioBD();
 
-    private FornecedorBD CadastroFornecedor = new FornecedorBD();
 
-    private BancoContabilidade CadastroBanco = new BancoContabilidade();
-
-    private DepositoNoBancoBD CadastroDeposito = new DepositoNoBancoBD();
-
-    private FinanciamentoPagoBD CadastroFinanciamentoPago = new FinanciamentoPagoBD();
-
-    private FornecedorPagoBD CadastroFornecedorPago = new FornecedorPagoBD();
-
-    private DiarioBD CadastrarDadosDiario = new DiarioBD();
-
-    private AplicacoesBD CadastrarAplicacoes = new AplicacoesBD();
-
-    private ClientesBD CadastrarDinheiroClientes = new ClientesBD();
 
 
         private String CodFato;
@@ -48,107 +32,25 @@ public class FatosEntidade {
     }
 
 
-    public void z() throws SQLException {
-        // 003 - Investimento
-        if(CodFato.equals("003")) {
-            CadastroInvestimento.RegistrarInvestimento(CodFato, ValorFato, DetalhesFato, DataFato);
-        }
-    }
+
 
 
 
     public void DefinirCaminho() throws SQLException {
 
-        // 001 - Compra a vista (Ativo)
-        if(CodFato.equals("001")) {
-           CadastroAtivo.AtivoDebito(CodFato, ValorFato, DetalhesFato, DataFato);
-           CadastroCaixa.RegistroNoCaixaCredito(CodFato, ValorFato, DetalhesFato, DataFato);
-           CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "Ativo", "Caixa", ValorFato);
-        }
 
-        //002 - Compra a prazo (Ativo pago a prazo)
-        if(CodFato.equals("002")) {
-           CadastroFinanciamento.RegistrarFinanciamentoCredito(CodFato, ValorFato, DetalhesFato, DataFato);
-            CadastroAtivo.AtivoDebito(CodFato, ValorFato, DetalhesFato, DataFato);
-            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "Ativo", "Financiamento", ValorFato);
-        }
-        // 003 - Compra 50% a vista 50% a prazo
-        if(CodFato.equals("003")) {
-            int DividirPelaMetade = ValorFato / 2;
-            CadastroFinanciamento.RegistrarFinanciamentoCredito(CodFato, DividirPelaMetade, DetalhesFato, DataFato);
-            CadastroCaixa.RegistroNoCaixaCredito(CodFato, DividirPelaMetade, DetalhesFato, DataFato);
-            CadastroAtivo.AtivoDebito(CodFato, ValorFato, DetalhesFato, DataFato);
-            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "-", "Caixa e Financiamento", ValorFato);
-        }
-
-        // 004 - Investimento
-        if(CodFato.equals("004")) {
-            CadastroInvestimento.RegistrarInvestimento(CodFato, ValorFato, DetalhesFato, DataFato);
-            CadastroCaixa.RegistroNoCaixaDebito(CodFato, ValorFato, DetalhesFato, DataFato);
-            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "Caixa", "Investimento", ValorFato);
+        DefinirFluxo.Fluxo(CodFato, DataFato, DetalhesFato, ValorFato);
+        if(DefinirFluxo.Fluxo(CodFato, DataFato, DetalhesFato, ValorFato) == "Feito") {
+            ;
         }
 
 
-        //005 - Emprestimo
-        if(CodFato.equals("005")) {
-           CadastroAtivo.AtivoCredito(CodFato, ValorFato, DetalhesFato, DataFato);
-           CadastroCaixa.RegistroNoCaixaDebito(CodFato, ValorFato, DetalhesFato, DataFato);
-           CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "Caixa", "Emprestimo", ValorFato);
-        }
-
-        //006 - Pagamento de Divida
-
-        if(CodFato.equals("006")) {
-            CadastroCaixa.RegistroNoCaixaCredito(CodFato, ValorFato, DetalhesFato, DataFato);
-            CadastroFinanciamento.RegistrarFinanciamentoDebito(CodFato, ValorFato, DetalhesFato, DataFato);
-            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "Financiamento", "Caixa", ValorFato);
-        }
-
-        // 007 - Pagamento com o cartão Banco 80 - Banco - 20% - Fornecedor
-        if(CodFato.equals("007")) {
-            int PorcentagemBanco = (int) (ValorFato * 0.8);
-            int PorcentagemFornecedor =  (int) (ValorFato * 0.2);
-            CadastroBanco.BancoCredito(CodFato, PorcentagemBanco, DetalhesFato, DataFato);
-            CadastroFornecedor.FornecedorCredito(CodFato, PorcentagemFornecedor, DetalhesFato, DataFato);
-            CadastroAtivo.AtivoDebito(CodFato, ValorFato, DetalhesFato, DataFato);
-            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "-", "Banco, Fornecedor", ValorFato);
 
 
-        }
+        //INSERÇÃO DE COISAS MANUAIS
 
-        //008 - Compra a prazo fornecedor
 
-        if(CodFato.equals("008")) {
-            CadastroFornecedor.FornecedorCredito(CodFato, ValorFato, DetalhesFato, DataFato);
-            CadastroAtivo.AtivoDebito(CodFato, ValorFato, DetalhesFato, DataFato);
-            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "-", "Fornecedor", ValorFato);
-        }
-
-        //009 - Deposito no banco
-        if(CodFato.equals("009")) {
-            CadastroDeposito.RegistrarDeposito(CodFato, DetalhesFato, DataFato);
-            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "-", "-", ValorFato);
-        }
-
-        //010 - Pagamento Financiamento
-        if(CodFato.equals("010")) {
-            CadastroFinanciamentoPago.FinanciamentoPago(CodFato, DetalhesFato, DataFato);
-            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "-", "-", ValorFato);
-        }
-
-        //011 - Pagamento Fornecedor
-        if(CodFato.equals("011")) {
-            CadastroFornecedorPago.FornecedorPago(CodFato, DetalhesFato, DataFato);
-            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "-", "-", ValorFato);
-        }
-
-        //012 - Pagamento de coisas com o cartão do banco
-        if(CodFato.equals("012")) {
-            CadastroBanco.BancoCredito(CodFato, ValorFato, DetalhesFato, DataFato);
-            CadastroAtivo.AtivoDebito(CodFato, ValorFato, DetalhesFato, DataFato);
-            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "-", "-", ValorFato);
-        }
-
+        /*
 
         //013 - Colocar dinheiro no Debito do Caixa
         if(CodFato.equals("013")) {
@@ -161,6 +63,7 @@ public class FatosEntidade {
         if(CodFato.equals("014")) {
             CadastroBanco.BancoDebito(CodFato, ValorFato, DetalhesFato, DataFato);
             CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "Banco", "-", ValorFato);
+
         }
 
         //015 - Aplicacoes - Colocar no Debito
@@ -170,11 +73,180 @@ public class FatosEntidade {
             CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "Aplicacoes", "-", ValorFato);
         }
 
+
+
         //016 - Clientes
         if(CodFato.equals("016")) {
             CadastrarDinheiroClientes.RegistroClientesDebito(CodFato, ValorFato, DetalhesFato, DataFato);
             CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "Clientes", "-", ValorFato);
         }
+
+
+        //017
+
+
+
+        if(CodFato.equals("017")) {
+            CadastrarDinheiroClientes.RegistroClientesDebito(CodFato, ValorFato, DetalhesFato, DataFato);
+            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "Clientes", "-", ValorFato);
+        }
+
+
+
+
+
+
+        //016 - Inserir de forma manual Fornecedores
+        if(CodFato.equals("017")) {
+            CadastroFornecedor.FornecedorCredito(CodFato, ValorFato, DetalhesFato, DataFato);
+            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "-", "Fornecedores", ValorFato);
+
+        }
+
+
+        //020 - Fornecedores a longo prazo
+        if(CodFato.equals("018")) {
+           FornecedorLG.RegistroAplicacoesCredito(CodFato, ValorFato, DetalhesFato, DataFato);
+           CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "-", "Fornecedores", ValorFato);
+
+        }
+
+
+
+        //inserção impostos
+        if(CodFato.equals("019")) {
+           CadastroImpostos.RegistroImpostosCredito(CodFato, ValorFato, DetalhesFato, DataFato);
+            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "-", "Impostos", ValorFato);
+
+
+        }
+
+        //insercao de contas
+        if(CodFato.equals("020")) {
+            CadastroAtivo.AtivoCredito(CodFato, ValorFato, DetalhesFato, DataFato);
+            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "-", "Contas", ValorFato);
+
+
+        }
+
+
+        //Lucro
+        if(CodFato.equals("021")) {
+            CadastroLucros.RegistroLucroCredito(CodFato, ValorFato, DetalhesFato, DataFato);
+            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "-", "Lucro", ValorFato);
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //Janeiro Ex
+
+        //Em 01/01/2022 - Efetuar pagamento em cheque (BANCO) das obrigações com fornecedores
+        //no valor de R$ 5,000,00
+
+        if(CodFato.equals("022")) {
+            CadastroBanco.BancoCredito(CodFato, ValorFato, DetalhesFato, DataFato);
+            CadastroFornecedor.FornecedorDebito(CodFato, ValorFato, DetalhesFato, DataFato);
+            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "Fornecedores", "Banco", ValorFato);
+        }
+
+
+        //Em 08/01/2022 - Receita com prestação de serviços, a vista (deposito no banco), no valor de R$ 55.000,00
+
+        if(CodFato.equals("023")) {
+            CadastrarReceita.ReceitaCredito(CodFato, ValorFato, DetalhesFato, DataFato);
+            CadastroBanco.BancoDebito(CodFato, ValorFato, DetalhesFato, DataFato);
+            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "Banco", "Receita de prestação de serviços", ValorFato);
+
+        }
+
+        //Em 22/01/2022 - Receita de prestação de serviços no valor de R$ 14.000,00, recebido em dinheiro
+
+        if(CodFato.equals("024")) {
+            CadastroCaixa.RegistroNoCaixaDebito(CodFato, ValorFato, DetalhesFato, DataFato);
+            CadastrarReceita.ReceitaCredito(CodFato, ValorFato, DetalhesFato, DataFato);
+            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "Caixa", "Receita de prestação de serviços", ValorFato);
+
+
+        }
+
+
+        Em 27/01/2022 - Pagamentos de despesas, em cheque, como segue:
+
+        1 - Agua - R$ 105,00
+
+         2 - Luz - R$ 120,00
+
+        3 - Despesas de viagem - R$ 2.000,00
+
+
+
+        if(CodFato.equals("025")) {
+            CadastrarDespesas.RegistroDespesasDebito(CodFato, ValorFato, DetalhesFato, DataFato);
+            CadastroBanco.BancoDebito(CodFato, ValorFato, DetalhesFato, DataFato);
+            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "Despesas", "Banco", ValorFato);
+
+
+        }
+
+        //Em 27/01/2022 - Contabilizar juros ref. Aplicações financeiras 5% am
+
+        if(CodFato.equals("026")) {
+            int Valor = (int) (ValorFato * 0.05);
+            CadastrarAplicacoes.RegistroAplicacoesDebito(CodFato, Valor, DetalhesFato, DataFato);
+            CadastrarDadosDiario.InserirDadosDiario(CodFato, DataFato, DetalhesFato, "Debito", "-", ValorFato);
+
+        }
+
+
+
+
+
+
+  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

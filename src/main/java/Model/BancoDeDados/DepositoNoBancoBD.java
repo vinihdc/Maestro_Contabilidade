@@ -1,5 +1,6 @@
 package Model.BancoDeDados;
 
+import Model.BancoDeDados.ConexaoBD;
 import Model.Entidade.BalanceteEntidade;
 
 import java.sql.ResultSet;
@@ -10,7 +11,7 @@ public class DepositoNoBancoBD {
 
     private ConexaoBD Conexao = new ConexaoBD();
 
-    public void RegistrarDeposito(String CodFato, String Detalhes, String Data) throws SQLException {
+    public void RegistrarDeposito() throws SQLException {
 
 
 
@@ -20,11 +21,11 @@ public class DepositoNoBancoBD {
         int SaldoBanco = 0;
         try {
             Conexao.AbrirConexao();
-            String sql = "SELECT CREDITO, DEBITO FROM CAIXA";
+            String sql = "SELECT CAIXA_CREDITO, CAIXA_DEBITO FROM RAZONETE";
             ResultSet Caixa = Conexao.getConexao().createStatement().executeQuery(sql);
             while (Caixa.next()) {
-                int DebitoCaixa = Integer.parseInt(Caixa.getString("DEBITO"));
-                int CreditoCaixa = Integer.parseInt(Caixa.getString("CREDITO"));
+                int DebitoCaixa = Integer.parseInt(Caixa.getString("CAIXA_CREDITO"));
+                int CreditoCaixa = Integer.parseInt(Caixa.getString("CAIXA_DEBITO"));
                 SomaDebitoCaixa += DebitoCaixa;
                 SomaCreditoCaixa += CreditoCaixa;
 
@@ -50,7 +51,7 @@ public class DepositoNoBancoBD {
 
         try {
             Conexao.AbrirConexao();
-            String sql = String.format("INSERT INTO CAIXAZERADO(CREDITO, DEBITO, DETALHES, DATA) VALUES('%d', '%d', '%s', '%s')", SaldoFinalCaixa, SaldoFinalCaixa, Detalhes, Data);
+            String sql = String.format("INSERT INTO RAZONETE(CAIXA_ZERADO) VALUES('%d')", SaldoFinalCaixa);
             int RegistrarSaldo = Conexao.getConexao().createStatement().executeUpdate(sql);
             System.out.println("Deposito Registrado no Banco");
 
@@ -63,7 +64,7 @@ public class DepositoNoBancoBD {
 
         try {
             Conexao.AbrirConexao();
-            String SQL = String.format("INSERT INTO BANCO(COD_FATO, CREDITO, DEBITO, DETALHES, DATA) VALUES('%s', '%d', '%d', '%s', '%s')", CodFato, 0, SaldoBanco, Detalhes, Data);
+            String SQL = String.format("INSERT INTO RAZONETE(BANCO_DEBITO) VALUES('%d')", SaldoBanco);
             int ValorCaixa = Conexao.getConexao().createStatement().executeUpdate(SQL);
 
         }
@@ -76,8 +77,10 @@ public class DepositoNoBancoBD {
 
         try {
             Conexao.AbrirConexao();
-            String SQL = "TRUNCATE CAIXA";
-            int ValorCaixa = Conexao.getConexao().createStatement().executeUpdate(SQL);
+            String SQL = "UPDATE RAZONETE SET CAIXA_CREDITO = 0";
+            String SQL2 = "UPDATE RAZONETE SET CAIXA_DEBITO = 0";
+            int UpdateCaixaCredito = Conexao.getConexao().createStatement().executeUpdate(SQL);
+            int UpdateCaixaDebito = Conexao.getConexao().createStatement().executeUpdate(SQL2);
         }
 
         catch (SQLException e) {

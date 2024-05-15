@@ -10,10 +10,8 @@ public class FornecedorPagoBD {
 
     private ConexaoBD Conexao = new ConexaoBD();
 
-    CaixaBD RegistrarNoCaixa = new CaixaBD();
 
-
-    public void FornecedorPago(String CodFato, String Detalhes, String Data) throws SQLException {
+    public void FornecedorPago() throws SQLException {
 
         int DebitoFornecedor = 0;
         int CreditoFornecedor = 0;
@@ -24,12 +22,12 @@ public class FornecedorPagoBD {
 
         try {
             Conexao.AbrirConexao();
-            String sql9 = "SELECT * FROM FORNECEDOR ORDER BY ID DESC LIMIT 1";
+            String sql9 = "SELECT FORNECEDOR_CREDITO, FORNECEDOR_DEBITO FROM RAZONETE ORDER BY ID DESC LIMIT 1";
             ResultSet FornecedorPago = Conexao.getConexao().createStatement().executeQuery(sql9);
 
             while (FornecedorPago.next()) {
-                DebitoFornecedor = Integer.parseInt(FornecedorPago.getString("DEBITO"));
-                CreditoFornecedor = Integer.parseInt(FornecedorPago.getString("CREDITO"));
+                DebitoFornecedor = Integer.parseInt(FornecedorPago.getString("FORNECEDOR_DEBITO"));
+                CreditoFornecedor = Integer.parseInt(FornecedorPago.getString("FORNECEDOR_CREDITO"));
                 SomaDebitoFornecedor += DebitoFornecedor;
                 SomaCreditoFornecedor += CreditoFornecedor;
                 if(SomaDebitoFornecedor > SomaCreditoFornecedor) {
@@ -55,7 +53,7 @@ public class FornecedorPagoBD {
 
         try {
             Conexao.AbrirConexao();
-            String InsertFornecedorPago = String.format("INSERT INTO FORNECEDORPAGO(CREDITO, DEBITO, DATA) VALUES('%d', '%d', '%s')", SaldoFinal, SaldoFinal, Data);
+            String InsertFornecedorPago = String.format("INSERT INTO RAZONETE(FORNECEDORPAGO) VALUES('%d')", SaldoFinal);
             int TransferirDadosTabela = Conexao.getConexao().createStatement().executeUpdate(InsertFornecedorPago);
 
         }
@@ -65,14 +63,26 @@ public class FornecedorPagoBD {
         }
 
 
-       RegistrarNoCaixa.RegistroNoCaixaCredito(CodFato, SaldoFinal, Detalhes, Data);
 
         try {
             Conexao.AbrirConexao();
-            String Truncate = "TRUNCATE FORNECEDOR";
-            int LimparTabela = Conexao.getConexao().createStatement().executeUpdate(Truncate);
+            String SQL = String.format("INSERT INTO RAZONETE(CAIXA_CREDITO) VALUES('%d')", SaldoFinal);
+            int MandarProCaixa = Conexao.getConexao().createStatement().executeUpdate(SQL);
         }
 
+
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        try {
+            Conexao.AbrirConexao();
+            String SQL = "UPDATE RAZONETE SET FORNECEDOR_CREDITO = 0";
+            String SQL2 = "UPDATE RAZONETE SET FORNECEDOR_CDEBITO = 0";
+            int UpdateFornecedorCredito = Conexao.getConexao().createStatement().executeUpdate(SQL);
+            int UpdateFornecedorDebito = Conexao.getConexao().createStatement().executeUpdate(SQL2);
+        }
 
         catch (SQLException e) {
             throw new RuntimeException(e);

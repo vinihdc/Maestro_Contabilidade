@@ -7,9 +7,8 @@ public class FinanciamentoPagoBD {
 
     private ConexaoBD Conexao = new ConexaoBD();
 
-    CaixaBD RegistrarNoCaixa = new CaixaBD();
 
-    public void FinanciamentoPago(String CodFato, String Detalhes, String Data) throws SQLException {
+    public void FinanciamentoPago() throws SQLException {
 
         //Faz a operação para pagar o Financiamento
         int Debito = 0;
@@ -20,11 +19,11 @@ public class FinanciamentoPagoBD {
         int SaldoFinal = 0;
         try {
             Conexao.AbrirConexao();
-            String SqlFinanciamento = "SELECT * FROM FINANCIAMENTO";
+            String SqlFinanciamento = "SELECT FINANCIAMENTO_CREDITO, FINANCIAMENTO_DEBITO FROM RAZONETE";
             ResultSet FinanciamentoPago = Conexao.getConexao().createStatement().executeQuery(SqlFinanciamento);
             while(FinanciamentoPago.next()) {
-                Credito = Integer.parseInt(FinanciamentoPago.getString("CREDITO"));
-                Debito = Integer.parseInt(FinanciamentoPago.getString("DEBITO"));
+                Credito = Integer.parseInt(FinanciamentoPago.getString("FINANCIAMENTO_CREDITO"));
+                Debito = Integer.parseInt(FinanciamentoPago.getString("FINANCIAMENTO_DEBITO"));
                 SomaDebito += Debito;
                 SomaCredito += Credito;
 
@@ -72,7 +71,7 @@ public class FinanciamentoPagoBD {
 
         try {
             Conexao.AbrirConexao();
-            String sql = String.format("INSERT INTO FINANCIAMENTOPAGO(CREDITO,DEBITO, DATA) VALUES('%d', '%d', '%s')", SaldoFinal, SaldoFinal, Data);
+            String sql = String.format("INSERT INTO RAZONETE(FINANCIAMENTO_PAGO, CREDITO_CAIXA) VALUES('%d', '%d')", SaldoFinal, SaldoFinal);
             int ExecutarComando = Conexao.getConexao().createStatement().executeUpdate(sql);
         }
 
@@ -84,9 +83,6 @@ public class FinanciamentoPagoBD {
 
 
 
-        //Vai mandar para o credito do caixa
-        RegistrarNoCaixa.RegistroNoCaixaCredito(CodFato, SaldoFinal, Detalhes, Data);
-
 
 
 
@@ -94,12 +90,11 @@ public class FinanciamentoPagoBD {
 
         try {
             Conexao.AbrirConexao();
-            String sql = "TRUNCATE FINANCIAMENTO";
-            int TruncarFinanciamento = Conexao.getConexao().createStatement().executeUpdate(sql);
-
-
+            String SQL = "UPDATE RAZONETE SET FINANCIAMENTO_CREDITO = 0";
+            String SQL2 = "UPDATE RAZONETE SET FINANCIAMENTO_DEBITO = 0";
+            int UpdateCaixaCredito = Conexao.getConexao().createStatement().executeUpdate(SQL);
+            int UpdateCaixaDebito = Conexao.getConexao().createStatement().executeUpdate(SQL2);
         }
-
 
         catch (SQLException e) {
             throw new RuntimeException(e);

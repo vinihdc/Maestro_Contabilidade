@@ -22,6 +22,7 @@ public class DiarioBD {
             int InserirDados = Conexao.getConexao().createStatement().executeUpdate(SQL);
 
 
+
     }
 
         catch (SQLException ex) {

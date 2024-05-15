@@ -1,7 +1,8 @@
 package com.example.MaestroContabilidade;
 
+import Model.BancoDeDados.IdentificarUsuarioBD;
 import Model.BancoDeDados.LoginBD;
-import Model.BancoDeDados.UsuarioLogadoNoSistemaBD;
+import jakarta.servlet.http.PushBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,14 +21,18 @@ public class ControllerDeAcessoUsuario {
 
     public boolean UsuarioFezLogin;
 
+    public String Nivel;
+
+
 
     @RequestMapping("/login")
     public String Login(@RequestParam String CPF, @RequestParam String Password, Model model) throws SQLException {
 
+
         try {
-            UsuarioLogadoNoSistemaBD QuemLogou = new UsuarioLogadoNoSistemaBD();
-            UsuarioLogado = QuemLogou.QualUsuarioLogouNoSistema();
-            model.addAttribute("NomeUsuario",  UsuarioLogado);
+            IdentificarUsuarioBD NivelDeAcesso = new IdentificarUsuarioBD();
+            Nivel = NivelDeAcesso.IdentificarUsuarioBD(CPF);
+            model.addAttribute("NivelDeAcesso", Nivel);
             if (CPF != null && Password != null) {
                 LoginBD Login = new LoginBD();
                 Login.Login(CPF, Password);
@@ -141,6 +146,18 @@ public class ControllerDeAcessoUsuario {
             return "Index";
         }
     }
+
+    @GetMapping("/ARE")
+    public String ARE() {
+        if(UsuarioFezLogin == true) {
+            return "ARE";
+        }
+
+        else {
+            return "ARE";
+        }
+    }
+
 
 
 

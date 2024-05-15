@@ -24,7 +24,7 @@ public class ControllerRazonete {
 
     @GetMapping("/DadosRazonete")
     public String Razonete(Model model) throws SQLException {
-        List<RazoneteEntidade> DadosDoRazonete = ObjetoRazoneteBD.SELECTRAZONETE(CaixaZerado);
+        List<RazoneteEntidade> DadosDoRazonete = ObjetoRazoneteBD.SELECTRAZONETE();
         model.addAttribute("DadosRazonete", DadosDoRazonete);
         return "Razonete";
     }
