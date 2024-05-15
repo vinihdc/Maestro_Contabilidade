@@ -40,9 +40,6 @@ public class FatosEntidade {
 
 
         DefinirFluxo.Fluxo(CodFato, DataFato, DetalhesFato, ValorFato);
-        if(DefinirFluxo.Fluxo(CodFato, DataFato, DetalhesFato, ValorFato) == "Feito") {
-            ;
-        }
 
 
 

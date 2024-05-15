@@ -15,7 +15,7 @@ public class FluxoBD {
 
     private DiarioBD Diario = new DiarioBD();
 
-    public String Fluxo(String CodFato, String Data, String Detalhes, int Valor) throws SQLException {
+    public void Fluxo(String CodFato, String Data, String Detalhes, int Valor) throws SQLException {
         String SQL = "1";
         String SQL2 = "2";
         String SQL3 = "3";
@@ -147,9 +147,7 @@ public class FluxoBD {
 
 
         }
-        catch(SQLException e) {
-            return "Feito";
-        }
+
 
         finally {
             Conexao.FecharConexao();
