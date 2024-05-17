@@ -1,31 +1,103 @@
-@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Montserrat:wght@400;600&display=swap');
+/* navbar */
+
+.login-button {
+    background-color: #009970;
+    color: #fff;
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s background-color;
+}
+
+
+.login-button:hover {
+    background-color: #00b383;
+}
+
+.navbar-toggler {
+    border: none;
+    font-size: 1.25rem;
+}
+
+.navbar-toggler:focus,
+.btn-close:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+
+.nav-link {
+    color: #666777;
+    font-weight: 500;
+    position: relative;
+    margin-left: 30px;
+}
+
+.nav-link.active {
+    color: #000;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    color: #000;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+@media (min-width: 991px) {
+
+    .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background-color: #009970;
+        visibility: hidden;
+        transition: 0.3s ease-in-out;
+    }
+
+    .nav-link:hover::before,
+    .nav-link.active::before {
+        width: 100%;
+        visibility: visible;
+    }
+
+}
+
+/* fim navbar  */
+
+.content {
+    margin-top: 80px;
+}
+
+
+
 :root {
-    --cor-primaria: #000000; /* Cor principal */
-    --cor-secundaria: #31363F; /* Cor secundária */
-    --cor-terciaria: #76ABAE ; /* Cor terciária */
-    --fonte-primaria: 'Montserrat', sans-serif; /* Fonte principal */
-    --cor--hover: #EEEEEE; /* Cor de destaque ao passar o mouse */
+    --cor-primaria: #000000;
+    /* Cor principal */
+    --cor-secundaria: #31363F;
+    /* Cor secundária */
+    --cor-terciaria: #76ABAE;
+    /* Cor terciária */
+    --cor--hover: #EEEEEE;
+    /* Cor de destaque ao passar o mouse */
 }
 
-
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-}
 
 body {
-    font-family: var(--fonte-primaria); /* Utiliza a fonte definida em :root */
-    color: #333; /* Cor do texto padrão */
+    color: #333;
+    /* Cor do texto padrão */
     /* Cor de fundo padrão */
 }
 
 .cabecalho {
-    font-family: var(--fonte-primaria);
     font-size: x-large;
     font-weight: 600;
-    color:var(--cor-secundaria);
+    color: var(--cor-secundaria);
     position: fixed;
     top: 0;
     left: 50%;
@@ -36,17 +108,18 @@ body {
     font-family: var(--fonte-primaria);
     font-size: x-large;
     font-weight: 600;
-    color:var(--cor-secundaria);
+    color: var(--cor-secundaria);
     position: absolute;
     top: 15%;
     left: 5%;
     transform: translate(15%, 5%);
 }
+
 .formulario__grupo {
     color: var(--cor-secundaria);
     display: flex;
     align-items: center;
-    font-weight: 900 ;
+    font-weight: 900;
 }
 
 .formulario__grupo__rotulo {
@@ -54,17 +127,27 @@ body {
     font-size: large;
     padding: 6px;
 }
+
 .formulario__grupo__caixa {
-    width: 50%; /* Largura total */
-    padding: 10px; /* Espaçamento interno */
-    border: 1px solid #ccc; /* Borda sólida com cor cinza */
-    border-radius: 5px; /* Cantos arredondados */
-    font-size: 16px; /* Tamanho da fonte */
-    color: #333; /* Cor do texto */
-    outline: none; /* Remove o contorno ao focar */
-    transition: border-color 0.3s; /* Transição suave da cor da borda */
+    width: 50%;
+    /* Largura total */
+    padding: 10px;
+    /* Espaçamento interno */
+    border: 1px solid #ccc;
+    /* Borda sólida com cor cinza */
+    border-radius: 5px;
+    /* Cantos arredondados */
+    font-size: 16px;
+    /* Tamanho da fonte */
+    color: #333;
+    /* Cor do texto */
+    outline: none;
+    /* Remove o contorno ao focar */
+    transition: border-color 0.3s;
+    /* Transição suave da cor da borda */
     /* Ajuste da altura */
-    height: 2px; /* Altura desejada */
+    height: 2px;
+    /* Altura desejada */
 }
 
 
@@ -80,7 +163,7 @@ body {
 }
 
 .mb-3 {
-   width: 300px;
+    width: 300px;
     transform: translateX(15px);
 }
 

@@ -20,7 +20,8 @@
     font-size: 1.25rem;
 }
 
-.navbar-toggler:focus, .btn-close:focus {
+.navbar-toggler:focus,
+.btn-close:focus {
     box-shadow: none;
     outline: none;
 }
@@ -34,7 +35,7 @@
 }
 
 .nav-link.active {
-    color: #000;  
+    color: #000;
     font-weight: bold;
 }
 
@@ -45,24 +46,25 @@
 }
 
 @media (min-width: 991px) {
-    
-.nav-link::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background-color: #009970;
-    visibility: hidden;
-    transition: 0.3s ease-in-out;
-}
 
-.nav-link:hover::before, .nav-link.active::before { 
-    width: 100%;
-    visibility: visible;
-}
+    .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background-color: #009970;
+        visibility: hidden;
+        transition: 0.3s ease-in-out;
+    }
+
+    .nav-link:hover::before,
+    .nav-link.active::before {
+        width: 100%;
+        visibility: visible;
+    }
 
 }
 
@@ -71,14 +73,19 @@
 
 
 :root {
-    --cor-primaria: #000000; /* Cor principal */
-    --cor-secundaria: #31363F; /* Cor secundária */
-    --cor-terciaria: #76ABAE ; /* Cor terciária */
-    --fonte-primaria: 'Montserrat', sans-serif; /* Fonte principal */
-    --cor--hover: #EEEEEE; /* Cor de destaque ao passar o mouse */
+    --cor-primaria: #000000;
+    /* Cor principal */
+    --cor-secundaria: #31363F;
+    /* Cor secundária */
+    --cor-terciaria: #76ABAE;
+    /* Cor terciária */
+    --fonte-primaria: 'Montserrat', sans-serif;
+    /* Fonte principal */
+    --cor--hover: #EEEEEE;
+    /* Cor de destaque ao passar o mouse */
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
 
@@ -95,9 +102,9 @@
 
 
 .rodape__nome {
-    padding: 20px ;
+    padding: 20px;
     color: var(--cor-primaria);
-    background-color:var(--cor-terciaria);
+    background-color: var(--cor-terciaria);
     text-align: center;
     font-family: var(--fonte-primaria);
     font-size: 1.5rem;
@@ -108,4 +115,3 @@
     width: 100%;
     height: 80px;
 }
-
