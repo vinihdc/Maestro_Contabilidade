@@ -53,7 +53,7 @@ public class FornecedorPagoBD {
 
         try {
             Conexao.AbrirConexao();
-            String InsertFornecedorPago = String.format("INSERT INTO RAZONETE(FORNECEDORPAGO) VALUES('%d')", SaldoFinal);
+            String InsertFornecedorPago = String.format("INSERT INTO RAZONETE(FORNECEDORPAGO, CAIXA_CREDITO) VALUES('%d', '%d')", SaldoFinal, SaldoFinal);
             int TransferirDadosTabela = Conexao.getConexao().createStatement().executeUpdate(InsertFornecedorPago);
 
         }
@@ -64,24 +64,13 @@ public class FornecedorPagoBD {
 
 
 
-        try {
-            Conexao.AbrirConexao();
-            String SQL = String.format("INSERT INTO RAZONETE(CAIXA_CREDITO) VALUES('%d')", SaldoFinal);
-            int MandarProCaixa = Conexao.getConexao().createStatement().executeUpdate(SQL);
-        }
-
-
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
 
         try {
             Conexao.AbrirConexao();
-            String SQL = "UPDATE RAZONETE SET FORNECEDOR_CREDITO = 0";
-            String SQL2 = "UPDATE RAZONETE SET FORNECEDOR_CDEBITO = 0";
+            String UpdateSemWhere = "SET SQL_SAFE_UPDATES = 0";
+            int UpdateCaixaCredito = Conexao.getConexao().createStatement().executeUpdate(UpdateSemWhere);
+            String SQL = "UPDATE RAZONETE SET FORNECEDOR_CREDITO = 0, FORNECEDOR_DEBITO = 0";
             int UpdateFornecedorCredito = Conexao.getConexao().createStatement().executeUpdate(SQL);
-            int UpdateFornecedorDebito = Conexao.getConexao().createStatement().executeUpdate(SQL2);
         }
 
         catch (SQLException e) {

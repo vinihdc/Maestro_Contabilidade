@@ -1,102 +1,48 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <head>
     <meta charset="UTF-8">
     <title>Diario</title>
-    <link rel="stylesheet" href="../static/Diario.css">
+    <link rel="stylesheet" href="/Diario.css">
 </head>
 
-
 <body>
-    <header>
-        <!-- navbar -->
-        <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #fff;">
-            <div class="container-fluid">
-                <img src="../assets/contabilidade.png" alt="" style="width: 50px; margin-left: 20px;">
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                    aria-labelledby="offcanvasNavbarLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Contabilidade</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="HomePage.html">Home</a>
-                            </li>
-                            <li class="nav-item" onclick="definirVisibilidadeLinks()">
-                                <a class="nav-link" href="Fatos.html">Fatos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="Diario.html">Diario</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="Razonete.html">Razonete</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="Balancete.html">Balancete</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="Codigos.html">IA</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="ARE.html">Apuração do resultado</a>
-                            </li>
-                            
-                        </ul>
-                    </div>
-                </div>
-                <a class="login-button" th:text="${NivelDeAcesso}">Portfólio</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-    </nav>
-    <!-- fim da navbar -->
-</header>
-
-        
-    <div class="content">
-        <h1 class="cabecalho">DIARIO</h1>
+<h1 class="cabecalho">DIARIO</h1>
 
 
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Codigo do Evento</th>
-                    <th scope="col">Data </th>
-                    <th scope="col">Detalhes </th>
-                    <th scope="col">Debito</th>
-                    <th scope="col">Credito</th>
-                    <th scope="col">Valor</th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Codigo do Evento</th>
+        <th scope="col">Data </th>
+        <th scope="col">Detalhes </th>
+        <th scope="col">Debito</th>
+        <th scope="col">Credito</th>
+        <th scope="col">Valor</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
 
-                <tr th:each="Diario: ${LivroDiario}"> <!-- PARA CADA FATO EM FATOS -->
-                    <td th:text="${Diario.getCodFato()}"> </td>
-                    <td th:text="${Diario.getData()}"> </td>
-                    <td th:text="${Diario.getDetalhes()}"> </td>
-                    <td th:text="${Diario.getDebito()}"> </td>
-                    <td th:text="${Diario.getCredito()}"> </td>
-                    <td th:text="${Diario.getValor()}"> </td>
+    <tr th:each="Diario: ${LivroDiario}"> <!-- PARA CADA FATO EM FATOS -->
+        <td th:text="${Diario.getCodFato()}"> </td>
+        <td th:text="${Diario.getData()}"> </td>
+        <td th:text="${Diario.getDetalhes()}"> </td>
+        <td th:text="${Diario.getDebito()}"> </td>
+        <td th:text="${Diario.getCredito()}"> </td>
+        <td th:text="${Diario.getValor()}"> </td>
 
-                </tr>
-
-
-
-            </tbody>
-        </table>
+    </tr>
 
 
 
-        <a class="btn btn-primary" type="submit" href="/DadosDiario">Imprimir Diario</a>
-    </div>
+    </tbody>
+</table>
+
+
+
+<a class="btn btn-primary" type="submit" href="/DadosDiario">Imprimir Diario</a>
 </body>
 
 </html>

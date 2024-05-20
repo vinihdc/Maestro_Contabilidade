@@ -15,7 +15,6 @@ public class RazoneteBD {
     private ConexaoBD Conexao = new ConexaoBD();
 
 
-
     public List<RazoneteEntidade> SELECTRAZONETE() throws SQLException {
 
 
@@ -54,44 +53,87 @@ public class RazoneteBD {
         int somaCaixaZerado = 0;
         int somaFinanciamentoPago = 0;
 
+        int somaAplicacoes_Debito = 0;
+        int somaAplicacoes_Credito = 0;
+        int somaLucros_Debito = 0;
+        int somaLucros_Credito = 0;
+        int somaContas_Debito = 0;
+        int somaContas_Credito = 0;
+        int somaClientes_Debito = 0;
+        int somaClientes_Credito = 0;
+        int somaImpostos_Debito = 0;
+        int somaImpostos_Credito = 0;
+        int somaReceita_Juros_Debito = 0;
+        int somaReceita_Juros_Credito = 0;
+        int somaReceita_Debito = 0;
+        int somaReceita_Credito = 0;
+        int somaFornecedoresLongoPrazo = 0;
+
+
+
+
+
 
         try {
             Conexao.AbrirConexao();
-            String SQL = "SELECT CAIXA_DEBITO, CAIXA_CREDITO, INVESTIMENTO_DEBITO, INVESTIMENTO_CREDITO, ATIVO_DEBITO, ATIVO_CREDITO, FINANCIAMENTO_DEBITO, FINANCIAMENTO_CREDITO, BANCO_DEBITO, BANCO_CREDITO, FORNECEDOR_DEBITO, FORNECEDOR_CREDITO, FORNECEDORPAGO, CAIXAZERADO, FINANCIAMENTOPAGO FROM RAZONETE";
+            String SQL = "SELECT "
+                    + "CAIXA_DEBITO, CAIXA_CREDITO, "
+                    + "INVESTIMENTO_DEBITO, INVESTIMENTO_CREDITO, "
+                    + "ATIVO_DEBITO, ATIVO_CREDITO, "
+                    + "FINANCIAMENTO_DEBITO, FINANCIAMENTO_CREDITO, "
+                    + "BANCO_DEBITO, BANCO_CREDITO, "
+                    + "FORNECEDOR_DEBITO, FORNECEDOR_CREDITO, "
+                    + "FORNECEDORPAGO, CAIXAZERADO, "
+                    + "FINANCIAMENTOPAGO, "
+                    + "Aplicacoes_DEBITO, Aplicacoes_CREDITO, "
+                    + "Lucros_DEBITO, Lucros_CREDITO, "
+                    + "Contas_DEBITO, Contas_CREDITO, "
+                    + "Clientes_DEBITO, Clientes_CREDITO, "
+                    + "Impostos_DEBITO, Impostos_CREDITO, "
+                    + "Receita_Juros_DEBITO, Receita_Juros_CREDITO, "
+                    + "Receita_DEBITO, Receita_CREDITO, "
+                    + "FornecedoresLongoPrazo "
+                    + "FROM RAZONETE";
+
             ResultSet Razonete  = Conexao.getConexao().createStatement().executeQuery(SQL);
             while(Razonete.next()) {
-                Caixa_Debito = Integer.parseInt(Razonete.getString("CAIXA_DEBITO"));
-                Caixa_Credito = Integer.parseInt(Razonete.getString("CAIXA_CREDITO"));
-                Investimento_Debito = Integer.parseInt(Razonete.getString("INVESTIMENTO_DEBITO"));
-                Investimento_Credito = Integer.parseInt(Razonete.getString("INVESTIMENTO_CREDITO"));
-                Ativo_Debito = Integer.parseInt(Razonete.getString("ATIVO_DEBITO"));
-                Ativo_Credito = Integer.parseInt(Razonete.getString("ATIVO_CREDITO"));
-                Financiamento_Debito = Integer.parseInt(Razonete.getString("FINANCIAMENTO_DEBITO"));
-                Financiamento_Credito = Integer.parseInt(Razonete.getString("FINANCIAMENTO_CREDITO"));
-                Banco_Debito = Integer.parseInt(Razonete.getString("BANCO_DEBITO"));
-                Banco_Credito = Integer.parseInt(Razonete.getString("BANCO_CREDITO"));
-                Fornecedor_Debito = Integer.parseInt(Razonete.getString("FORNECEDOR_DEBITO"));
-                Fornecedor_Credito = Integer.parseInt(Razonete.getString("FORNECEDOR_CREDITO"));
-                FornecedorPago = Integer.parseInt(Razonete.getString("FORNECEDORPAGO"));
-                CaixaZerado = Integer.parseInt(Razonete.getString("CAIXAZERADO"));
-                FinanciamentoPago = Integer.parseInt(Razonete.getString("FINANCIAMENTOPAGO"));
+                somaCaixa_Debito += Integer.parseInt(Razonete.getString("CAIXA_DEBITO"));
+                somaCaixa_Credito += Integer.parseInt(Razonete.getString("CAIXA_CREDITO"));
+                somaInvestimento_Debito += Integer.parseInt(Razonete.getString("INVESTIMENTO_DEBITO"));
+                somaInvestimento_Credito += Integer.parseInt(Razonete.getString("INVESTIMENTO_CREDITO"));
+                somaAtivo_Debito += Integer.parseInt(Razonete.getString("ATIVO_DEBITO"));
+                somaAtivo_Credito += Integer.parseInt(Razonete.getString("ATIVO_CREDITO"));
+                somaFinanciamento_Debito += Integer.parseInt(Razonete.getString("FINANCIAMENTO_DEBITO"));
+                somaFinanciamento_Credito += Integer.parseInt(Razonete.getString("FINANCIAMENTO_CREDITO"));
+                somaBanco_Debito += Integer.parseInt(Razonete.getString("BANCO_DEBITO"));
+                somaBanco_Credito += Integer.parseInt(Razonete.getString("BANCO_CREDITO"));
+                somaFornecedor_Debito += Integer.parseInt(Razonete.getString("FORNECEDOR_DEBITO"));
+                somaFornecedor_Credito += Integer.parseInt(Razonete.getString("FORNECEDOR_CREDITO"));
+                somaFornecedorPago += Integer.parseInt(Razonete.getString("FORNECEDORPAGO"));
+                somaCaixaZerado += Integer.parseInt(Razonete.getString("CAIXAZERADO"));
+                somaFinanciamentoPago += Integer.parseInt(Razonete.getString("FINANCIAMENTOPAGO"));
 
-                // Calculando soma de algumas colunas
-                somaCaixa_Debito += Caixa_Debito;
-                somaCaixa_Credito += Caixa_Credito;
-                somaInvestimento_Debito += Investimento_Debito;
-                somaInvestimento_Credito += Investimento_Credito;
-                somaAtivo_Debito += Ativo_Debito;
-                somaAtivo_Credito += Ativo_Credito;
-                somaFinanciamento_Debito += Financiamento_Debito;
-                somaFinanciamento_Credito += Financiamento_Credito;
-                somaBanco_Debito += Banco_Debito;
-                somaBanco_Credito += Banco_Credito;
-                somaFornecedor_Debito += Fornecedor_Debito;
-                somaFornecedor_Credito += Fornecedor_Credito;
-                somaFornecedorPago += FornecedorPago;
-                somaCaixaZerado += CaixaZerado;
-                somaFinanciamentoPago += FinanciamentoPago;
+
+
+
+                somaAplicacoes_Debito += Integer.parseInt(Razonete.getString("Aplicacoes_DEBITO"));
+                somaAplicacoes_Credito += Integer.parseInt(Razonete.getString("Aplicacoes_CREDITO"));
+                somaLucros_Debito += Integer.parseInt(Razonete.getString("Lucros_DEBITO"));
+                somaLucros_Credito += Integer.parseInt(Razonete.getString("Lucros_CREDITO"));
+                somaContas_Debito += Integer.parseInt(Razonete.getString("Contas_DEBITO"));
+                somaContas_Credito += Integer.parseInt(Razonete.getString("Contas_CREDITO"));
+                somaClientes_Debito += Integer.parseInt(Razonete.getString("Clientes_DEBITO"));
+                somaClientes_Credito += Integer.parseInt(Razonete.getString("Clientes_CREDITO"));
+                somaImpostos_Debito += Integer.parseInt(Razonete.getString("Impostos_DEBITO"));
+                somaImpostos_Credito += Integer.parseInt(Razonete.getString("Impostos_CREDITO"));
+                somaReceita_Juros_Debito += Integer.parseInt(Razonete.getString("Receita_Juros_DEBITO"));
+                somaReceita_Juros_Credito += Integer.parseInt(Razonete.getString("Receita_Juros_CREDITO"));
+                somaReceita_Debito += Integer.parseInt(Razonete.getString("Receita_DEBITO"));
+                somaReceita_Credito += Integer.parseInt(Razonete.getString("Receita_CREDITO"));
+                somaFornecedoresLongoPrazo += Integer.parseInt(Razonete.getString("FornecedoresLongoPrazo"));
+
+
+
 
                 
                 
@@ -107,6 +149,15 @@ public class RazoneteBD {
             DadosRazonete.add(new RazoneteEntidade("CaixaZerado", somaCaixaZerado, somaCaixaZerado));
             DadosRazonete.add(new RazoneteEntidade("FinanciamentoPago", somaFinanciamentoPago, somaFinanciamentoPago));
 
+
+            DadosRazonete.add(new RazoneteEntidade("Aplicacoes", somaAplicacoes_Debito, somaAplicacoes_Credito));
+            DadosRazonete.add(new RazoneteEntidade("Lucros", somaLucros_Debito, somaLucros_Credito));
+            DadosRazonete.add(new RazoneteEntidade("Contas", somaContas_Debito, somaContas_Credito));
+            DadosRazonete.add(new RazoneteEntidade("Clientes", somaClientes_Debito, somaClientes_Credito));
+            DadosRazonete.add(new RazoneteEntidade("Impostos", somaImpostos_Debito, somaImpostos_Credito));
+            DadosRazonete.add(new RazoneteEntidade("Receita_Juros", somaReceita_Juros_Debito, somaReceita_Juros_Credito));
+            DadosRazonete.add(new RazoneteEntidade("Receita", somaReceita_Debito, somaReceita_Credito));
+            DadosRazonete.add(new RazoneteEntidade("FornecedoresLongoPrazo", somaFornecedoresLongoPrazo, somaFornecedoresLongoPrazo));
 
             //while(S.next()) quer dizer que ele vai percorrer as colunas do banco enquanto não for null
 

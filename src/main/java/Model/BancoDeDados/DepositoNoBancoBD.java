@@ -17,15 +17,14 @@ public class DepositoNoBancoBD {
 
         int SomaDebitoCaixa = 0;
         int SomaCreditoCaixa = 0;
-        int SaldoFinalCaixa = 0;
         int SaldoBanco = 0;
         try {
             Conexao.AbrirConexao();
             String sql = "SELECT CAIXA_CREDITO, CAIXA_DEBITO FROM RAZONETE";
             ResultSet Caixa = Conexao.getConexao().createStatement().executeQuery(sql);
             while (Caixa.next()) {
-                int DebitoCaixa = Integer.parseInt(Caixa.getString("CAIXA_CREDITO"));
-                int CreditoCaixa = Integer.parseInt(Caixa.getString("CAIXA_DEBITO"));
+                int DebitoCaixa = Integer.parseInt(Caixa.getString("CAIXA_DEBITO"));
+                int CreditoCaixa = Integer.parseInt(Caixa.getString("CAIXA_CREDITO"));
                 SomaDebitoCaixa += DebitoCaixa;
                 SomaCreditoCaixa += CreditoCaixa;
 
@@ -35,12 +34,11 @@ public class DepositoNoBancoBD {
 
             if(SomaDebitoCaixa > SomaCreditoCaixa) {
                 SaldoBanco = SomaDebitoCaixa - SomaCreditoCaixa;
-                SaldoFinalCaixa = SaldoBanco;
             }
 
             else {
                 SaldoBanco = SomaCreditoCaixa - SomaDebitoCaixa;
-                SaldoFinalCaixa = SaldoBanco;
+
             }
 
         }
@@ -51,9 +49,8 @@ public class DepositoNoBancoBD {
 
         try {
             Conexao.AbrirConexao();
-            String sql = String.format("INSERT INTO RAZONETE(CAIXA_ZERADO) VALUES('%d')", SaldoFinalCaixa);
+            String sql = String.format("INSERT INTO RAZONETE(CAIXAZERADO,BANCO_DEBITO) VALUES('%d', '%d')", SaldoBanco, SaldoBanco);
             int RegistrarSaldo = Conexao.getConexao().createStatement().executeUpdate(sql);
-            System.out.println("Deposito Registrado no Banco");
 
 
         }
@@ -62,25 +59,17 @@ public class DepositoNoBancoBD {
             throw new RuntimeException(e);
         }
 
-        try {
-            Conexao.AbrirConexao();
-            String SQL = String.format("INSERT INTO RAZONETE(BANCO_DEBITO) VALUES('%d')", SaldoBanco);
-            int ValorCaixa = Conexao.getConexao().createStatement().executeUpdate(SQL);
 
-        }
-
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
 
 
         try {
             Conexao.AbrirConexao();
-            String SQL = "UPDATE RAZONETE SET CAIXA_CREDITO = 0";
-            String SQL2 = "UPDATE RAZONETE SET CAIXA_DEBITO = 0";
+            String UpdateSemWhere = "SET SQL_SAFE_UPDATES = 0"; //Desabilitar o modo seguro
+            String SQL = "UPDATE RAZONETE SET CAIXA_CREDITO = 0, CAIXA_DEBITO = 0;";
+            int DesabilitarModoSeguro = Conexao.getConexao().createStatement().executeUpdate(UpdateSemWhere);
             int UpdateCaixaCredito = Conexao.getConexao().createStatement().executeUpdate(SQL);
-            int UpdateCaixaDebito = Conexao.getConexao().createStatement().executeUpdate(SQL2);
+
         }
 
         catch (SQLException e) {
