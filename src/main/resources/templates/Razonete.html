@@ -23,5 +23,33 @@
 
 </table>
 <a class="btn btn-primary" type="submit" href="/DadosRazonete">Imprimir Razonete</a>
+<a class="btn btn-primary" type="submit" href="/Permitir"  th:data-nivel="${NivelDeAcesso}">Permitir</a>
+<script>
+    // Função para definir a visibilidade dos links com base no nível de acesso do usuário
+    function definirVisibilidadeLinks() {
+        var links = document.querySelectorAll(".btn-primary");
+        console.log(links); // Verifica se os botões estão sendo selecionados corretamente
+
+        links.forEach(function(link) {
+            var href = link.getAttribute('href');
+            var nivelUsuario = link.getAttribute('data-nivel');
+            console.log("Href:", href, "Nível do usuário:", nivelUsuario); // Verifica os valores de href e nivelUsuario
+
+            if (nivelUsuario === "N3" || nivelUsuario === "adm" || nivelUsuario == "N2") {
+                // Mostrar o botão Permitir para usuários N3 e admin e ocultar o botão Conferir
+                if (href === '/Permitir') {
+                    link.style.display = 'block';
+                } else if (href === '/Conferir') {
+                    link.style.display = 'none';
+                }
+            }
+        });
+    }
+
+    // Chame a função para definir a visibilidade dos links quando a página carregar
+    document.addEventListener('DOMContentLoaded', function() {
+        definirVisibilidadeLinks();
+    });
+</script>
 </body>
 </html>
