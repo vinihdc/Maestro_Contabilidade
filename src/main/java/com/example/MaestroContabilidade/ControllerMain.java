@@ -35,43 +35,22 @@ public class ControllerMain {
 
     @RequestMapping("/login")
     public String Login(@RequestParam String CPF, @RequestParam String Password, Model model, Model segunda_model) throws SQLException {
-        boolean Mensagem;
-        boolean Status;
+        String Status;
 
 
         IdentificarUsuarioBD NivelDeAcesso = new IdentificarUsuarioBD();
         Nivel = NivelDeAcesso.IdentificarUsuarioBD(CPF);
         model.addAttribute("NivelDeAcesso", Nivel);
 
-
-        Mensagem = ObjetoPedidos.InformarPedido(Nivel);
-        Status = ObjetoPedidos.Consultar_Status_Pedido(Nivel);
-
-
-        if((Nivel.equals("N2") || Nivel.equals("N3")) && Mensagem) {
-            segunda_model.addAttribute("Pedido", "Uma Requisição está em aberto");
+        if(Nivel.equals("N1")) {
+            Status = ObjetoPedidos.StatusPedidosN1();
         }
-
 
         else {
-            segunda_model.addAttribute("Pedido", "Sem Requisição");
+            Status = ObjetoPedidos.ExistePedidosParaN2N3(Nivel);
         }
 
-
-        if(Nivel.equals("N1") && Mensagem == false) {
-            segunda_model.addAttribute("Pedido", "Pedido Recusado");
-        }
-
-        if(Nivel.equals("N1") && Mensagem == true) {
-            segunda_model.addAttribute("Pedido", "Pedido em analise");
-        }
-
-
-        if(Nivel.equals("N1") && Mensagem == true && Status == true) {
-            segunda_model.addAttribute("Pedido", "Pedido Aprovado");
-
-        }
-
+        segunda_model.addAttribute("Pedido", Status);
 
 
         try {
@@ -213,10 +192,20 @@ public class ControllerMain {
     }
 
 
+
+    @GetMapping("/EnviarPedido")
+    public String EnviarPedido() {
+        ObjetoPedidos.EnviarPedido();
+        return "Pedido_Enviado";
+    }
+
+
+
+
     @GetMapping("/Nao_Permitir")
     public String Permitir(Model model) throws SQLException {
 
-        ObjetoPedidos.RecusarPedido();
+        ObjetoPedidos.RecusarPedidos(Nivel);
         return "PedidoRecusado";
 
 
@@ -225,6 +214,7 @@ public class ControllerMain {
 
     @GetMapping("/Permitir")
     public String  Conferir(Model model) throws SQLException {
+        ObjetoPedidos.AprovarPedidos(Nivel);
        return "PedidoAprovado";
     }
 

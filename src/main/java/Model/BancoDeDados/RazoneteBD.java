@@ -15,11 +15,13 @@ public class RazoneteBD {
     private ConexaoBD Conexao = new ConexaoBD();
 
 
-    public List<RazoneteEntidade> SELECTRAZONETE() throws SQLException {
+    public List<RazoneteEntidade> SELECTRAZONETE(String Elemento_Contabil) throws SQLException {
 
 
 
         List<RazoneteEntidade> DadosRazonete = new ArrayList<>();
+
+
 
         int Caixa_Debito = 0;
         int Caixa_Credito = 0;

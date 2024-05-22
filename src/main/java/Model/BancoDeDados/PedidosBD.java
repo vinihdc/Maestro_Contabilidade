@@ -4,73 +4,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
-public class PedidosBD implements Pedido_BD {
+public class PedidosBD implements Pedidos_BD {
 
     ConexaoBD Conexao = new ConexaoBD();
+
+
     /**
-     * @return
+     *
      */
     @Override
-    public boolean InformarPedido(String Nivel) throws SQLException {
-        int Dados = 0;
+    public void EnviarPedido() {
         try {
             Conexao.AbrirConexao();
-            String SQL = "SELECT * FROM DIARIO";
-            ResultSet PercorreDiario = Conexao.getConexao().createStatement().executeQuery(SQL);
-            while(PercorreDiario.next()) {
-                 Dados = Integer.parseInt(PercorreDiario.getString("Valor_Fato"));
-            }
+            String SQL = String.format("INSERT INTO STATUS_PEDIDO(N1, N2, N3) VALUES('%s', '%s', '%s')", "Pedido", "Analise", "Analise");
+            int Executar = Conexao.getConexao().createStatement().executeUpdate(SQL);
 
-
-
-            if(Dados != 0) {
-                if(Objects.equals(Nivel, "N3")) {
-                    SQL = String.format("INSERT INTO STATUS_PEDIDO(N3) VALUES('%s')", "Analise");
-                    int Executar = Conexao.getConexao().createStatement().executeUpdate(SQL);
-                }
-
-                else {
-                    SQL = String.format("INSERT INTO STATUS_PEDIDO(N2) VALUES('%s')", "Analise");
-                    int Executar = Conexao.getConexao().createStatement().executeUpdate(SQL);
-                }
-
-                return true;
-            }
-
-            else {
-                return false;
-            }
         }
-
 
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-        finally {
-            Conexao.FecharConexao();
-        }
-
-    }
-
-    /**
-     * @return
-     * @throws SQLException
-     */
-    @Override
-    public void Inserir_Status_Pedido(String Nivel) throws SQLException {
-        if(Nivel.equals("N3")) {
-            Conexao.AbrirConexao();
-            String SQL = String.format("INSERT INTO STATUS_PEDIDO(N3) VALUES('%s')", "Aprovado");
-            int Executar = Conexao.getConexao().createStatement().executeUpdate(SQL);
-        }
-
-        else {
-            Conexao.AbrirConexao();
-            String SQL = String.format("INSERT INTO STATUS_PEDIDO(N2) VALUES('%s')", "Aprovado");
-            int Executar = Conexao.getConexao().createStatement().executeUpdate(SQL);
-        }
-
     }
 
     /**
@@ -78,56 +31,201 @@ public class PedidosBD implements Pedido_BD {
      * @return
      */
     @Override
-    public boolean Consultar_Status_Pedido(String Nivel) {
-        String Status_Pedido = "";
+    public String ExistePedidosParaN2N3(String Nivel) {
+        String Info = "";
+        String Status = "";
+
+        switch(Nivel) {
+            case "N2":
+
+                try {
+                    Conexao.AbrirConexao();
+                    String SQL = "SELECT N1 FROM STATUS_PEDIDO ORDER BY id DESC LIMIT 1;";
+                    ResultSet Status_Pedido = Conexao.getConexao().createStatement().executeQuery(SQL);
+                    while(Status_Pedido.next()) {
+                        Info = Status_Pedido.getString("N2");
+                    }
+
+                    if(Info.equals("Pedido")) {
+                        Status = "Pedido requerido pelo N1";
+                    }
 
 
-        try {
-            Conexao.AbrirConexao();
-            String SQL = "SELECT N3 FROM STATUS_PEDIDO ORDER BY id DESC LIMIT 1;";
-            ResultSet Status = Conexao.getConexao().createStatement().executeQuery(SQL);
-            while(Status.next()) {
-                Status_Pedido = Status.getString("N3");
-            }
 
-            if(Objects.equals(Status_Pedido, "Aprovado")) {
-                return true;
-            }
+                    else {
+                        Status = "Sem pedidos"; //Não existe pedidos logo foram aprovados
+                    }
 
-            else {
-                return false;
-            }
+                }
+
+
+                catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+                break;
+
+
+            case "N3":
+                try {
+                    Conexao.AbrirConexao();
+                    String SQL = "SELECT N1 FROM STATUS_PEDIDO ORDER BY id DESC LIMIT 1;";
+                    ResultSet Status_Pedido = Conexao.getConexao().createStatement().executeQuery(SQL);
+                    while(Status_Pedido.next()) {
+                        Info = Status_Pedido.getString("N1");
+                    }
+
+                    if(Info.equals("Pedido")) {
+                        Status = "Pedido requerido pelo N1";
+                    }
+
+                    else {
+                        Status = "Sem pedidos"; //Não existe pedidos logo foram aprovados
+                    }
+
+                }
+
+
+                catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+                break;
+
+
+
+
+
         }
 
 
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return Status;
     }
 
 
+    @Override
+    public void AprovarPedidos(String Nivel) {
+        switch (Nivel) {
+            case "N2":
+                try {
+                    Conexao.AbrirConexao();
+                    String SQL = String.format("INSERT INTO STATUS_PEDIDO(N2) VALUES('%s')", "Aprovado");
+                    int Executar = Conexao.getConexao().createStatement().executeUpdate(SQL);
+
+                }
+
+                catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+            case "N3":
+                try {
+                    Conexao.AbrirConexao();
+                    String SQL = String.format("INSERT INTO STATUS_PEDIDO(NIVEL3) VALUES('%s')", "Aprovado");
+                    int Executar = Conexao.getConexao().createStatement().executeUpdate(SQL);
+
+                }
+
+                catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+        }
+    }
 
     /**
-     *
+     * @param Nivel
+     * @return
      */
     @Override
-    public void RecusarPedido() {
-        try {
-            Conexao.AbrirConexao();
-            String SQL = "TRUNCATE DIARIO";
-            String SQL2 = "TRUNCATE RAZONETE";
-            int Recusar = Conexao.getConexao().createStatement().executeUpdate(SQL);
-            int Recusar2 = Conexao.getConexao().createStatement().executeUpdate(SQL2);
-        }
+    public void RecusarPedidos(String Nivel) {
+        switch (Nivel) {
+            case "N2":
+                try {
+                    Conexao.AbrirConexao();
+                    String SQL = String.format("INSERT INTO STATUS_PEDIDO(N2) VALUES('%s')", "Recusado");
+                    int Executar = Conexao.getConexao().createStatement().executeUpdate(SQL);
 
+                }
 
-        catch (SQLException e) {
-            throw new RuntimeException(e);
+                catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+            case "N3":
+                try {
+                    Conexao.AbrirConexao();
+                    String SQL = String.format("INSERT INTO STATUS_PEDIDO(NIVEL3) VALUES('%s')", "Recusado");
+                    int Executar = Conexao.getConexao().createStatement().executeUpdate(SQL);
+
+                }
+
+                catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
         }
 
     }
 
+    /**
+     * @return
+     */
+    @Override
+    public String StatusPedidosN1() {
+        String Info = "";
+        String Status = "";
+        String Info2 = "";
+
+                try {
+                    Conexao.AbrirConexao();
+                    String SQL = "SELECT N2, NIVEL3 FROM STATUS_PEDIDO ORDER BY id DESC LIMIT 1;";
+                    ResultSet Status_Pedido = Conexao.getConexao().createStatement().executeQuery(SQL);
+                    while(Status_Pedido.next()) {
+                        Info = Status_Pedido.getString("N2");
+                        Info2 = Status_Pedido.getString("NIVEL3");
+                    }
+
+                    if(Info.equals("Analise")) {
+                        Status = "Pedido em Analise pelo N2";
+                    }
+
+                    else if(Info.equals("Recusado")) {
+                        Status = "Pedido Recusado";
+                    }
+
+
+                    else if(Info.equals("NULO")) {
+                        Status = "Sem Pedidos ou em analise";
+                    }
+
+
+                    else {
+                        Status = "Aprovado pelo N2, esperando aprovação do N3";
+                    }
+
+                    if(Info2.equals("Aprovado")) {
+                        Status = "Pedido Aprovado";
+                    }
+
+
+                    if(Info2.equals("Recusado")) {
+                        Status = "Pedido Recusado";
+                    }
 
 
 
+                }
+
+
+                catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+                return Status;
+
+
+    }
 }
