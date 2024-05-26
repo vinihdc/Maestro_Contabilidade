@@ -172,7 +172,7 @@ public class ControllerMain {
     @GetMapping("/Codigos")
     public String Codigos() {
         if(UsuarioFezLogin == true) {
-            return "Codigos";
+            return "IA";
         }
 
         else {

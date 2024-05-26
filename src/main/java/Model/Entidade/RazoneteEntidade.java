@@ -3,10 +3,11 @@ package Model.Entidade;
 public class RazoneteEntidade {
 
 
-    public RazoneteEntidade(String elementoFato, int valorCredito, int valorDebito) {
+    public RazoneteEntidade(String elementoFato, int valorCredito, int valorDebito, int saldo) {
         ElementoFato = elementoFato;
         ValorCredito = valorCredito;
         ValorDebito = valorDebito;
+        Saldo = saldo;
     }
 
 

@@ -1,75 +1,18 @@
-/* navbar */
-
-.login-button {
-    background-color: #009970;
-    color: #fff;
-    font-size: 14px;
-    padding: 8px 20px;
-    border-radius: 50px;
-    text-decoration: none;
-    transition: 0.3s background-color;
+.texto-escrito p {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    color: #333;
+    /* Adicione estilos adicionais se necessário */
 }
 
-
-.login-button:hover {
-    background-color: #00b383;
-}
-
-.navbar-toggler {
-    border: none;
-    font-size: 1.25rem;
-}
-
-.navbar-toggler:focus,
-.btn-close:focus {
-    box-shadow: none;
-    outline: none;
-}
-
-
-.nav-link {
-    color: #666777;
-    font-weight: 500;
-    position: relative;
-    margin-left: 30px;
-}
-
-.nav-link.active {
-    color: #000;
-    font-weight: bold;
-}
-
-.nav-link:hover {
-    color: #000;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-@media (min-width: 991px) {
-
-    .nav-link::before {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
+@keyframes escrever {
+    0% {
         width: 0;
-        height: 2px;
-        background-color: #009970;
-        visibility: hidden;
-        transition: 0.3s ease-in-out;
     }
-
-    .nav-link:hover::before,
-    .nav-link.active::before {
+    50% {
+        width: 50%;
+    }
+    100% {
         width: 100%;
-        visibility: visible;
     }
-
-}
-
-/* fim navbar  */
-
-.content {
-    margin-top: 80px;
 }
