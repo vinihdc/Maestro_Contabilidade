@@ -4,26 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoneyMaestro - Controle suas Finanças</title>
-    <link rel="stylesheet" href="/static/Styles.css">
+    <title>MaestroContabilidade</title>
+    <link rel="stylesheet" href="/Styles.css">
 </head>
 <body>
-<form action="/login" method="post">
-    <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">CPF</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" pattern="[0-9]*" required="required" name="CPF" placeholder="Digite seu CPF">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-    </div>
-    <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label" name="Password">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" required="required" name="Password">
-    </div>
-    <div class="mb-3 form-check">
-        <a class="dropdown-item" href="/Cadastro">New around here? Sign up</a>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
+<!-- inicio container login -->
+<div class="login__form">
+    <form action="/login" method="post">
+        <h1>Login</h1>
+        <div class="login_cpf">
+            <label for="exampleInputEmail1" class="form-label">CPF</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" pattern="[0-9]*" required="required" name="CPF" placeholder="Digite seu CPF">
+            <div id="emailHelp" class="form-text">Insira seu CPF sem pontos e traços, apenas números.</div>
+        </div>
+        <div class="login_password">
+            <label for="exampleInputPassword1" class="form-label" name="Password">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" required="required" name="Password" placeholder="Digite sua senha">
+        </div>
+        <div class="login_register_link">
+            <p>Novo(a) por aqui? <a  href="/Cadastro">Registre-se</a></p>
+        </div>
+        <button type="submit" class="login_btn">Login</button>
+    </form>
+</div>
+<!-- fim container login -->
 
 <footer class="rodape">
     <p>&copy; MaestroEconomia. Todos os direitos reservados.</p>
@@ -32,3 +36,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
+
+

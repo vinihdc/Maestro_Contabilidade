@@ -3,7 +3,7 @@
     --cor-secundaria: #31363F; /* Cor secundária */
     --cor-terciaria: #76ABAE ; /* Cor terciária */
     --fonte-primaria: 'Montserrat', sans-serif; /* Fonte principal */
-    --cor--hover: #EEEEEE; /* Cor de destaque ao passar o mouse */
+    --cor-fonte: #EEEEEE; /* Cor de destaque ao passar o mouse */
 }
 
 /* Redefinições de estilos padrão */
@@ -16,60 +16,108 @@
 /* Estilos do corpo da página */
 body {
     font-family: var(--fonte-primaria); /* Utiliza a fonte definida em :root */
-    color: #333; /* Cor do texto padrão */
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    background: url('fundo.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+/* Estilos do login*/
+.login__form {
+    width: 420px;
+    background-color: transparent;
+    border: 2px solid rgba(225, 225, 225, .2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    color: var(--cor-fonte);
+    border-radius: 10px;
+    padding: 30px 40px;
+
 }
 
-/* Estilos do cabeçalho */
-.cabecalho {
-    color: #fff; /* Cor do texto no cabeçalho */
-    text-align: center; /* Alinha o texto ao centro */
+.login__form h1{
+    font-size: 36px;
+    text-align: center;
 }
 
-.cabecalho__titulo {
-    text-decoration: none; /* Remove a decoração do link */
-    color: var(--cor--hover); /* Utiliza a cor de destaque ao passar o mouse */
+.login_cpf .login_password {
+    width: 100%;
+    height: 100%;
+    margin: 30px 0;
+}
+.login_cpf .login_password{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    /*border: none;*/
+    outline: none;
+    border: 2px solid  rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 18px;
+    color: var(--cor-fonte);
+    padding: 16px 45px 16px 16px;
 }
 
-.cabecalho__menu {
-    display: flex; /* Exibe os itens do menu em linha */
-    align-content: baseline; /* Alinha os itens do menu pela linha de base */
-    margin: 2em 16em; /* Margem externa do menu */
+.login_cpf .login_password input::placeholder{
+    color: var(--cor-fonte);
 }
 
-/* Estilos dos botões */
-.botao__diario,
-.botao__caixa {
-    background-color: var(--cor-primaria); /* Utiliza a cor principal */
-    color: var(--cor-terciaria); /* Cor do texto nos botões */
-    padding: 12px 24px; /* Espaçamento interno dos botões */
-    border: none; /* Remove a borda */
-    border-radius: 6px; /* Cantos arredondados */
-    text-align: center; /* Alinha o texto ao centro */
-    text-decoration: none; /* Remove a decoração do texto */
-    display: inline-block; /* Exibe os botões em linha */
-    transition: background-color 0.3s; /* Transição suave de cor de fundo */
-    font-size: 28px; /* Tamanho da fonte */
-    cursor: pointer; /* Cursor ao passar */
-    font-weight: 600; /* Peso da fonte */
+.login__form .login_btn{
+    width: 100%;
+    height: 45px;
+    background: white;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+    transition: background-color 0.3s ease-in-out;
 }
+
+.login_btn:hover {
+    background: var(--cor-secundaria);
+    color: var(--cor-fonte);
+}
+.login__form .login_register_link{
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+.login_register_link p a {
+    color: var(--cor-fonte);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login_register_link p a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
 
 /* Estilos do rodapé */
 .rodape {
-    background-color: #ffffff; /* Utiliza a cor principal */
-    color: #000000; /* Cor do texto no rodapé */
-    padding: 20px; /* Espaçamento interno do rodapé */
-    text-align: center; /* Alinha o texto ao centro */
-    display: flex; /* Exibe os elementos do rodapé como flexíveis */
-    flex-direction: column; /* Alinha os elementos em coluna */
-    flex: 100px; /* Define a altura mínima do rodapé */
-    transform: translateY(600px);
+    padding: 20px;
+    color: var(--cor-primaria);
+    background-color: var(--cor-terciaria);
+    text-align: center;
+    font-family: var(--fonte-primaria);
+    font-size: 1.5rem;
+    font-weight: 400;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
 }
 
-/* Estilos dos botões ao passar o mouse */
-.botao__diario:hover,
-.botao__caixa:hover {
-    background-color: var(--cor--hover); /* Utiliza a cor de destaque ao passar o mouse */
-}
 

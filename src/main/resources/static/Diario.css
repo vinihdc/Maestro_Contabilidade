@@ -28,25 +28,24 @@
 
 
 .nav-link {
-    color: #666777;
+    color: #fafafa;
     font-weight: 500;
     position: relative;
     margin-left: 30px;
 }
 
 .nav-link.active {
-    color: #000;
-    font-weight: bold;
+    color: #fdfdfd;
+    font-weight: 600;
 }
 
 .nav-link:hover {
-    color: #000;
-    font-weight: bold;
+    color: #fff;
+    font-weight: 700;
     transition: 0.3s;
 }
 
 @media (min-width: 991px) {
-
     .nav-link::before {
         content: "";
         position: absolute;
@@ -65,8 +64,26 @@
         width: 100%;
         visibility: visible;
     }
-
 }
+
+.nav-link.active {
+    color: #fff !important;  /* Certifica-se de que a cor preta seja aplicada */
+    font-weight: bold;
+}
+
+/*
+mudar para preto ícone
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+*/
+
+
+.offcanvas.show a{
+    color: #fff; /* Altere esta cor para a cor desejada */
+}
+
 
 /* fim navbar  */
 
@@ -75,24 +92,18 @@
 }
 
 
-
-:root {
-    --cor-primaria: #000000;
-    /* Cor principal */
-    --cor-secundaria: #31363F;
-    /* Cor secundária */
-    --cor-terciaria: #76ABAE;
-    /* Cor terciária */
-    --cor--hover: #EEEEEE;
-    /* Cor de destaque ao passar o mouse */
-}
-
-
 body {
     color: #333;
     /* Cor do texto padrão */
     /* Cor de fundo padrão */
+=======
+--cor-primaria: #000000; /* Cor principal */
+    --cor-secundaria: #31363F; /* Cor secundária */
+    --cor-terciaria: #76ABAE ; /* Cor terciária */
+    --cor--hover: #EEEEEE; /* Cor de destaque ao passar o mouse */
+    background-color: #212529;
 }
+
 
 .cabecalho {
     font-size: x-large;

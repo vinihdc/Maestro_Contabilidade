@@ -1,3 +1,95 @@
+/* navbar */
+
+.login-button {
+    background-color: #009970;
+    color: #fff;
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s background-color;
+}
+
+
+.login-button:hover {
+    background-color: #00b383;
+}
+
+.navbar-toggler {
+    border: none;
+    font-size: 1.25rem;
+}
+
+.navbar-toggler:focus,
+.btn-close:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+
+.nav-link {
+    color: #fafafa;
+    font-weight: 500;
+    position: relative;
+    margin-left: 30px;
+}
+
+.nav-link.active {
+    color: #fdfdfd;
+    font-weight: 600;
+}
+
+.nav-link:hover {
+    color: #fff;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+@media (min-width: 991px) {
+    .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background-color: #009970;
+        visibility: hidden;
+        transition: 0.3s ease-in-out;
+    }
+
+    .nav-link:hover::before,
+    .nav-link.active::before {
+        width: 100%;
+        visibility: visible;
+    }
+}
+
+.nav-link.active {
+    color: #fff !important;  /* Certifica-se de que a cor preta seja aplicada */
+    font-weight: bold;
+}
+
+/*
+mudar para preto ícone
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+*/
+
+
+.offcanvas.show a{
+    color: #fff; /* Altere esta cor para a cor desejada */
+}
+
+
+/* fim navbar  */
+
+body {
+    background: #212529;
+}
 .texto-escrito p {
     font-family: Arial, sans-serif;
     font-size: 18px;
