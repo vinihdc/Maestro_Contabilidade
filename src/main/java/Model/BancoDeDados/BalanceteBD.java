@@ -78,37 +78,14 @@ public class BalanceteBD extends RazoneteBD{
 
         try {
             Conexao.AbrirConexao();
-            String SQL = "SELECT " +
-                    "CAIXA_DEBITO, " +
-                    "CAIXA_CREDITO, " +
-                    "INVESTIMENTO_DEBITO, " +
-                    "INVESTIMENTO_CREDITO, " +
-                    "ATIVO_DEBITO, " +
-                    "ATIVO_CREDITO, " +
-                    "FINANCIAMENTO_DEBITO, " +
-                    "FINANCIAMENTO_CREDITO, " +
-                    "BANCO_DEBITO, " +
-                    "BANCO_CREDITO, " +
-                    "FORNECEDOR_DEBITO, " +
-                    "FORNECEDOR_CREDITO, " +
-                    "FORNECEDORPAGO, " +
-                    "CAIXAZERADO, " +
-                    "FINANCIAMENTOPAGO, " +
-                    "+ Lucros_CREDITO, " +
-                    "+ Clientes_DEBITO, " +
-                    "+ Impostos_CREDITO, " +
-                    "+ Impostos_DEBITO, " +
-                    "+ Contas_CREDITO, " +
-                    "+ Aplicacoes_DEBITO, " +
-                    "+ FornecedoresLongoPrazo, " +
-                    "+ Receita, " +
-                    "+ Despesas " +
-                    "FROM RAZONETE";
+            String SQL = "SELECT * FROM RAZONETE";
 
             ResultSet Balancete = Conexao.getConexao().createStatement().executeQuery(SQL);
 
 
             while(Balancete.next()) {
+
+                /*
                 Caixa_Debito = Integer.parseInt(Balancete.getString("CAIXA_DEBITO"));
                 Caixa_Credito = Integer.parseInt(Balancete.getString("CAIXA_CREDITO"));
                 Investimento_Debito = Integer.parseInt(Balancete.getString("INVESTIMENTO_DEBITO"));
@@ -156,6 +133,30 @@ public class BalanceteBD extends RazoneteBD{
                 somaCaixaZerado += CaixaZerado;
                 somaFinanciamentoPago += FinanciamentoPago;
 
+
+                 */
+
+
+
+                for(int i = 1; i < 34; i++) {
+                    int Conteudo = Balancete.getInt(i);
+                    int Conteudo2 = Balancete.getInt(i + 1);
+                    int Saldo = Conteudo2 - Conteudo;
+                    i += 2;
+                    if(i == 5) {
+                        i++;
+                    }
+
+                    /*
+                    i = 1 || 1, 2
+                    i = 3 || 3, 4
+                    i = 5 || 6, 7
+                    i = 8 || 8, 9,
+
+
+
+                     */
+                }
             }
 
 
@@ -349,4 +350,15 @@ public class BalanceteBD extends RazoneteBD{
 
     }
 
+
+
+    /*
+
+
+
+
+
+
+
+     */
 

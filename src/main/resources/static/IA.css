@@ -89,11 +89,12 @@ mudar para preto ícone
 
 body {
     background: #212529;
+    margin-top: 150px;
 }
 .texto-escrito p {
     font-family: Arial, sans-serif;
     font-size: 18px;
-    color: #333;
+    color: #ffffff;
     /* Adicione estilos adicionais se necessário */
 }
 
