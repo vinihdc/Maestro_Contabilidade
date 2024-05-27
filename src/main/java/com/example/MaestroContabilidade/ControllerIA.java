@@ -31,7 +31,7 @@ public class ControllerIA {
         }
 
         else {
-            return "PaginaErroNoSistema";
+            return "ErroSistema";
         }
 
 

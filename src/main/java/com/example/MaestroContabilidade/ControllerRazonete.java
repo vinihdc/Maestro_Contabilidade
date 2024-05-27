@@ -1,12 +1,10 @@
 package com.example.MaestroContabilidade;
 
 
-import Model.BancoDeDados.ConexaoBD;
 import Model.BancoDeDados.RazoneteBD;
 import Model.Entidade.RazoneteEntidade;
 import Model.Verificação.VerificarRazonete;
 import lombok.RequiredArgsConstructor;
-import org.springframework.messaging.simp.user.SimpUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +49,7 @@ public class ControllerRazonete {
         }
 
         else {
-            return "PaginaErroNoSistema";
+            return "ErroSistema";
         }
 
     }

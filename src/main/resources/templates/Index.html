@@ -13,8 +13,8 @@
     <form action="/login" method="post">
         <h1>Login</h1>
         <div class="login_cpf">
-            <label for="exampleInputEmail1" class="form-label">CPF</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" pattern="[0-9]*" required="required" name="CPF" placeholder="Digite seu CPF">
+            <label for="cpf" class="form-label">CPF</label>
+            <input type="text" class="form-control" id="cpf" aria-describedby="emailHelp" required="required" name="CPF" placeholder="Digite seu CPF" onclick="limparCPF()">
             <div id="emailHelp" class="form-text">Insira seu CPF sem pontos e traços, apenas números.</div>
         </div>
         <div class="login_password">
@@ -35,6 +35,19 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
+<script>
+    function limparCPF() {
+        // Obtém o valor do CPF do elemento com o ID 'exampleInputEmail1'
+        var cpfInput = document.getElementById('cpf');
+        var cpf = cpfInput.value;
+
+        // Remove todos os caracteres que não sejam números
+        cpf = cpf.replace(/\D/g, '');
+
+        // Atualiza o valor do input com o CPF limpo
+        cpfInput.value = cpf;
+    }
+</script>
 </html>
 
 

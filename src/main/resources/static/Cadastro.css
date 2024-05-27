@@ -1,0 +1,105 @@
+:root {
+    --cor-primaria: #000000; /* Cor principal */
+    --cor-secundaria: #31363F; /* Cor secundária */
+    --cor-terciaria: #76ABAE ; /* Cor terciária */
+    --fonte-primaria: 'Montserrat', sans-serif; /* Fonte principal */
+    --cor-fonte: #EEEEEE; /* Cor de destaque ao passar o mouse */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos do corpo da página */
+body {
+    font-family: var(--fonte-primaria); /* Utiliza a fonte definida em :root */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    background: url('fundo.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Estilos do login*/
+.wrapper {
+    width: 400px;
+    background-color: transparent;
+    border: 2px solid rgba(225, 225, 225, .2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    color: var(--cor-fonte);
+    border-radius: 10px;
+    padding: 30px 40px;
+    margin-top: 15px;
+
+}
+
+.wrapper h3{
+    font-size: 36px;
+    text-align: center;
+}
+
+.mb-3 {
+    width: 100%;
+    height: 100%;
+    margin: 30px 0;
+}
+
+.mb-3 input{
+    width: 85%;
+    height: 80%;
+    background-color: transparent;
+    /*border: none;*/
+    outline: none;
+    border: 2px solid  rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 15px;
+    color: var(--cor-fonte);
+    padding: 16px 45px 16px 16px;
+    margin-left: 8%;
+    text-align: center;
+}
+
+
+
+.wrapper #btn{
+    width: 100%;
+    height: 45px;
+    background: white;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+
+#btn:hover{
+    background-color: #76ABAE;
+    color: white;
+}
+
+
+
+
+/* Estilos do rodapé */
+.rodape {
+    padding: 20px;
+    color: var(--cor-primaria);
+    background-color: var(--cor-terciaria);
+    text-align: center;
+    font-family: var(--fonte-primaria);
+    font-size: 1.5rem;
+    font-weight: 300;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 10%;
+    height: 80px;
+}

@@ -1,0 +1,61 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+body{
+    background-color: rgba(0, 0, 0, 0.828);
+}
+
+.container-principal{
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+.container{
+    background-color: white;
+    padding: 10px;
+    height: 200px;
+    width: 300px;
+
+}
+
+.titulo{
+    background-color: #76ABAE;
+    color: white;
+    text-align: center;
+    font-size: 30px;
+    padding: 10px;
+}
+.frase{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.882);
+
+}
+
+.link{
+    display: block;
+    text-align: center;
+}
+
+button{
+    background-color: #e3f2fd;
+    color: #76ABAE;
+    font-size: 15px;
+    border: #76ABAE solid 1px;
+    padding:8px;
+    cursor:pointer;
+    margin-top: 10%;
+    margin-left: 39%;
+}
+
+button:hover{
+    background-color: #76ABAE;
+    color: white;
+}
+
