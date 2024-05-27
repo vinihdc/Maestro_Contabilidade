@@ -157,6 +157,18 @@ public class ControllerMain {
             return "Index";
         }
 
+
+
+    }
+
+
+    @GetMapping("/homePage")
+    public String homePage() {
+        if (UsuarioFezLogin == true) {
+            return "homePage";
+        } else {
+            return "Index";
+        }
     }
 
 
