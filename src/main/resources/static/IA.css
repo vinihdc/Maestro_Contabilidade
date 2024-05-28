@@ -1,5 +1,4 @@
 /* navbar */
-
 .login-button {
     background-color: #009970;
     color: #fff;
@@ -9,7 +8,6 @@
     text-decoration: none;
     transition: 0.3s background-color;
 }
-
 
 .login-button:hover {
     background-color: #00b383;
@@ -25,7 +23,6 @@
     box-shadow: none;
     outline: none;
 }
-
 
 .nav-link {
     color: #fafafa;
@@ -73,24 +70,16 @@
 
 /*
 mudar para preto ícone
-
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 */
 
-
 .offcanvas.show a{
     color: #fff; /* Altere esta cor para a cor desejada */
 }
 
-
-/* fim navbar  */
-
-body {
-    background: #212529;
-    margin-top: 150px;
-}
+/* fim navbar */
 .texto-escrito p {
     font-family: Arial, sans-serif;
     font-size: 18px;
@@ -98,14 +87,59 @@ body {
     /* Adicione estilos adicionais se necessário */
 }
 
-@keyframes escrever {
-    0% {
-        width: 0;
-    }
-    50% {
-        width: 50%;
-    }
-    100% {
-        width: 100%;
-    }
+body {
+    font-family: sans-serif;
+    padding: 0;
+    background: #212529; /* Cor de fundo da página */
+    margin-top: 150px;
+}
+
+.container {
+    max-width: 800px;
+    padding: 20px;
+}
+
+.chat-input-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 800px;
+    display: flex;
+    justify-content: center;
+}
+
+.chat-input {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border: 1px solid #212529;
+    border-radius: 5px;
+    padding-right: 40px; /* espaço para o botão */
+    background-color: #343a40; /* Cor de fundo da caixa de entrada de dados */
+}
+
+#userInput {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background-color: #343a40; /* Cor de fundo consistente */
+    color: #ffffff; /* Cor do texto */
+}
+
+.send-button {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.send-button img {
+    width: 30px;
+    height: 30px;
 }
