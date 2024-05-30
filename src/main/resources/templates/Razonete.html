@@ -7,21 +7,13 @@
     <link rel="stylesheet" href="/Razonete.css">
 </head>
 <body>
-<form method="get" action="/RetornarRazao">
-<div class="mb-3">
-    <label for="ElementoRazonete" class="form-label">Digite o que deseja extrair do Razão</label>
-    <input type="text" class="form-control" id="ElementoRazonete" required="required" name="ElementoRazonete" onclick="NaoPermitirEspaco()">
-</div>
-
-    <button class="btn btn-primary" type="submit">Imprimir Razonete</button>
-</form>
-
-
 <header>
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #212529;">
         <div class="container-fluid">
-            <img src="../assets/contabilidade.png" alt="" style="width: 50px; margin-left: 20px;">
+            <a href="/HomePage">
+                <img src="/logo.png" alt="" style="width: 100px; margin-left: 20px;">
+            </a>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Contabilidade</h5>
@@ -30,7 +22,7 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/homePage">Home</a>
+                            <a class="nav-link" aria-current="page" href="/HomePage">Home</a>
                         </li>
                         <li class="nav-item" onclick="definirVisibilidadeLinks()">
                             <a class="nav-link" href="/Fatos">Fatos</a>
@@ -70,6 +62,18 @@
     <!-- fim da navbar -->
 
 </header>
+
+<div class="content">
+
+    <form method="get" action="/RetornarRazao">
+        <div class="mb-3">
+            <label for="ElementoRazonete" class="form-label">Digite o que deseja extrair do Razão</label>
+            <input type="text" class="form-control" id="ElementoRazonete" required="required" name="ElementoRazonete">
+        </div>
+
+        <button class="btn btn-primary" type="submit">Imprimir Razonete</button>
+    </form>
+
 <table class="table table-bordered border-primary">
     <thead>
     <tr>
@@ -101,33 +105,6 @@
 
 
 
-<script>
-    // Função para definir a visibilidade dos links com base no nível de acesso do usuário
-    function definirVisibilidadeLinks() {
-        var links = document.querySelectorAll(".btn-primary");
-        console.log(links); // Verifica se os botões estão sendo selecionados corretamente
-
-        links.forEach(function(link) {
-            var href = link.getAttribute('href');
-            var nivelUsuario = link.getAttribute('data-nivel');
-            console.log("Href:", href, "Nível do usuário:", nivelUsuario); // Verifica os valores de href e nivelUsuario
-
-            if (nivelUsuario === "N3" || nivelUsuario === "adm" || nivelUsuario == "N2") {
-                // Mostrar o botão Permitir para usuários N3 e admin e ocultar o botão Conferir
-                if (href === '/Permitir') {
-                    link.style.display = 'block';
-                } else if (href === '/Conferir') {
-                    link.style.display = 'none';
-                }
-            }
-        });
-    }
-
-    // Chame a função para definir a visibilidade dos links quando a página carregar
-    document.addEventListener('DOMContentLoaded', function() {
-        definirVisibilidadeLinks();
-    });
-</script>
 
 <script>
     // Selecione o campo de entrada pelo ID
@@ -140,7 +117,6 @@
     });
 
 </script>
-
-
+</div>
 </body>
 </html>

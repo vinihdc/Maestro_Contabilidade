@@ -104,69 +104,69 @@ public class FluxoBD {
                 //Colocar Dinheiro no Debito do Banco
                 case "013":
                     SQL = String.format("INSERT INTO RAZONETE(BANCO_DEBITO) VALUES('%d')", Valor);
-                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Banco", "-", Valor);
+                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Saldo Anterior", "Saldo Anterior", Valor);
                     break;
                 //Colocar dinheiro no debito do caixa
                 case "014":
                     SQL = String.format("INSERT INTO RAZONETE(CAIXA_DEBITO) VALUES('%d')", Valor);
-                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Caixa", "-", Valor);
+                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Saldo Anterior", "Saldo Anterior", Valor);
                     break;
 
                 //Colocar Lucros
                 case "016":
                     SQL = String.format("INSERT INTO RAZONETE(LUCROS_CREDITO) VALUES('%d')", Valor);
-                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "-", "Lucros", Valor);
+                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Saldo Anterior", "Saldo Anterior", Valor);
                     break;
 
 
                 //Aplicacoes no Debito
                 case "017":
                     SQL = String.format("INSERT INTO RAZONETE(APLICACOES_DEBITO) VALUES('%d')", Valor);
-                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Aplicaçoes", "-", Valor);
+                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Saldo Anterior", "Saldo Anterior", Valor);
                     break;
 
                  //Fornecedores Credito
                 case "018":
                     SQL = String.format("INSERT INTO RAZONETE(FORNECEDOR_CREDITO) VALUES('%d')", Valor);
-                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "-", "Fornecedores", Valor);
+                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Saldo Anterior", "Saldo Anterior", Valor);
                     break;
 
 
                 //Fornecedores a Longo prazo
                 case "019":
                     SQL = String.format("INSERT INTO RAZONETE(FORNECEDORESLONGOPRAZO) VALUES('%d')", Valor);
-                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "-", "Fornecedores", Valor);
+                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Saldo Anterior", "Saldo Anterior", Valor);
                     break;
 
 
                 //Clientes - Debito
                 case "020":
                     SQL = String.format("INSERT INTO RAZONETE(CLIENTES_DEBITO) VALUES('%d')", Valor);
-                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Clientes", "-", Valor);
+                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Saldo Anterior", "Saldo Anterior", Valor);
                     break;
 
                //Impostos - Credito
                 case "021":
                     SQL = String.format("INSERT INTO RAZONETE(IMPOSTOS_CREDITO) VALUES('%d')", Valor);
-                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "-", "Impostos", Valor);
+                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Saldo Anterior", "Saldo Anterior", Valor);
                     break;
 
                 //Contas
                 case "022":
                     SQL = String.format("INSERT INTO RAZONETE(CONTAS_CREDITO) VALUES('%d')", Valor);
-                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "-", "Contas", Valor);
+                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Saldo Anterior", "Saldo Anterior", Valor);
                     break;
 
                  //Ativos - Debito
                 case "023":
                     SQL = String.format("INSERT INTO RAZONETE(ATIVO_DEBITO) VALUES('%d')", Valor);
-                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Ativo", "-", Valor);
+                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Saldo Anterior", "Saldo Anterior", Valor);
                     break;
 
                     //Investimento
                 case "024":
                     SQL = String.format("INSERT INTO RAZONETE(INVESTIMENTO_CREDITO) VALUES('%d')", Valor);
-                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "-", "Investimento", Valor);
+                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Saldo Anterior", "Saldo Anterior", Valor);
                     break;
 
 

@@ -88,9 +88,8 @@ mudar para preto ícone
 /* fim navbar  */
 
 .content {
-    margin-top: 80px;
+    margin-top: 120px;
 }
-
 
 
 
@@ -102,6 +101,7 @@ mudar para preto ícone
     --fonte-primaria: 'Montserrat', sans-serif; /* Fonte principal */
     --cor--hover: #EEEEEE; /* Cor de destaque ao passar o mouse */
 }
+
 
 .list-group{
     background-color: var(--cor-primaria);

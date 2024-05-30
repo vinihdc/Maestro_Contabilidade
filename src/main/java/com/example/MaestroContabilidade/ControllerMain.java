@@ -4,6 +4,7 @@ import Model.BancoDeDados.IdentificarUsuarioBD;
 import Model.BancoDeDados.LoginBD;
 import Model.BancoDeDados.PedidosBD;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,15 +19,55 @@ public class ControllerMain {
 
     private PedidosBD ObjetoPedidos = new PedidosBD();
 
+
     public boolean UsuarioFezLogin;
 
+
+    @Setter
     public String Nivel;
 
-    public void setCPFUsuario(String CPFUsuario) {
-        this.CPFUsuario = CPFUsuario;
+    @Setter
+    public String CPFUsuario;
+
+    @Setter
+    public String Status;
+
+
+
+    @GetMapping("StatusPedidos")
+    public Model StatusPedidos(Model model) {
+
+        if(Nivel.equals("N1")) {
+            setStatus(ObjetoPedidos.StatusPedidosN1());
+        }
+
+        else {
+            setStatus(ObjetoPedidos.ExistePedidosParaN2N3(Nivel));
+        }
+
+        model.addAttribute("Pedido", Status);
+
+        return model;
     }
 
-    public String CPFUsuario;
+
+    @GetMapping("NivelDeAcesso")
+    public Model NivelDeAcesso(Model model) throws SQLException {
+        IdentificarUsuarioBD NivelDeAcesso = new IdentificarUsuarioBD();
+        setNivel(NivelDeAcesso.IdentificarUsuarioBD(CPFUsuario));
+        model.addAttribute("NivelDeAcesso", Nivel);
+        return model;
+
+    }
+
+    /*
+    Login -> HomePage -> Fatos
+    CPF,
+    UsuarioFezOLogin -> Home
+
+
+
+     */
 
 
 
@@ -34,23 +75,11 @@ public class ControllerMain {
 
 
     @RequestMapping("/login")
-    public String Login(@RequestParam String CPF, @RequestParam String Password, Model model, Model segunda_model) throws SQLException {
-        String Status;
+    public String Login(@RequestParam String CPF, @RequestParam String Password, Model model, Model model2) throws SQLException {
+        setCPFUsuario(CPF);
 
-
-        IdentificarUsuarioBD NivelDeAcesso = new IdentificarUsuarioBD();
-        Nivel = NivelDeAcesso.IdentificarUsuarioBD(CPF);
-        model.addAttribute("NivelDeAcesso", Nivel);
-
-        if(Nivel.equals("N1")) {
-            Status = ObjetoPedidos.StatusPedidosN1();
-        }
-
-        else {
-            Status = ObjetoPedidos.ExistePedidosParaN2N3(Nivel);
-        }
-
-        segunda_model.addAttribute("Pedido", Status);
+        NivelDeAcesso(model);
+        StatusPedidos(model2);
 
 
         try {
@@ -90,9 +119,8 @@ public class ControllerMain {
 
 
         if(UsuarioFezLogin == true) {
-            IdentificarUsuarioBD NivelDeAcesso = new IdentificarUsuarioBD();
-            Nivel = NivelDeAcesso.IdentificarUsuarioBD(CPFUsuario);
-            model.addAttribute("NivelDeAcesso", Nivel);
+            NivelDeAcesso(model);
+            StatusPedidos(model);
             return "Diario";
         }
 
@@ -105,8 +133,10 @@ public class ControllerMain {
     }
 
     @GetMapping("/Fatos")
-    public String Fatos() {
+    public String Fatos(Model model) throws SQLException {
         if(UsuarioFezLogin == true) {
+            NivelDeAcesso(model);
+            StatusPedidos(model);
             return "Fatos";
         }
 
@@ -118,10 +148,10 @@ public class ControllerMain {
 
     @GetMapping("/Razonete")
     public String Razonete(Model model) throws SQLException {
+
         if(UsuarioFezLogin == true) {
-            IdentificarUsuarioBD NivelDeAcesso = new IdentificarUsuarioBD();
-            Nivel = NivelDeAcesso.IdentificarUsuarioBD(CPFUsuario);
-            model.addAttribute("NivelDeAcesso", Nivel);
+            NivelDeAcesso(model);
+            StatusPedidos(model);
             return "Razonete";
         }
 
@@ -135,9 +165,8 @@ public class ControllerMain {
     @GetMapping("/Balancete")
     public String Balancete(Model model) throws SQLException {
         if(UsuarioFezLogin == true) {
-            IdentificarUsuarioBD NivelDeAcesso = new IdentificarUsuarioBD();
-            Nivel = NivelDeAcesso.IdentificarUsuarioBD(CPFUsuario);
-            model.addAttribute("NivelDeAcesso", Nivel);
+            NivelDeAcesso(model);
+            StatusPedidos(model);
             return "Balancete";
         }
 
@@ -182,8 +211,10 @@ public class ControllerMain {
 
 
     @GetMapping("/Codigos")
-    public String Codigos() {
+    public String Codigos(Model model) throws SQLException {
         if(UsuarioFezLogin == true) {
+            NivelDeAcesso(model);
+            StatusPedidos(model);
             return "IA";
         }
 
@@ -193,8 +224,10 @@ public class ControllerMain {
     }
 
     @GetMapping("/ARE")
-    public String ARE() {
+    public String ARE(Model model) throws SQLException {
         if(UsuarioFezLogin == true) {
+            NivelDeAcesso(model);
+            StatusPedidos(model);
             return "ARE";
         }
 
@@ -228,6 +261,20 @@ public class ControllerMain {
     public String  Conferir(Model model) throws SQLException {
         ObjetoPedidos.AprovarPedidos(Nivel);
        return "PedidoAprovado";
+    }
+
+
+    @GetMapping("/HomePage")
+    public String HomePage(Model model) throws SQLException {
+        if(UsuarioFezLogin == true) {
+            NivelDeAcesso(model);
+            StatusPedidos(model);
+            return "HomePage";
+        }
+
+        else {
+            return "Index";
+        }
     }
 
 

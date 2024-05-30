@@ -89,3 +89,7 @@ mudar para preto ícone
 body {
     background: #212529;
 }
+
+.content {
+    margin-top: 110px;
+}
