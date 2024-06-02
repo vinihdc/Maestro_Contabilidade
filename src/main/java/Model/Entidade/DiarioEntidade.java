@@ -1,8 +1,13 @@
 package Model.Entidade;
 
+
+import lombok.Getter;
+
 public class DiarioEntidade {
 
 
+    @Getter
+    private String ID;
 
     public int getValor() {
         return Valor;
@@ -43,7 +48,8 @@ public class DiarioEntidade {
 
 
 
-    public DiarioEntidade(String codFato, String data, String detalhes, String debito, String credito, int valor) {
+    public DiarioEntidade(String id, String codFato, String data, String detalhes, String debito, String credito, int valor) {
+            ID = id;
             CodFato = codFato;
             Data = data;
             Detalhes = detalhes;

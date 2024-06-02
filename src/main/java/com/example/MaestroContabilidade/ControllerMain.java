@@ -3,6 +3,7 @@ package com.example.MaestroContabilidade;
 import Model.BancoDeDados.IdentificarUsuarioBD;
 import Model.BancoDeDados.LoginBD;
 import Model.BancoDeDados.PedidosBD;
+import Model.Entidade.PedidosEntidade;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -33,16 +35,19 @@ public class ControllerMain {
     public String Status;
 
 
+    public List<PedidosEntidade> StatusDeTodosPedidos;
+
+
 
     @GetMapping("StatusPedidos")
-    public Model StatusPedidos(Model model) {
+    public Model StatusPedidos(Model model) throws SQLException {
 
         if(Nivel.equals("N1")) {
             setStatus(ObjetoPedidos.StatusPedidosN1());
         }
 
         else {
-            setStatus(ObjetoPedidos.ExistePedidosParaN2N3(Nivel));
+           setStatus(ObjetoPedidos.ExistenciaDePedidosN2N3(Nivel));
         }
 
         model.addAttribute("Pedido", Status);
@@ -176,10 +181,10 @@ public class ControllerMain {
 
     }
 
-    @GetMapping("/DeletarFato")
+    @GetMapping("/EditarFatos")
     public String DeletarFato() {
         if(UsuarioFezLogin == true) {
-            return "DeletarFato";
+            return "EditarFatos";
         }
 
         else {
@@ -240,28 +245,76 @@ public class ControllerMain {
 
     @GetMapping("/EnviarPedido")
     public String EnviarPedido() {
-        ObjetoPedidos.EnviarPedido();
+        ObjetoPedidos.EnviarPedidosN1();
         return "Pedido_Enviado";
     }
 
+    @RequestMapping("/Aprovar_Ou_Recusar_Pedidos")
+    public String Aprovar_Ou_Recusar_Pedidos(@RequestParam int ID_Fatos, @RequestParam String Situacao) throws SQLException {
+
+        if (Situacao.equals("Aprovado")) {
+            ObjetoPedidos.AprovarPedidos(Nivel, ID_Fatos);
+            ObjetoPedidos.VerificarPedidosN2N3(Nivel);
+        } else {
+            ObjetoPedidos.RecusarPedidos(Nivel, ID_Fatos);
+            ObjetoPedidos.VerificarPedidosN2N3(Nivel);
+        }
+
+        return "PaginaPedidosN2N3";
+    }
 
 
+    @GetMapping("/PaginaPedidosN2N3")
+    public String PaginaPedidosN2N3() {
+        if(UsuarioFezLogin == true) {
+            return "PaginaPedidosN2N3";
+        }
 
-    @GetMapping("/Nao_Permitir")
-    public String Permitir(Model model) throws SQLException {
-
-        ObjetoPedidos.RecusarPedidos(Nivel);
-        return "PedidoRecusado";
-
-
+        else {
+            return "Index";
+        }
 
     }
 
-    @GetMapping("/Permitir")
-    public String  Conferir(Model model) throws SQLException {
-        ObjetoPedidos.AprovarPedidos(Nivel);
-       return "PedidoAprovado";
+
+    @GetMapping("/PaginaPedidosN1")
+    public String PedidosN1() {
+        if(UsuarioFezLogin == true) {
+            return "PaginaPedidosN1";
+        }
+
+        else {
+            return "Index";
+        }
     }
+
+
+
+
+
+
+
+
+
+
+
+    @GetMapping("/RelatorioPedidos")
+    public String RelatorioPedidos(Model model) throws SQLException {
+
+        List<PedidosEntidade> RespostaPedidos = ObjetoPedidos.RelatorioGeralPedidos();
+       model.addAttribute("StatusDeTodosPedidos", RespostaPedidos);
+       return "PaginaPedidosN1";
+
+    }
+
+
+
+
+
+
+
+
+
 
 
     @GetMapping("/HomePage")

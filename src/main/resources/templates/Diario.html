@@ -70,6 +70,7 @@
     <table class="table">
         <thead>
         <tr>
+            <th scope="col">Codigo de identificação do fato </th>
             <th scope="col">Codigo do Evento</th>
             <th scope="col">Data </th>
             <th scope="col">Detalhes </th>
@@ -81,6 +82,7 @@
         <tbody class="table-group-divider">
 
         <tr th:each="Diario: ${LivroDiario}"> <!-- PARA CADA FATO EM FATOS -->
+            <td th:text="${Diario.getID()}"></td>
             <td th:text="${Diario.getCodFato()}"> </td>
             <td th:text="${Diario.getData()}"> </td>
             <td th:text="${Diario.getDetalhes()}"> </td>
@@ -100,9 +102,7 @@
 
 
 
-    <a class="btn btn-primary" type="submit" href="/Permitir"> Aprovar Pedido</a>
-    <a class="btn btn-primary" type="submit" href="/Nao_Permitir"> Recusar Pedido</a>
-
+    <a class="btn btn-primary" type="submit" href="/PaginaPedidosN2N3"> Aprovar ou Recusar fatos </a>
     <a class="btn btn-primary" id="Nivel" type="submit" href="/DadosDiario">Imprimir Diario</a>
 </div>
 

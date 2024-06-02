@@ -1,14 +1,27 @@
 package Model.BancoDeDados;
 
+import Model.Entidade.DiarioEntidade;
+import Model.Entidade.PedidosEntidade;
+
+import java.sql.SQLException;
+import java.util.List;
+
 public interface Pedidos_BD {
 
-    public void EnviarPedido();
 
-    public String ExistePedidosParaN2N3(String Nivel);
+        public void EnviarPedidosN1();
 
-    public void AprovarPedidos(String Nivel);
+        public String ExistenciaDePedidosN2N3(String Nivel) throws SQLException;
 
-    public void RecusarPedidos(String Nivel);
+        public String StatusPedidosN1();
 
-    public String StatusPedidosN1();
+        public void RecusarPedidos(String Nivel, int ID) throws SQLException;
+
+        public void AprovarPedidos(String Nivel, int ID) throws SQLException;
+
+        public void VerificarPedidosN2N3(String Nivel);
+
+        public List<PedidosEntidade> RelatorioGeralPedidos() throws SQLException;
+
+
 }

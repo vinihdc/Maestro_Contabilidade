@@ -143,3 +143,21 @@ body {
     width: 30px;
     height: 30px;
 }
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+/* Adicionando estilo ao texto digitado */
+.typing-text {
+    white-space: nowrap; /* Evita quebra de linha */
+    overflow: hidden; /* Esconde o texto que não está sendo mostrado */
+    font-size: 20px;
+    color: white;
+    animation: typing 1.5s steps(25, end); /* A animação 'typing' dura 2 segundos */
+}

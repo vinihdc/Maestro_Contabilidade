@@ -16,16 +16,17 @@ public class LivroDiarioBD {
     public List<DiarioEntidade> SELECTDIARIO() throws SQLException {
         try {
             Conexao.AbrirConexao();
-            String SQL = "SELECT COD_FATO, DATA_FATO, DETALHES, DEBITO, CREDITO, VALOR_FATO FROM DIARIO";
+            String SQL = "SELECT ID, COD_FATO, DATA_FATO, DETALHES, DEBITO, CREDITO, VALOR_FATO FROM DIARIO";
             ResultSet LivroDiario = Conexao.getConexao().createStatement().executeQuery(SQL);
             while(LivroDiario.next()) {
+                String ID = LivroDiario.getString("ID");
                 String CodFato = LivroDiario.getString("COD_FATO");
                 String DataFato = LivroDiario.getString("DATA_FATO");
                 String Detalhes = LivroDiario.getString("DETALHES");
                 String Debito = LivroDiario.getString("DEBITO");
                 String Credito = LivroDiario.getString("CREDITO");
                 int Valor = Integer.parseInt(LivroDiario.getString("VALOR_FATO"));
-                DiarioList.add(new DiarioEntidade(CodFato, DataFato, Detalhes, Debito, Credito, Valor));
+                DiarioList.add(new DiarioEntidade(ID, CodFato, DataFato, Detalhes, Debito, Credito, Valor));
             }
         }
 

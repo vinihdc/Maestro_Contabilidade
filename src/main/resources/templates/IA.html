@@ -24,7 +24,7 @@
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/login">Home</a>
+              <a class="nav-link" aria-current="page" href="/HomePage">Home</a>
             </li>
             <li class="nav-item" onclick="definirVisibilidadeLinks()">
               <a class="nav-link" href="/Fatos">Fatos</a>
@@ -61,12 +61,15 @@
 </header>
 
 <!-- Interface chat IA -->
+<div id="mensagem" class="typing-text" th:each="RespostasIA : ${IA}" th:text="${RespostasIA.getRespostas()}"> </div>
+
+
 <form method="get" action="/Gepeto">
   <div class="container">
     <div class="chat-input-container">
     <div class="chat-input">
-      <input type="text" id="userInput" placeholder="Escreva sua mensagem aqui">
-      <button type="submit" class="send-button">
+      <input type="text" id="userInput" placeholder="Escreva sua mensagem aqui" name="PerguntaIA">
+      <button type="submit" class="send-button" onclick="exibirMensagem()">
         <img src="/btn_send.png" alt="Enviar">
       </button>
     </div>
@@ -75,9 +78,18 @@
 </form>
 <!-- Fim Interface chat IA -->
 
-<div class="texto-escrito">
-  <p th:each="RespostasIA : ${IA}" th:text="${RespostasIA.getRespostas()}" th:class="${RespostasIA}"></p>
-</div>
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("mensagem").style.display = "block";
+  });
+
+  function exibirMensagem() {
+    document.getElementById("mensagem").classList.add("typing-text");
+  }
+</script>
 
 </body>
 </html>
