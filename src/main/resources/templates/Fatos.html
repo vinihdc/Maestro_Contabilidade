@@ -1,62 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <link rel="stylesheet" href="/Fatos.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <head>
     <meta charset="UTF-8">
     <title>Fatos</title>
 </head>
 <body>
 <header>
-<!-- navbar -->
-<nav class="navbar navbar-expand-lg fixed-top" style="background-color: #212529;">
-    <div class="container-fluid">
-       <a href="/HomePage">
-           <img src="/logo.png" alt="" style="width: 100px; margin-left: 20px;">
-       </a>
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Contabilidade</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #212529;">
+        <div class="container-fluid">
+            <a href="/HomePage">
+                <img src="/logo.png" alt="" style="width: 100px; margin-left: 20px;">
+            </a>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                 aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Contabilidade</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/HomePage">Home</a>
+                        </li>
+                        <li class="nav-item" onclick="definirVisibilidadeLinks()">
+                            <a class="nav-link active" href="/Fatos">Fatos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Diario">Diario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Razonete">Razonete</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Balancete">Balancete</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Codigos">IA</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/ARE">Apuração do resultado</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="offcanvas-body">
-                <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/HomePage">Home</a>
-                    </li>
-                    <li class="nav-item" onclick="definirVisibilidadeLinks()">
-                        <a class="nav-link active" href="/Fatos">Fatos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Diario">Diario</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Razonete">Razonete</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Balancete">Balancete</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Codigos">IA</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/ARE">Apuração do resultado</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="BaixarDoc"> Documentação </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <a class="login-button" th:text="${NivelDeAcesso}"> </a>
-        <a class="login-button" th:text="${Pedido}"> </a>
+            <a class="login-button" th:text="${NivelDeAcesso}"> </a>
+            <a class="login-button" th:text="${Pedido}"> </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</nav>
-<!-- fim da navbar -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+    <!-- fim da navbar -->
 </header>
 
 <div class="content">
@@ -85,7 +88,7 @@
 
             <!-- Data do Fato -->
             <label for="Data" class="form-label" id="CampoData">Data</label>
-            <input type="date" id="Data" name="DataFato" value="2024-03-29"  required="required">
+            <input type="date" id="Data" name="DataFato" value="2024-03-29" required="required">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
 
@@ -108,6 +111,7 @@
                 this.removeAttribute("readonly");
             }
         });
+
     </script>
     <script>
         document.getElementById("CodigoDoFato").addEventListener("input", function() {
@@ -119,6 +123,7 @@
                 this.removeAttribute("readonly");
             }
         });
+
     </script>
     <!-- Pagamento Financiamento -->
     <script>
@@ -131,6 +136,7 @@
                 this.removeAttribute("readonly");
             }
         });
+
     </script>
     <!-- Pagamento Fornecedor -->
     <script>
@@ -147,7 +153,71 @@
             // Atualizar o valor do campo com o valor sem pontos
             campoNumero.value = valorSemPontos;
         });
+
     </script>
 </div>
+
+<footer>
+    <div id="footer_content">
+        <div id="footer_contacts">
+            <h1>Maestro</h1>
+            <p>Projeto de contabilidade</p>
+
+            <div id="footer_social_media">
+                <a href="https://github.com/Rocha0306/MaestroContabilidade2.0" class="footer-link" id="github"
+                   target="_blank">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+            </div>
+        </div>
+
+        <ul class="footer-list">
+            <li>
+                <h3>Linkedin dos integrantes</h3>
+            </li>
+            <li>
+                <a href="https://www.linkedin.com/in/albert-ferreira-6733b5254/" class="footer-link" target="_blank">Albert</a>
+            </li>
+            <li>
+                <a href="https://www.linkedin.com/in/gustavo-freitas-8109bb201/" class="footer-link" target="_blank">Gustavo</a>
+            </li>
+            <li>
+                <a href="https://www.linkedin.com/in/laisa-machado-246829311/" class="footer-link"
+                   target="_blank">Laisa</a>
+            </li>
+            <li>
+                <a href="https://www.linkedin.com/in/lorenzo-rocha-179038284/" class="footer-link" target="_blank">Lorenzo</a>
+            </li>
+            <li>
+                <a href="https://www.linkedin.com/in/mariana-scarpi-461549288/" class="footer-link" target="_blank">Mariana</a>
+            </li>
+        </ul>
+
+        <ul class="footer-list">
+            <li>
+                <h3>FATECRL</h3>
+            </li>
+            <li>
+                <a href="#" class="footer-link">2º Ciclo</a>
+            </li>
+            <li>
+                <a href="#" class="footer-link">Manhã</a>
+            </li>
+            <li>
+                <a href="#" class="footer-link">2024</a>
+            </li>
+        </ul>
+
+        <div id="footer_subscribe">
+            <h3>Visualizar documentação</h3>
+            <a href="BaixarDoc" class="footer-link">Clique aqui</a>
+        </div>
+    </div>
+
+    <div id="footer_copyright">
+        &#169
+        2024 MaestroContabilidade
+    </div>
+</footer>
 </body>
 </html>
