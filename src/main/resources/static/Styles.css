@@ -52,6 +52,12 @@ body {
     text-align: center;
 }
 
+.slogan__texto {
+    text-transform: uppercase;
+    color: black;
+    font-weight: bold;
+}
+
 .right-side {
     background-color: var(--cor-secundaria);
     color: var(--cor-fonte);
@@ -72,7 +78,7 @@ body {
 .logo {
     max-width: 100%;
     height: auto;
-    margin-bottom: 20px;
+    margin-bottom: -20px;
 }
 
 .rocket {
@@ -163,3 +169,4 @@ body {
     text-transform: uppercase;
     font-weight: bold;
 }
+
