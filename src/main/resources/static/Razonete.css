@@ -86,6 +86,10 @@ mudar para preto ícone
 
 
 /* fim navbar  */
+* {
+    padding: 0;
+    margin: 0;
+}
 
 body {
     background: #212529;
@@ -93,7 +97,18 @@ body {
 
 }
 
+.form-label {
+    padding-top: 20px;
+    color: #fff;
+}
 
+.mb-3 {
+    padding-left: 10px;
+}
+
+.btn btn-primary {
+
+}
 :root {
     --cor-primaria: #000000;
     /* Cor principal */
@@ -105,6 +120,8 @@ body {
     /* Fonte principal */
     --cor--hover: #EEEEEE;
     /* Cor de destaque ao passar o mouse */
+
+
 
     /* footer */
     --color-neutral-0: #0e0c0c;

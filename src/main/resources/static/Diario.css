@@ -86,24 +86,21 @@ mudar para preto ícone
 
 
 /* fim navbar  */
+:root {
+    --cor-primaria: #000000;
+    --cor-secundaria: #31363F;
+    --cor-terciaria: #76ABAE;
+    --fonte-primaria: 'Montserrat', sans-serif;
+    --cor-fonte: #EEEEEE;
+}
 
 .content {
     margin-top: 110px;
 }
 
-
 body {
-    color: #333;
-    /* Cor do texto padrão */
-    /* Cor de fundo padrão */
-=======
---cor-primaria: #000000; /* Cor principal */
-    --cor-secundaria: #31363F; /* Cor secundária */
-    --cor-terciaria: #76ABAE ; /* Cor terciária */
-    --cor--hover: #EEEEEE; /* Cor de destaque ao passar o mouse */
     background-color: #212529;
 }
-
 
 .cabecalho {
     font-size: x-large;
