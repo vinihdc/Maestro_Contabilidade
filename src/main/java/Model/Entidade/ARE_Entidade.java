@@ -27,17 +27,12 @@ public class ARE_Entidade {
 
     private String Situacao;
 
-    public String getMes() {
-        return Mes;
-    }
 
-    private String Mes;
 
-    public ARE_Entidade(int receita, int despesa, int resultadoare, String situacao, String mes) {
+    public ARE_Entidade(int receita, int despesa, int resultadoare, String situacao) {
         Receita = receita;
         Despesa = despesa;
         ResultadoAre = resultadoare;
         Situacao = situacao;
-        Mes = mes;
     }
 }

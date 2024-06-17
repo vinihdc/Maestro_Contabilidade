@@ -93,6 +93,7 @@ mudar para preto ícone
 
 body {
     background-color: #212529;
+    color: white;
 }
 
 :root {
@@ -116,6 +117,7 @@ body {
 
 .content {
     min-height: 100vh;
+    margin-top: 200px;
 }
 
 

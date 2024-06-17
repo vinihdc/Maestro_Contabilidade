@@ -69,28 +69,32 @@
 
 <div class="content">
     <h1 class="cabecalho" style="color: white">DIARIO</h1>
-    <table class="table table-striped table-dark">
+    <table class="table">
         <thead>
-        <tr  style="text-align: center">
-            <th scope="col">Codigo do fato </th>
+        <tr>
+            <th scope="col">Codigo de identificação do fato</th>
             <th scope="col">Codigo do Evento</th>
             <th scope="col">Data</th>
             <th scope="col">Detalhes</th>
             <th scope="col">Debito</th>
             <th scope="col">Credito</th>
             <th scope="col">Valor</th>
+            <th scope="col">Fato Abatido </th>
         </tr>
         </thead>
         <tbody class="table-group-divider">
 
-        <tr  style="text-align: center" th:each="Diario: ${LivroDiario}"> <!-- PARA CADA FATO EM FATOS -->
-            <td th:text="${Diario.getID()}" style="text-align: center"></td>
+        <tr th:each="Diario: ${LivroDiario}"> <!-- PARA CADA FATO EM FATOS -->
+            <td th:text="${Diario.getID()}"></td>
             <td th:text="${Diario.getCodFato()}"></td>
             <td th:text="${Diario.getData()}"></td>
             <td th:text="${Diario.getDetalhes()}"></td>
             <td th:text="${Diario.getDebito()}"></td>
             <td th:text="${Diario.getCredito()}"></td>
-            <td th:text ="${Diario.getValor()}"></td>
+            <td th:text="${Diario.getValor()}"></td>
+            <td>
+            <img th:src="${Diario.getFatoEditado()}" alt="Imagem Base64">
+                </td>
         </tr>
 
 

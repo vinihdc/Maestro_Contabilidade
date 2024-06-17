@@ -1,5 +1,8 @@
 package Model.Entidade;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class BalanceteEntidade {
 
 
@@ -35,12 +38,14 @@ public class BalanceteEntidade {
         return ValorCredito;
     }
 
+    @Setter
     private Integer ValorCredito;
 
     public int getValorDebito() {
         return ValorDebito;
     }
 
+    @Setter
     private Integer ValorDebito;
 
 
@@ -48,8 +53,16 @@ public class BalanceteEntidade {
         return SaldoFinal;
     }
 
-
+    @Setter
     private Integer SaldoFinal;
+
+    @Setter
+    @Getter
+    private Integer CreditoFinal;
+
+    @Setter
+    @Getter
+    private Integer DebitoFinal;
 
 
 

@@ -1,6 +1,7 @@
 package Model.Entidade;
 
 import Model.BancoDeDados.*;
+import lombok.Getter;
 
 import java.sql.SQLException;
 
@@ -22,6 +23,7 @@ public class FatosEntidade {
         private String DetalhesFato;
 
         private String DataFato;
+
 
 
     public FatosEntidade(String codFato, int valorFato, String detalhesFato, String dataFato) {

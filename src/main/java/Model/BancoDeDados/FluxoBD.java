@@ -98,7 +98,7 @@ public class FluxoBD {
 
 
 
-                    //Eventos Manuais
+                    //Eventos Saldo Anterior
 
 
                 //Colocar Dinheiro no Debito do Banco
@@ -171,36 +171,39 @@ public class FluxoBD {
 
 
 
+
+
+
                     //Eventos não manuais
 
 
                 //Efetuar pagamento em cheque das obrigações com fornecedores
-                case "025":
+                case "026":
                     SQL = String.format("INSERT INTO RAZONETE(FORNECEDOR_DEBITO, BANCO_CREDITO) VALUES('%d', '%d')", Valor, Valor);
                     Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Fornecedores", "Banco", Valor);
                     break;
 
 
                 //Receita com prestação de serviços, a vista (deposito no banco), no valor
-                case "026":
+                case "027":
                     SQL = String.format("INSERT INTO RAZONETE(RECEITA_CREDITO, BANCO_DEBITO) VALUES('%d', '%d')", Valor, Valor);
                     Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Banco", "Receita", Valor);
                     break;
 
                     //Em 22/01/2022 - Receita de prestação de serviços no valor de R$ 14.000,00, recebido em dinheiro
-                case "027":
+                case "028":
                     SQL = String.format("INSERT INTO RAZONETE(RECEITA_CREDITO, CAIXA_DEBITO) VALUES('%d', '%d')", Valor, Valor);
                     Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Caixa", "Receita", Valor);
                     break;
 
                 //Pagamento de Despesas
-                case "028":
+                case "029":
                     SQL = String.format("INSERT INTO RAZONETE(DESPESAS, BANCO_CREDITO) VALUES('%d', '%d')", Valor, Valor);
                     Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Ativos", "Despesas", Valor);
                     break;
 
                 //Contabilizar juros ref. Aplicações financeiras 5% am
-                case "029":
+                case "030":
                     SQL = String.format("INSERT INTO RAZONETE(Receita_juros_Debito, BANCO_DEBITO) VALUES('%d', '%d')", Valor, Valor);
                     Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Ativos", "Despesas", Valor);
                     break;

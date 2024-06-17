@@ -154,8 +154,7 @@ body {
 }
 
 /* Adicionando estilo ao texto digitado */
-.typing-text {
-    white-space: nowrap; /* Evita quebra de linha */
+.typing-text { /* Evita quebra de linha */
     overflow: hidden; /* Esconde o texto que não está sendo mostrado */
     font-size: 20px;
     color: white;

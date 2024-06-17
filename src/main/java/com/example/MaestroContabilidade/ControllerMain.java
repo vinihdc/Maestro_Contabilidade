@@ -1,18 +1,26 @@
 package com.example.MaestroContabilidade;
 
+import Model.BancoDeDados.ColetaDeDadosGraficoBD;
 import Model.BancoDeDados.IdentificarUsuarioBD;
 import Model.BancoDeDados.LoginBD;
 import Model.BancoDeDados.PedidosBD;
+import Model.Entidade.Graficos;
 import Model.Entidade.PedidosEntidade;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.jfree.chart.ChartUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.SQLException;
+import java.util.Base64;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -35,7 +43,8 @@ public class ControllerMain {
     public String Status;
 
 
-    public List<PedidosEntidade> StatusDeTodosPedidos;
+    private ColetaDeDadosGraficoBD ObjColeta = new ColetaDeDadosGraficoBD();
+
 
 
 
@@ -80,7 +89,7 @@ public class ControllerMain {
 
 
     @RequestMapping("/login")
-    public String Login(@RequestParam String CPF, @RequestParam String Password, Model model, Model model2) throws SQLException {
+    public String Login(@RequestParam String CPF, @RequestParam String Password, @RequestParam String NomeReduzidoEmpresa, Model model, Model model2) throws SQLException {
         setCPFUsuario(CPF);
 
         NivelDeAcesso(model);
@@ -91,7 +100,7 @@ public class ControllerMain {
             setCPFUsuario(CPF);
             if (CPF != null && Password != null) {
                 LoginBD Login = new LoginBD();
-                Login.Login(CPF, Password);
+                Login.Login(CPF, Password, NomeReduzidoEmpresa);
                 if(Login.isUsuarioTemCadastroCPF() == true && Login.isUsuarioTemCadastroSenha() == true) {
                     UsuarioFezLogin = true;
                     return "HomePage";
@@ -195,15 +204,6 @@ public class ControllerMain {
 
     }
 
-
-    @GetMapping("/homePage")
-    public String homePage() {
-        if (UsuarioFezLogin == true) {
-            return "homePage";
-        } else {
-            return "Index";
-        }
-    }
 
 
 
@@ -318,10 +318,13 @@ public class ControllerMain {
 
 
     @GetMapping("/HomePage")
-    public String HomePage(Model model) throws SQLException {
+    public String HomePage(Model model) throws SQLException, IOException {
         if(UsuarioFezLogin == true) {
             NivelDeAcesso(model);
             StatusPedidos(model);
+            ObjColeta.ColetarDados();
+            Graficos ExibirGraficos = new Graficos(ObjColeta.getDespesa(), ObjColeta.getReceita());
+
             return "HomePage";
         }
 

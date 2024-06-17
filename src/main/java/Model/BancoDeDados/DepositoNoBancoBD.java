@@ -44,19 +44,19 @@ public class DepositoNoBancoBD {
         }
 
         catch (SQLException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
 
         try {
             Conexao.AbrirConexao();
-            String sql = String.format("INSERT INTO RAZONETE(CAIXAZERADO,BANCO_DEBITO) VALUES('%d', '%d')", SaldoBanco, SaldoBanco);
+            String sql = String.format("INSERT INTO RAZONETE(CAIXA_ZERADO,BANCO_DEBITO) VALUES('%d', '%d')", SaldoBanco, SaldoBanco);
             int RegistrarSaldo = Conexao.getConexao().createStatement().executeUpdate(sql);
 
 
         }
 
         catch (SQLException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
 
 
@@ -73,7 +73,7 @@ public class DepositoNoBancoBD {
         }
 
         catch (SQLException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
 
 
