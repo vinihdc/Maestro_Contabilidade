@@ -134,11 +134,11 @@ public class ARE_BD implements ARE {
 
 
             if(Lucro > 0) {
-                ARE.add(new ARE_Entidade(Receita, Despesas, Lucro, "Lucro", "Janeiro"));
+                ARE.add(new ARE_Entidade(Receita, Despesas, Lucro, "Lucro"));
             }
 
             else {
-                ARE.add(new ARE_Entidade(Receita, Despesas, Lucro, "Prejuizo", "Janeiro"));
+                ARE.add(new ARE_Entidade(Receita, Despesas, Lucro, "Prejuizo"));
             }
 
 

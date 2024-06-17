@@ -66,12 +66,13 @@
 </header>
 
 <div class="content">
-    <table class="table table-dark table-striped" id="tabela">
+    <table class="table" id="tabela">
         <thead>
         <tr>
             <th scope="col">Receita</th>
             <th scope="col">Despesa</th>
             <th scope="col">Resultado</th>
+            <th scope="col"> Situação da Empresa </th>
 
 
         </tr>
@@ -82,13 +83,19 @@
             <td th:text="${Gerar_ARE.getReceita()}"></td>
             <td th:text="${Gerar_ARE.getDespesa()}"></td>
             <td th:text="${Gerar_ARE.getResultadoAre()}"></td>
+            <td></td>
 
 
         </tr>
 
 
+
+
         </tbody>
     </table>
+
+
+
 
     <a class="btn btn-primary" type="submit" href="/ApurarResultado"> Apurar Resultado</a>
 </div>

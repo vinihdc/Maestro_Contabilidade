@@ -46,9 +46,12 @@ public class DiarioEntidade {
 
     private String CodFato;
 
+    @Getter
+    private String FatoEditado;
 
 
-    public DiarioEntidade(String id, String codFato, String data, String detalhes, String debito, String credito, int valor) {
+
+    public DiarioEntidade(String id, String codFato, String data, String detalhes, String debito, String credito, int valor, String fatoEditado) {
             ID = id;
             CodFato = codFato;
             Data = data;
@@ -56,6 +59,7 @@ public class DiarioEntidade {
             Debito = debito;
             Credito = credito;
             Valor = valor;
+            FatoEditado = fatoEditado;
 
     }
 }

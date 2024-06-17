@@ -70,7 +70,8 @@
             <th scope="col">Elementos</th>
             <th scope="col">Credito</th>
             <th scope="col">Debito</th>
-            <th scope="col"> Saldo Final </th>
+            <th scope="col">Saldo</th>
+
         </tr>
         </thead>
         <tr th:each="Balancete : ${BalanceteDados}">
@@ -78,16 +79,7 @@
             <td th:text="${Balancete.getValorCredito()}"></td>
             <td th:text="${Balancete.getValorDebito()}"></td>
             <td th:text="${Balancete.getSaldoFinal()}"> </td>
-
-
-
         </tr>
-
-
-
-
-
-
     </table>
 
     <a th:text="${Saldo}"> </a>
