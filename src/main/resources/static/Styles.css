@@ -58,6 +58,12 @@ body {
     font-weight: bold;
 }
 
+.slogan__texto {
+    text-transform: uppercase;
+    color: black;
+    font-weight: bold;
+}
+
 .right-side {
     background-color: var(--cor-secundaria);
     color: var(--cor-fonte);
@@ -153,20 +159,4 @@ body {
     text-decoration: underline;
 }
 
-.rodape {
-    padding: 8px;
-    color: var(--cor-primaria);
-    background-color: var(--cor-terciaria);
-    text-align: center;
-    font-family: var(--fonte-primaria);
-    font-size: 1.2rem;
-    font-weight: 400;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 50px;
-    text-transform: uppercase;
-    font-weight: bold;
-}
 

@@ -122,6 +122,21 @@ html, body {
     align-items: center;
 }
 
+.mt-5 {
+    padding-top: 100px;
+    align-items:center;
+    justify-content:center;
+    border: 2px solid rgba(225, 225, 225, .2);
+    border-radius: 10px;
+
+}
+
+.mt-5 a{
+
+    text-transform: uppercase;
+    text-align: center;
+}
+
 .content {
     min-height: 100vh;
 }
