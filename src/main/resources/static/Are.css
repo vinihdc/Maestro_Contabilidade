@@ -116,9 +116,13 @@ body {
 }
 
 #tabela {
-    margin-top: 250px;
+    margin-top: 120px;
 }
 
+.btn-info{
+    margin-left: 20px;
+    font-weight: bold;
+}
 
 /* footer */
 
