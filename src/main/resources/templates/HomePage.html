@@ -1,11 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <head>
     <meta charset="UTF-8">
     <title>HOME</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/Principal.css">
+    <style>
+        /* Estilos para gráficos ilustrativos */
+        .chart {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: relative;
+            background: conic-gradient(#4CAF50 25%, #2196F3 0);
+            transform: rotate(-90deg);
+        }
+        .chart::after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 50%;
+            top: 50px;
+            left: 50px;
+        }
+        .bar-chart {
+            display: flex;
+            justify-content: space-between;
+            width: 300px;
+            height: 200px;
+            background: linear-gradient(to right, #4CAF50 30%, #2196F3 70%);
+        }
+        .bar {
+            width: 30px;
+            background: white;
+            transition: height 0.5s;
+        }
+        .bar:hover {
+            height: 150px;
+        }
+        .line-chart, .area-chart, .scatter-plot {
+            display: flex;
+            justify-content: center;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 300px;
+        }
+        svg {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -60,6 +108,15 @@
 
 <div class="content">
     <p>teste</p>
+    <!-- Exemplo de gráfico de pizza -->
+    <div class="chart"></div>
+
+    <!-- Exemplo de gráfico de barras horizontais -->
+    <div class="bar-chart">
+        <div class="bar" style="height: 80px;"></div>
+        <div class="bar" style="height: 120px;"></div>
+        <div class="bar" style="height: 100px;"></div>
+    </div>
 </div>
 
 
@@ -125,6 +182,7 @@
         2024 MaestroContabilidade
     </div>
 </footer>
+
 <script>
     // Supondo que você tenha uma variável 'nivelUsuario' que define o nível de acesso do usuário
     var nivelUsuario = document.querySelector('.login-button').innerText.trim(); /* lógica para obter o nível de acesso do usuário */;
@@ -158,9 +216,6 @@
     };
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc6LL2vndPfN9fj2QVl1B/5EMKtmM9Nlm8awfFds8yQV" crossorigin="anonymous"></script>
 </body>
 </html>
