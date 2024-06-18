@@ -78,6 +78,15 @@ public class IA_BD {
     }
 
 
+    public List<IA_Entidade> SemRespostaIA() {
+        String Resposta = "Lamento, mas meu criador não colocou em minha base de dados, tente outra pergunta ";
+        List<IA_Entidade> RespostasIA = new ArrayList<>();
+        RespostasIA.add(new IA_Entidade(Resposta));
+        return RespostasIA;
+
+    }
+
+
 
 
 }

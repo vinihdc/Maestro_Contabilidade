@@ -1,59 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <head>
     <meta charset="UTF-8">
     <title>HOME</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/Principal.css">
-    <style>
-        /* Estilos para gráficos ilustrativos */
-        .chart {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            position: relative;
-            background: conic-gradient(#4CAF50 25%, #2196F3 0);
-            transform: rotate(-90deg);
-        }
-        .chart::after {
-            content: "";
-            display: block;
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: white;
-            border-radius: 50%;
-            top: 50px;
-            left: 50px;
-        }
-        .bar-chart {
-            display: flex;
-            justify-content: space-between;
-            width: 300px;
-            height: 200px;
-            background: linear-gradient(to right, #4CAF50 30%, #2196F3 70%);
-        }
-        .bar {
-            width: 30px;
-            background: white;
-            transition: height 0.5s;
-        }
-        .bar:hover {
-            height: 150px;
-        }
-        .line-chart, .area-chart, .scatter-plot {
-            display: flex;
-            justify-content: center;
-            margin: 20px auto;
-            width: 100%;
-            max-width: 300px;
-        }
-        svg {
-            display: block;
-            margin: 0 auto;
-        }
-    </style>
 </head>
 <body>
 <header>
@@ -86,7 +38,7 @@
                             <a class="nav-link" href="/Balancete">Balancete</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Codigos">IA</a>
+                            <a class="nav-link" href="/Codigos"> IA</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/ARE">Apuração do resultado</a>
@@ -106,18 +58,22 @@
 
 </header>
 
-<div class="content">
-    <p>teste</p>
-    <!-- Exemplo de gráfico de pizza -->
-    <div class="chart"></div>
+    <a th:text="${Receita}" id="Receita"> </a>
+    <a th:text="${Despesa}" id="Despesa"> </a>
+    <a th:text="${Lucro}" id="Lucro"> </a>
 
-    <!-- Exemplo de gráfico de barras horizontais -->
-    <div class="bar-chart">
-        <div class="bar" style="height: 80px;"></div>
-        <div class="bar" style="height: 120px;"></div>
-        <div class="bar" style="height: 100px;"></div>
+
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <canvas id="Dados"></canvas>
+        </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 
 <footer>
@@ -182,7 +138,6 @@
         2024 MaestroContabilidade
     </div>
 </footer>
-
 <script>
     // Supondo que você tenha uma variável 'nivelUsuario' que define o nível de acesso do usuário
     var nivelUsuario = document.querySelector('.login-button').innerText.trim(); /* lógica para obter o nível de acesso do usuário */;
@@ -195,10 +150,11 @@
             var href = link.getAttribute('href');
 
             if (nivelUsuario === "N1") {
-                if (href !== '/Fatos') {
+                if (href !== '/Fatos' && href !== '/Codigos') {
                     link.style.display = 'none'
                 }
-            } else if (nivelUsuario === "N2") {
+            }
+            else if (nivelUsuario === "N2") {
                 if (href === '/Fatos') {
                     link.style.display = 'none';
                 }
@@ -216,6 +172,51 @@
     };
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc6LL2vndPfN9fj2QVl1B/5EMKtmM9Nlm8awfFds8yQV" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
+<script>
+    var Receita = parseFloat(document.getElementById('Receita').textContent);
+    var Despesa = parseFloat(document.getElementById('Despesa').textContent);
+    var Lucro = parseFloat(document.getElementById('Lucro').textContent);
+
+    var ctx = document.getElementById('Dados').getContext('2d');
+    var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Receita', 'Despesa', 'Lucro'],
+            datasets: [{
+                data: [Receita, Despesa, Lucro],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw;
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
 </body>
 </html>

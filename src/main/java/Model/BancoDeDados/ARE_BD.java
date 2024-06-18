@@ -25,30 +25,32 @@ public class ARE_BD implements ARE {
         int Receitas = 0;
         int Lucro = 0;
         int Prejuizo = 0;
+        int Custos = 0;
         String SQL2 = "";
 
         try {
             Conexao.AbrirConexao();
-            String SQL = "SELECT RECEITA_CREDITO, RECEITA_JUROS_CREDITO, DESPESAS FROM RAZONETE";
+            String SQL = "SELECT RECEITA_CREDITO, RECEITA_JUROS_CREDITO, DESPESAS, CUSTOS_CREDITO FROM RAZONETE";
             ResultSet DescobreARE = Conexao.getConexao().createStatement().executeQuery(SQL);
             while(DescobreARE.next()) {
 
                 ReceitasServico += Integer.parseInt(DescobreARE.getString("RECEITA_CREDITO"));
                 ReceitasJuros += Integer.parseInt(DescobreARE.getString("RECEITA_JUROS_CREDITO"));
                 Despesas += Integer.parseInt(DescobreARE.getString("DESPESAS"));
+                Custos += Integer.parseInt(DescobreARE.getString("CUSTOS_CREDITO"));
 
             }
 
            Receitas = ReceitasJuros + ReceitasServico;
 
             if(Receitas > Despesas) {
-                Resultado_ARE = Receitas - Despesas;
+                Resultado_ARE = Receitas - (Despesas + Custos);
                 Lucro = Resultado_ARE;
                 DeuLucro = true;
             }
 
             else {
-                Resultado_ARE = Receitas - Despesas;
+                Resultado_ARE = Receitas - (Despesas + Custos);
                 Prejuizo = Resultado_ARE;
                 DeuPrejuizo = true;
             }
@@ -68,11 +70,11 @@ public class ARE_BD implements ARE {
             Conexao.AbrirConexao();
 
             if(DeuLucro == true) {
-                SQL2 = String.format("INSERT INTO RAZONETE(ARE_ZERADO, DESPESA_ZERADO, RECEITA_ZERADO, Lucros_CREDITO) VALUES('%d', '%d', '%d', '%d')", Resultado_ARE, Despesas, Receitas, Lucro);
+                SQL2 = String.format("INSERT INTO RAZONETE(ARE_ZERADO, ARE_DESPESA, ARE_RECEITA, ARE_CUSTOS, Lucros_CREDITO) VALUES('%d', '%d', '%d', '%d', '%d')", Resultado_ARE, Despesas, Receitas, Custos, Lucro);
             }
 
             if(DeuPrejuizo == true) {
-                SQL2 = String.format("INSERT INTO RAZONETE(ARE_ZERADO, DESPESA_ZERADO, RECEITA_ZERADO, Lucros_DEBITO) VALUES('%d', '%d', '%d', '%d')", Resultado_ARE, Despesas, Receitas, Prejuizo);
+                SQL2 = String.format("INSERT INTO RAZONETE(ARE_ZERADO, ARE_DESPESA, ARE_RECEITA, ARE_CUSTOS, Lucros_DEBITO) VALUES('%d', '%d', '%d', '%d', '%d')", Resultado_ARE, Despesas, Receitas, Custos, Prejuizo);
             }
 
 
@@ -99,7 +101,7 @@ public class ARE_BD implements ARE {
     public void Zerar_ARE() {
         try {
             Conexao.AbrirConexao();
-            String SQL = "UPDATE RAZONETE SET DESPESAS = 0, RECEITA_JUROS_CREDITO = 0, RECEITA_CREDITO = 0";
+            String SQL = "UPDATE RAZONETE SET DESPESAS = 0, RECEITA_JUROS_CREDITO = 0, RECEITA_CREDITO = 0, CUSTOS_CREDITO = 0";
             int Zerar_Tudo = Conexao.getConexao().createStatement().executeUpdate(SQL);
         }
 
@@ -116,30 +118,37 @@ public class ARE_BD implements ARE {
         List<ARE_Entidade> ARE = new ArrayList<>();
         int Receita = 0;
         int Lucro = 0;
+        int Prejuizo = 0; //Lucro (Credito)
         int Despesas = 0;
-        int Prejuizo = 0;
+        int Custos = 0;
 
 
         try {
             Conexao.AbrirConexao();
-            String SQL = "SELECT RECEITA_ZERADO, DESPESA_ZERADO, ARE_ZERADO, Lucros_Credito FROM RAZONETE";
+            String SQL = "SELECT ARE_RECEITA, ARE_DESPESA, ARE_CUSTOS, Lucros_Credito, Lucros_Debito FROM RAZONETE";
             ResultSet DescobreARE = Conexao.getConexao().createStatement().executeQuery(SQL);
             while(DescobreARE.next()) {
 
-                Receita += Integer.parseInt(DescobreARE.getString("RECEITA_ZERADO"));
-                Lucro += Integer.parseInt(DescobreARE.getString("Lucros_CREDITO"));
-                Despesas += Integer.parseInt(DescobreARE.getString("DESPESA_ZERADO"));
+                Receita += Integer.parseInt(DescobreARE.getString("ARE_RECEITA"));
+                Lucro += Integer.parseInt(DescobreARE.getString("Lucros_Debito"));
+                Prejuizo += Integer.parseInt(DescobreARE.getString("Lucros_CREDITO"));
+                Despesas += Integer.parseInt(DescobreARE.getString("ARE_DESPESA"));
+                Custos += Integer.parseInt(DescobreARE.getString("ARE_CUSTOS"));
 
             }
 
-
-            if(Lucro > 0) {
+            if(Lucro > Prejuizo) {
                 ARE.add(new ARE_Entidade(Receita, Despesas, Lucro, "Lucro"));
             }
 
-            else {
-                ARE.add(new ARE_Entidade(Receita, Despesas, Lucro, "Prejuizo"));
+            else if(Lucro == Prejuizo) {
+                ARE.add(new ARE_Entidade(Receita, Despesas, Lucro, "Neutro"));
             }
+
+            else {
+                ARE.add(new ARE_Entidade(Receita, Despesas, Lucro, "Lucro"));
+            }
+
 
 
 

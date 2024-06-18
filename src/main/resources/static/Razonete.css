@@ -1,4 +1,5 @@
 /* navbar */
+
 .login-button {
     background-color: #009970;
     color: #fff;
@@ -8,6 +9,7 @@
     text-decoration: none;
     transition: 0.3s background-color;
 }
+
 
 .login-button:hover {
     background-color: #00b383;
@@ -23,6 +25,7 @@
     box-shadow: none;
     outline: none;
 }
+
 
 .nav-link {
     color: #fafafa;
@@ -64,14 +67,25 @@
 }
 
 .nav-link.active {
-    color: #fff !important;
+    color: #fff !important;  /* Certifica-se de que a cor preta seja aplicada */
     font-weight: bold;
 }
 
-.offcanvas.show a {
-    color: #fff;
+/*
+mudar para preto ícone
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+*/
+
+
+.offcanvas.show a{
+    color: #fff; /* Altere esta cor para a cor desejada */
 }
 
+
+/* fim navbar  */
 * {
     padding: 0;
     margin: 0;
@@ -80,9 +94,6 @@
 body {
     background: #212529;
     margin-top: 100px;
-}
-
-.btn-info {
 
 }
 
@@ -91,9 +102,40 @@ body {
     color: #fff;
 }
 
+.mb-3 {
+    padding-left: 10px;
+}
+
+.btn btn-primary {
+
+}
+:root {
+    --cor-primaria: #000000;
+    /* Cor principal */
+    --cor-secundaria: #31363F;
+    /* Cor secundária */
+    --cor-terciaria: #76ABAE;
+    /* Cor terciária */
+    --fonte-primaria: 'Montserrat', sans-serif;
+    /* Fonte principal */
+    --cor--hover: #EEEEEE;
+    /* Cor de destaque ao passar o mouse */
+
+
+
+    /* footer */
+    --color-neutral-0: #0e0c0c;
+    --color-neutral-10: #171717;
+    --color-neutral-30: #a8a29e;
+    --color-neutral-40: #f5f5f5;
+}
+
 .content {
     min-height: 100vh;
 }
+
+
+/* footer */
 
 footer {
     width: 100%;

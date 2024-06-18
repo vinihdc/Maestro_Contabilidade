@@ -42,7 +42,7 @@ public class FluxoBD {
                 case "003":
                     int Metade = Valor / 2;
                     SQL = String.format("INSERT INTO RAZONETE(CAIXA_CREDITO, FINANCIAMENTO_CREDITO, ATIVO_DEBITO) VALUES('%d', '%d', '%d')", Metade, Metade, Valor);
-                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, Detalhes, "Financiamento e Caixa", Valor);
+                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "-", "Financiamento e Caixa", Valor);
                     break;
                  //Investimento
                 case "004":
@@ -207,6 +207,17 @@ public class FluxoBD {
                     SQL = String.format("INSERT INTO RAZONETE(Receita_juros_Debito, BANCO_DEBITO) VALUES('%d', '%d')", Valor, Valor);
                     Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Ativos", "Despesas", Valor);
                     break;
+
+
+                //Receita prestação de serviços $800.000 recebimento a vista em dinheiro. Custo de $300.000 com pagamento a prazo fornecedor
+                case "031":
+                    SQL = String.format("INSERT INTO RAZONETE(CUSTOS_CREDITO, FORNECEDOR_DEBITO, FORNECEDOR_CREDITO) VALUES('%d', '%d')", Valor, Valor);
+                    Diario.InserirDadosDiario(CodFato, Data, Detalhes, "Ativos", "Despesas", Valor);
+                    break;
+
+
+
+
 
 
 

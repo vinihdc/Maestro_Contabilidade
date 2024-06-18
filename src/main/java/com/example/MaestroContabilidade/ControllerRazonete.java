@@ -31,7 +31,7 @@ public class ControllerRazonete {
         Elemento_Existe = ObjetoVerificarRazonete.ValidarElementoRazonete(ElementoRazonete);
         Elemento_Diferente = ObjetoVerificarRazonete.ExceptionsElementosRazonete(ElementoRazonete);
 
-        if(Elemento_Existe == true) {
+
 
             if(Elemento_Diferente == true) {
                 List<RazoneteEntidade> DadosDoRazonete = ObjetoRazoneteBD.VerificarElementosDiferentes(ElementoRazonete);
@@ -46,11 +46,8 @@ public class ControllerRazonete {
             return "Razonete";
 
 
-        }
 
-        else {
-            return "ErroSistema";
-        }
+
 
     }
 

@@ -164,7 +164,7 @@ public class RazoneteBD {
 
 
 
-    public List<RazoneteEntidade> Razao (String Elemento) {
+    public List<RazoneteEntidade>Razao(String Elemento) {
 
 
 
@@ -198,9 +198,9 @@ public class RazoneteBD {
         }
 
         catch (SQLException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
-
+        System.out.println("Elemento: " + Elemento);
         Razonete.add(new RazoneteEntidade(Elemento, somaDebito, somaCredito, Saldo));
 
         return Razonete;

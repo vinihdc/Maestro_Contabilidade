@@ -1,9 +1,5 @@
 package com.example.MaestroContabilidade;
-
-import Model.BancoDeDados.ColetaDeDadosGraficoBD;
-import Model.BancoDeDados.IdentificarUsuarioBD;
-import Model.BancoDeDados.LoginBD;
-import Model.BancoDeDados.PedidosBD;
+import Model.BancoDeDados.*;
 import Model.Entidade.Graficos;
 import Model.Entidade.PedidosEntidade;
 import lombok.RequiredArgsConstructor;
@@ -42,8 +38,10 @@ public class ControllerMain {
     @Setter
     public String Status;
 
+    PegarDadosGraficoBD DadosGrafico = new PegarDadosGraficoBD();
 
-    private ColetaDeDadosGraficoBD ObjColeta = new ColetaDeDadosGraficoBD();
+
+
 
 
 
@@ -252,10 +250,15 @@ public class ControllerMain {
     @RequestMapping("/Aprovar_Ou_Recusar_Pedidos")
     public String Aprovar_Ou_Recusar_Pedidos(@RequestParam int ID_Fatos, @RequestParam String Situacao) throws SQLException {
 
+
+
         if (Situacao.equals("Aprovado")) {
             ObjetoPedidos.AprovarPedidos(Nivel, ID_Fatos);
             ObjetoPedidos.VerificarPedidosN2N3(Nivel);
-        } else {
+        }
+
+
+        else {
             ObjetoPedidos.RecusarPedidos(Nivel, ID_Fatos);
             ObjetoPedidos.VerificarPedidosN2N3(Nivel);
         }
@@ -318,12 +321,21 @@ public class ControllerMain {
 
 
     @GetMapping("/HomePage")
-    public String HomePage(Model model) throws SQLException, IOException {
+    public String HomePage(Model model, Model DadosGraficoModel) throws SQLException, IOException {
+        int Receita = 0;
+        int Despesa = 0;
+        int Lucro = 0;
+
         if(UsuarioFezLogin == true) {
             NivelDeAcesso(model);
             StatusPedidos(model);
-            ObjColeta.ColetarDados();
-            Graficos ExibirGraficos = new Graficos(ObjColeta.getDespesa(), ObjColeta.getReceita());
+            DadosGrafico.PegarDadosGrafico(Receita, Despesa, Lucro);
+            DadosGraficoModel.addAttribute("Receita", Receita);
+            DadosGraficoModel.addAttribute("Despesa", Despesa);
+            DadosGraficoModel.addAttribute("Lucro", Lucro);
+            System.out.println("Receita" + Receita);
+
+
 
             return "HomePage";
         }

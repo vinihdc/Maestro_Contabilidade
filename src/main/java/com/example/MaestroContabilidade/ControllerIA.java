@@ -31,7 +31,9 @@ public class ControllerIA {
         }
 
         else {
-            return "ErroSistema";
+            List<IA_Entidade> RespostasIA = ObjetoIA.SemRespostaIA();
+            model.addAttribute("IA", RespostasIA);;
+            return "IA";
         }
 
 

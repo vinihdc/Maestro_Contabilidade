@@ -117,9 +117,17 @@ body {
 
 .content {
     min-height: 100vh;
-    margin-top: 200px;
 }
 
+
+#tabela {
+    margin-top: 120px;
+}
+
+.btn-info{
+    margin-left: 20px;
+    font-weight: bold;
+}
 
 /* footer */
 

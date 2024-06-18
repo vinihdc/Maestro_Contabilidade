@@ -87,16 +87,6 @@ mudar para preto ícone
 
 /* fim navbar  */
 
-
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-}
-
-
-
 :root {
     --cor-primaria: #000000;
     /* Cor principal */
@@ -116,43 +106,19 @@ html, body {
     --color-neutral-40: #f5f5f5;
 }
 
-.user_name {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+body{
+    background-color: #31363F;
+    margin-top:180px;
 }
 
-.mt-5 {
-    padding-top: 95px;
-    padding-bottom: 20px;
-    align-items:center;
-    justify-content:center;
-
-}
-
-
-.content {
-    min-height: 100vh;
-}
-
-.rodape__nome {
-    padding: 20px;
-    color: var(--cor-primaria);
-    background-color: var(--cor-terciaria);
-    text-align: center;
-    font-family: var(--fonte-primaria);
-    font-size: 1.5rem;
-    font-weight: 400;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 80px;
+.btn-info{
+    margin-bottom: 7px;
 }
 
 /* footer */
 
 footer {
+    margin-top: 450px;
     width: 100%;
     color: var(--color-neutral-40);
 }
